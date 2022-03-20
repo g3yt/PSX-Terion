@@ -151,6 +151,10 @@ boolean Obj_Combo_Tick_Weeb(Object *obj)
 			FIXED_DEC(70,1),
 			(FIXED_DEC(22,1) * clipp) >> 4
 		};
+
+		hit_dst.y += stage.noteshakey;
+		hit_dst.x += stage.noteshakex;
+
 		Stage_DrawTex(&stage.tex_hud0, &hit_src, &hit_dst, stage.bump);
 		
 		//Apply gravity
@@ -181,6 +185,10 @@ boolean Obj_Combo_Tick_Weeb(Object *obj)
 			FIXED_DEC(46,1),
 			(FIXED_DEC(22,1) * clipp) >> 4
 		};
+
+		combo_dst.y += stage.noteshakey;
+		combo_dst.x += stage.noteshakex;
+
 		Stage_DrawTex(&stage.tex_hud0, &combo_src, &combo_dst, stage.bump);
 		
 		//Apply gravity
@@ -217,6 +225,10 @@ boolean Obj_Combo_Tick_Weeb(Object *obj)
 				FIXED_DEC(11,1),
 				(FIXED_DEC(12,1) * clipp) >> 4
 			};
+
+			num_dst.y += stage.noteshakey;
+			num_dst.x += stage.noteshakex;
+
 			Stage_DrawTex(&stage.tex_hud0, &num_src, &num_dst, stage.bump);
 			
 			//Apply gravity
