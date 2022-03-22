@@ -68,18 +68,6 @@ typedef enum
 	StageId_7_2, //Guns
 	StageId_7_3, //Stress
 	
-	StageId_Kapi_1, //Wocky
-	StageId_Kapi_2, //Beathoven
-	StageId_Kapi_3, //Hairball
-	StageId_Kapi_4, //Nyaw
-	
-	StageId_Clwn_1, //Improbable Outset
-	StageId_Clwn_2, //Madness
-	StageId_Clwn_3, //Hellclown
-	StageId_Clwn_4, //Expurgation
-	
-	StageId_2_4, //Clucked
-	
 	StageId_Max
 } StageId;
 
@@ -194,7 +182,7 @@ typedef struct
 typedef struct
 {
 	//Stage settings
-	boolean ghost, downscroll, middlescroll, expsync;
+	boolean ghost, downscroll, middlescroll, expsync, practice;
 	s32 mode;
 	
 	u32 offset;

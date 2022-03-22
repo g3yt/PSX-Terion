@@ -27,10 +27,6 @@ typedef enum
 	XA_Week6B, //WEEK6B.XA
 	XA_Week7A, //WEEK7A.XA
 	XA_Week7B, //WEEK7B.XA
-	XA_KapiA,  //KAPIA.XA
-	XA_KapiB,  //KAPIB.XA
-	XA_ClwnA,  //CLWNA.XA
-	XA_ClwnB,  //CLWNB.XA
 	
 	XA_Max,
 } XA_File;
@@ -51,7 +47,6 @@ typedef enum
 	XA_South,    //South
 	//WEEK2B.XA
 	XA_Monster, //Monster
-	XA_Clucked, //Clucked
 	//WEEK3A.XA
 	XA_Pico,   //Pico
 	XA_Philly, //Philly
@@ -78,18 +73,6 @@ typedef enum
 	XA_Guns, //Guns
 	//WEEK7B.XA
 	XA_Stress, //Stress
-	//KAPIA.XA
-	XA_Wocky,     //Wocky
-	XA_Beathoven, //Beathoven
-	//KAPIB.XA
-	XA_Hairball, //Hairball
-	XA_Nyaw,     //Nyaw
-	//CLWNA.XA
-	XA_ImprobableOutset, //Improbable Outset
-	XA_Madness,          //Madness
-	//CLWNB.XA
-	XA_Hellclown,   //Hellclown
-	XA_Expurgation, //Expurgation
 	
 	XA_TrackMax,
 } XA_Track;

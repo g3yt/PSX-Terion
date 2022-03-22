@@ -937,10 +937,7 @@ void Menu_Tick(void)
 				const char *text;
 				boolean difficulty;
 			} menu_options[] = {
-				{StageId_Kapi_1, "VS KAPI", false},
-				{StageId_Clwn_1, "VS TRICKY", true},
-				{StageId_Clwn_4, "   EXPURGATION", false},
-				{StageId_2_4,    "CLUCKED", false},
+				{StageId_1_1, "VS KAPI", false},
 			};
 			
 			//Initialize page
@@ -1063,6 +1060,7 @@ void Menu_Tick(void)
 				{OptType_Boolean, "DOWNSCROLL", &stage.downscroll, {.spec_boolean = {0}}},
 				{OptType_Boolean, "MIDDLESCROLL", &stage.middlescroll, {.spec_boolean = {0}}},
 				{OptType_Boolean, "BOTPLAY", &stage.botplay, {.spec_boolean = {0}}},
+				{OptType_Boolean, "PRACTICE MODE", &stage.practice, {.spec_boolean = {0}}},
 			};
 
 			if (stage.mode == StageMode_2P)

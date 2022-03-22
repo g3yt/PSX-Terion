@@ -21,7 +21,6 @@ static const XA_TrackDef xa_tracks[] = {
 	{XA_Week2A, XA_LENGTH(8880)}, //XA_South
 	//WEEK2B.XA
 	{XA_Week2B, XA_LENGTH(17778)}, //XA_Monster
-	{XA_Week2B, XA_LENGTH(11000)}, //XA_Clucked
 	//WEEK3A.XA
 	{XA_Week3A, XA_LENGTH(8400)},  //XA_Pico
 	{XA_Week3A, XA_LENGTH(10000)}, //XA_Philly
@@ -48,18 +47,6 @@ static const XA_TrackDef xa_tracks[] = {
 	{XA_Week7A, XA_LENGTH(13866)}, //XA_Guns
 	//WEEK7B.XA
 	{XA_Week7B, XA_LENGTH(12200)}, //XA_Stress
-	//KAPIA.XA
-	{XA_KapiA, XA_LENGTH(12138)}, //XA_Wocky
-	{XA_KapiA, XA_LENGTH(12000)}, //XA_Beathoven
-	//KAPIB.XA
-	{XA_KapiB, XA_LENGTH(17159)}, //XA_Hairball
-	{XA_KapiB, XA_LENGTH(15157)}, //XA_Nyaw
-	//CLWNA.XA
-	{XA_ClwnA, XA_LENGTH(10740)}, //XA_ImprobableOutset
-	{XA_ClwnA, XA_LENGTH(15169)}, //XA_Madness
-	//CLWNB.XA
-	{XA_ClwnB, XA_LENGTH(21886)}, //XA_Hellclown
-	{XA_ClwnB, XA_LENGTH(19550)}, //XA_Expurgation
 };
 
 static const char *xa_paths[] = {
@@ -78,10 +65,6 @@ static const char *xa_paths[] = {
 	"\\MUSIC\\WEEK6B.XA;1", //XA_Week6B
 	"\\MUSIC\\WEEK7A.XA;1", //XA_Week7A
 	"\\MUSIC\\WEEK7B.XA;1", //XA_Week7B
-	"\\MUSIC\\KAPIA.XA;1",  //XA_KapiA
-	"\\MUSIC\\KAPIB.XA;1",  //XA_KapiB
-	"\\MUSIC\\CLWNA.XA;1",  //XA_ClwnA
-	"\\MUSIC\\CLWNB.XA;1",  //XA_ClwnB
 	NULL,
 };
 
@@ -106,7 +89,6 @@ static const XA_Mp3 xa_mp3s[] = {
 	{"south", true},    //XA_South
 	//WEEK2B.XA
 	{"monster", true}, //XA_Monster
-	{"clucked", true}, //XA_Clucked
 	//WEEK3A.XA
 	{"pico", true},   //XA_Pico
 	{"philly", true}, //XA_Philly
@@ -133,18 +115,6 @@ static const XA_Mp3 xa_mp3s[] = {
 	{"guns", true}, //XA_Guns
 	//WEEK7B.XA
 	{"stress", true}, //XA_Stress
-	//KAPIA.XA
-	{"wocky", true},     //XA_Wocky
-	{"beathoven", true}, //XA_Beathoven
-	//KAPIB.XA
-	{"hairball", true}, //XA_Hairball
-	{"nyaw", true},     //XA_Nyaw
-	//CLWNA.XA
-	{"improbableoutset", true}, //XA_ImprobableOutset
-	{"madness", true}, //XA_Madness
-	//CLWNB.XA
-	{"hellclown", true}, //XA_Hellclown
-	{"expurgation", true}, //XA_Expurgation
 	
 	{NULL, false}
 };

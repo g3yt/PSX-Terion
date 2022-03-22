@@ -80,8 +80,6 @@
 				<file name = "2.3e.cht" type = "data" source = "iso/chart/monster-easy.json.cht"/>
 				<file name = "2.3n.cht" type = "data" source = "iso/chart/monster.json.cht"/>
 				<file name = "2.3h.cht" type = "data" source = "iso/chart/monster-hard.json.cht"/>
-				<!-- Clucked charts -->
-				<file name = "2.4h.cht" type = "data" source = "iso/chart/clucked-hard.json.cht"/>
 			</dir>
 			
 			<!-- Week 3 assets -->
@@ -184,36 +182,6 @@
 				<file name = "7.3p.cht" type = "data" source = "iso/week7/picospeaker.json.cht"/>
 			</dir>
 			
-			<!-- Kapi assets -->
-			<dir name = "kapi">
-				<!-- Wocky charts -->
-				<file name = "kapi.1h.cht" type = "data" source = "iso/chart/wocky-hard.json.cht"/>
-				<!-- Beathoven charts -->
-				<file name = "kapi.2h.cht" type = "data" source = "iso/chart/beathoven-hard.json.cht"/>
-				<!-- Hairball charts -->
-				<file name = "kapi.3h.cht" type = "data" source = "iso/chart/hairball-hard.json.cht"/>
-				<!-- Nyaw charts -->
-				<file name = "kapi.4h.cht" type = "data" source = "iso/chart/nyaw-hard.json.cht"/>
-			</dir>
-			
-			<!-- Tricky assets -->
-			<dir name = "clwn">
-				<!-- Improbable Outset charts -->
-				<file name = "clwn.1e.cht" type = "data" source = "iso/chart/improbable-outset-easy.json.cht"/>
-				<file name = "clwn.1n.cht" type = "data" source = "iso/chart/improbable-outset.json.cht"/>
-				<file name = "clwn.1h.cht" type = "data" source = "iso/chart/improbable-outset-hard.json.cht"/>
-				<!-- Madness charts -->
-				<file name = "clwn.2e.cht" type = "data" source = "iso/chart/madness-easy.json.cht"/>
-				<file name = "clwn.2n.cht" type = "data" source = "iso/chart/madness.json.cht"/>
-				<file name = "clwn.2h.cht" type = "data" source = "iso/chart/madness-hard.json.cht"/>
-				<!-- Hellclown charts -->
-				<file name = "clwn.3e.cht" type = "data" source = "iso/chart/hellclown-easy.json.cht"/>
-				<file name = "clwn.3n.cht" type = "data" source = "iso/chart/hellclown.json.cht"/>
-				<file name = "clwn.3h.cht" type = "data" source = "iso/chart/hellclown-hard.json.cht"/>
-				<!-- Expurgation charts -->
-				<file name = "clwn.4h.cht" type = "data" source = "iso/chart/expurgation-hard.json.cht"/>
-			</dir>
-			
 			<!-- Character assets -->
 			<dir name = "char">
 				<!-- Boyfriend assets -->
@@ -253,9 +221,6 @@
 				<file name = "gftut.arc" type = "data" source = "iso/gf/tut.arc"/>
 				<file name = "gfweeb.arc" type = "data" source = "iso/gf/weeb.arc"/>
 				<file name = "speaker.tim" type = "data" source = "iso/gf/speaker.tim"/>
-				
-				<!-- Clucky assets -->
-				<file name = "clucky.arc" type = "data" source = "iso/clucky/main.arc"/>
 			</dir>
 			
 			<!-- Music -->
@@ -289,14 +254,6 @@
 				<file name = "week7a.xa" type = "xa" source = "iso/music/week7a.xa"/>
 				<dummy sectors="128"/>
 				<file name = "week7b.xa" type = "xa" source = "iso/music/week7b.xa"/>
-				<dummy sectors="128"/>
-				<file name = "kapia.xa" type = "xa" source = "iso/music/kapia.xa"/>
-				<dummy sectors="128"/>
-				<file name = "kapib.xa" type = "xa" source = "iso/music/kapib.xa"/>
-				<dummy sectors="128"/>
-				<file name = "clwna.xa" type = "xa" source = "iso/music/clwna.xa"/>
-				<dummy sectors="128"/>
-				<file name = "clwnb.xa" type = "xa" source = "iso/music/clwnb.xa"/>
 				<dummy sectors="128"/>
 			</dir>
 			

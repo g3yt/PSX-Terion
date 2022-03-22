@@ -81,7 +81,6 @@ boolean noteshake;
 #include "character/tank.h"
 #include "character/gf.h"
 #include "character/gfweeb.h"
-#include "character/clucky.h"
 
 #include "stage/dummy.h"
 #include "stage/week1.h"
@@ -395,11 +394,9 @@ static void Stage_NoteCheck(PlayerState *this, u8 type)
 			
 			//Hit the mine
 			note->type |= NOTE_FLAG_HIT;
-			
-			if (stage.stage_id == StageId_Clwn_4)
-				this->health = -0x7000;
-			else
-				this->health -= 2000;
+	
+			this->health -= 2000;
+
 			if (this->character->spec & CHAR_SPEC_MISSANIM)
 				this->character->set_anim(this->character, note_anims[type & 0x3][2]);
 			else
@@ -1063,25 +1060,6 @@ static void Stage_DrawNotes(void)
 				else
 					Stage_DrawTex(&stage.tex_hud0, &note_src, &note_dst, stage.bump);
 				
-				if (stage.stage_id == StageId_Clwn_4)
-				{
-					//Draw note halo
-					note_src.x = 160;
-					note_src.y = 128 + ((animf_count & 0x3) << 3);
-					note_src.w = 32;
-					note_src.h = 8;
-					
-					note_dst.y -= FIXED_DEC(6,1);
-					note_dst.h >>= 2;
-					
-					//draw for opponent
-					if (stage.middlescroll && note->type & NOTE_FLAG_OPPONENT)
-						Stage_BlendTex(&stage.tex_hud0, &note_src, &note_dst, stage.bump, 1);
-					else
-						Stage_DrawTex(&stage.tex_hud0, &note_src, &note_dst, stage.bump);
-				}
-				else
-				{
 					//Draw note fire
 					note_src.x = 192 + ((animf_count & 0x1) << 5);
 					note_src.y = 64 + ((animf_count & 0x2) * 24);
@@ -1102,7 +1080,7 @@ static void Stage_DrawNotes(void)
 						Stage_BlendTex(&stage.tex_hud0, &note_src, &note_dst, stage.bump, 1);
 					else
 						Stage_DrawTex(&stage.tex_hud0, &note_src, &note_dst, stage.bump);
-				}
+				
 			}
 			else
 			{
@@ -1180,21 +1158,10 @@ static void Stage_LoadChart(void)
 {
 	//Load stage data
 	char chart_path[64];
-	if (stage.stage_def->week & 0x80)
-	{
-		//Use mod path convention
-		static const char *mod_format[] = {
-			"\\KAPI\\KAPI.%d%c.CHT;1", //Kapi
-			"\\CLWN\\CLWN.%d%c.CHT;1" //Tricky
-		};
-		
-		sprintf(chart_path, mod_format[stage.stage_def->week & 0x7F], stage.stage_def->week_song, "ENH"[stage.stage_diff]);
-	}
-	else
-	{
-		//Use standard path convention
-		sprintf(chart_path, "\\WEEK%d\\%d.%d%c.CHT;1", stage.stage_def->week, stage.stage_def->week, stage.stage_def->week_song, "ENH"[stage.stage_diff]);
-	}
+	
+	//Use standard path convention
+	sprintf(chart_path, "\\WEEK%d\\%d.%d%c.CHT;1", stage.stage_def->week, stage.stage_def->week, stage.stage_def->week_song, "ENH"[stage.stage_diff]);
+	
 	
 	if (stage.chart_data != NULL)
 		Mem_Free(stage.chart_data);
@@ -2362,15 +2329,19 @@ void Stage_Tick(void)
 			if (stage.mode < StageMode_2P)
 			{
 				//Perform health checks
-				if (stage.player_state[0].health <= 0)
+				if (stage.player_state[0].health <= 0 && stage.practice == 0)
 				{
 					//Player has died
 					stage.player_state[0].health = 0;
+						
 					stage.state = StageState_Dead;
 				}
 				if (stage.player_state[0].health > 20000)
 					stage.player_state[0].health = 20000;
-				
+
+				if (stage.player_state[0].health <= 0 && stage.practice)
+					stage.player_state[0].health = 0;
+
 				//Draw health heads
 				Stage_DrawHealth(stage.player_state[0].health, stage.player->health_i,    1);
 				Stage_DrawHealth(stage.player_state[0].health, stage.opponent->health_i, -1);
