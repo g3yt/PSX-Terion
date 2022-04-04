@@ -830,11 +830,14 @@ static void Stage_DrawHealth(s16 health, u8 i, s8 ox)
 	//Draw health icon
     if (stage.mode == StageMode_Swap)
     {
-        src.w = -src.w;
-        dst.x = -dst.x;
+        dst.w = -dst.w;
+		dst.x += FIXED_DEC(23,1);
     }
-    else
-        dst.x = dst.x;
+	else
+    {
+        dst.w = dst.w;
+		dst.x = dst.x;
+    }
 
     Stage_DrawTex(&stage.tex_hud1, &src, &dst, FIXED_MUL(stage.bump, stage.sbump));
 }
@@ -2364,10 +2367,22 @@ void Stage_Tick(void)
 				health_dst.y += stage.noteshakey;
 				health_dst.x += stage.noteshakex;
 
+				if (stage.mode == StageMode_Swap)
+				{
+					health_back.y = 0;
+					health_fill.y = 8;			
+				}
+				else 
+				{
+					health_back.y = 8;
+					health_fill.y = 0;	
+				}
 				health_dst.w = health_fill.w << FIXED_SHIFT;
 				Stage_DrawTex(&stage.tex_hud1, &health_fill, &health_dst, stage.bump);
 				health_dst.w = health_back.w << FIXED_SHIFT;
 				Stage_DrawTex(&stage.tex_hud1, &health_back, &health_dst, stage.bump);
+
+				
 			}
 			
 			//Hardcoded stage stuff
