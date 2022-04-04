@@ -828,7 +828,15 @@ static void Stage_DrawHealth(s16 health, u8 i, s8 ox)
 	dst.x += stage.noteshakex;
 
 	//Draw health icon
-	Stage_DrawTex(&stage.tex_hud1, &src, &dst, FIXED_MUL(stage.bump, stage.sbump));
+    if (stage.mode == StageMode_Swap)
+    {
+        src.w = -src.w;
+        dst.x = -dst.x;
+    }
+    else
+        dst.x = dst.x;
+
+    Stage_DrawTex(&stage.tex_hud1, &src, &dst, FIXED_MUL(stage.bump, stage.sbump));
 }
 
 static void Stage_DrawStrum(u8 i, RECT *note_src, RECT_FIXED *note_dst)
