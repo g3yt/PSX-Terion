@@ -319,7 +319,7 @@ void Char_XmasBF_Tick(Character *character)
 	
 	//Animate and draw character
 	Animatable_Animate(&character->animatable, (void*)this, Char_XmasBF_SetFrame);
-	Character_Draw(character, &this->tex, &char_xmasbf_frame[this->frame]);
+	Character_DrawFlipped(character, &this->tex, &char_xmasbf_frame[this->frame]);
 }
 
 void Char_XmasBF_SetAnim(Character *character, u8 anim)

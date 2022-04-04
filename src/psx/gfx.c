@@ -324,7 +324,7 @@ void Gfx_DrawTexCol(Gfx_Tex *tex, const RECT *src, const RECT *dst, u8 r, u8 g, 
 	//Add quad
 	POLY_FT4 *quad = (POLY_FT4*)nextpri;
 	setPolyFT4(quad);
-	setUVWH(quad, csrc.x, csrc.y, csrc.w, csrc.h);
+	setUVWH(quad, src->x, csrc.y, csrc.w, csrc.h);
 	setXYWH(quad, cdst.x, cdst.y, cdst.w, cdst.h);
 	setRGB0(quad, r, g, b);
 	quad->tpage = tex->tpage;
