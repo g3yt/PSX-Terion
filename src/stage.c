@@ -803,21 +803,21 @@ static void Stage_DrawHealth(s16 health, u8 i, s8 ox)
 	//Check if we should use 'dying' frame
 	s8 dying;
 	if (ox < 0)
-		dying = (health >= 18000) * 24;
+		dying = (health >= 18000) * 46;
 	else
-		dying = (health <= 2000) * 24;
+		dying = (health <= 2000) * 46;
 	
 	//Get src and dst
 	fixed_t hx = (128 << FIXED_SHIFT) * (10000 - health) / 10000;
 	RECT src = {
-		(i % 5) * 48 + dying,
-		16 + (i / 5) * 24,
-		24,
-		24
+		(i % 2) * 92 + dying,
+		16 + (i / 2) * 46,
+		46,
+		46
 	};
 	RECT_FIXED dst = {
-		hx + ox * FIXED_DEC(11,1) - FIXED_DEC(12,1),
-		FIXED_DEC(SCREEN_HEIGHT2 - 32 + 4 - 12, 1),
+		hx + ox * FIXED_DEC(23,1) - FIXED_DEC(23,1),
+		FIXED_DEC(SCREEN_HEIGHT2 - 32 + 4 - 23, 1),
 		src.w << FIXED_SHIFT,
 		src.h << FIXED_SHIFT
 	};
@@ -831,7 +831,7 @@ static void Stage_DrawHealth(s16 health, u8 i, s8 ox)
     if (stage.mode == StageMode_Swap)
     {
         dst.w = -dst.w;
-		dst.x += FIXED_DEC(23,1);
+		dst.x += FIXED_DEC(46,1);
     }
 	else
     {
@@ -1353,11 +1353,15 @@ void Stage_Load(StageId id, StageDiff difficulty, boolean story)
 	
 	//Load HUD textures
 	if (id >= StageId_6_1 && id <= StageId_6_3)
+	{
 		Gfx_LoadTex(&stage.tex_hud0, IO_Read("\\STAGE\\HUD0WEEB.TIM;1"), GFX_LOADTEX_FREE);
+		Gfx_LoadTex(&stage.tex_hud1, IO_Read("\\STAGE\\HUD1WEEB.TIM;1"), GFX_LOADTEX_FREE);
+	}
 	else
+	{
 		Gfx_LoadTex(&stage.tex_hud0, IO_Read("\\STAGE\\HUD0.TIM;1"), GFX_LOADTEX_FREE);
-	Gfx_LoadTex(&stage.tex_hud1, IO_Read("\\STAGE\\HUD1.TIM;1"), GFX_LOADTEX_FREE);
-	
+		Gfx_LoadTex(&stage.tex_hud1, IO_Read("\\STAGE\\HUD1.TIM;1"), GFX_LOADTEX_FREE);
+	}
 	//Load stage background
 	Stage_LoadStage();
 	
