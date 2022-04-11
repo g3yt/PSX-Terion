@@ -10,17 +10,21 @@
 #include "../archive.h"
 #include "../stage.h"
 #include "../main.h"
+#include "../random.h"
 
 #include "speaker.h"
 
 #include "../stage/week7.h"
 
+#define random RandomRange(0, 16)
 //picosp character structure
 enum
 {
-	picosp_ArcMain_picosp0,
-	picosp_ArcMain_picosp1,
-	picosp_ArcMain_picosp2,
+	picosp_ArcMain_Idle,
+	picosp_ArcMain_Left0,
+	picosp_ArcMain_Left1,
+    picosp_ArcMain_Right0,
+    picosp_ArcMain_Right1,
 	
 	picosp_Arc_Max,
 };
@@ -46,28 +50,30 @@ typedef struct
 
 //picosp character definitions
 static const CharFrame char_picosp_frame[] = {
-	{picosp_ArcMain_picosp0, {  0,   0,  74, 103}, { 37,  72}}, //0 bop left 1
-	{picosp_ArcMain_picosp0, { 75,   0,  74, 103}, { 38,  72}}, //1 bop left 2
-	{picosp_ArcMain_picosp0, {150,   0,  73, 102}, { 37,  72}}, //2 bop left 3
-	{picosp_ArcMain_picosp0, {  0, 104,  73, 103}, { 36,  73}}, //3 bop left 4
+	{picosp_ArcMain_Idle, {  0,   0, 113, 121}, { 37,  72}}, //0 bop left 1
+	{picosp_ArcMain_Idle, {113,   0, 126, 103}, { 37,  72}}, //1 bop left 2
+	{picosp_ArcMain_Idle, {  0, 121, 139, 101}, { 37,  72}}, //2 bop left 3
+	{picosp_ArcMain_Idle, {139, 103, 115, 112}, { 37,  72}}, //3 bop left 4
 	
-	{picosp_ArcMain_picosp1, {  0,   0,  81, 104}, { 40,  73}}, //6 bop right 1
-	{picosp_ArcMain_picosp1, { 82,   0,  81, 104}, { 40,  73}}, //7 bop right 2
+	{picosp_ArcMain_Left0, {  0,   0, 172, 101}, { 37,  72}}, //4 bop right 1
+	{picosp_ArcMain_Left0, {  0, 101, 172, 101}, { 37,  72}}, //5 bop right 2
+    {picosp_ArcMain_Left1, { 17,   0, 117, 116}, { 37,  72}}, //5 bop right 2
 
-	{picosp_ArcMain_picosp1, {  0, 104,  79, 103}, { 38,  74}}, //9 bop right 4
-	{picosp_ArcMain_picosp1, { 80, 105,  74, 104}, { 32,  74}}, //10 bop right 5
+	{picosp_ArcMain_Right0, {  0,   0, 171,  89}, { 37,  72}}, //6 bop right 4
+	{picosp_ArcMain_Right0, {  0,  89, 172,  89}, { 37,  72}}, //7 bop right 5
+    {picosp_ArcMain_Right1, { 13,   0, 113, 117}, { 37,  72}}, //6 bop right 4
 };
 
 static const Animation char_picosp_anim[CharAnim_Max] = {
 	{2, (const u8[]){0, 1, 2, 3, ASCR_CHGANI, 0}},                           //CharAnim_Idle
-	{2, (const u8[]){17, 18, ASCR_BACK, 1}},                                 //CharAnim_Left
-	{1, (const u8[]){ 0,  0,  1,  1,  2,  2,  3,  4,  4,  5, ASCR_BACK, 1}}, //CharAnim_LeftAlt
-	{2, (const u8[]){19, 20, ASCR_BACK, 1}},                                 //CharAnim_Down
-	{1, (const u8[]){12, 13, 14, 15, 16, ASCR_REPEAT}},                      //CharAnim_DownAlt
-	{2, (const u8[]){21, 22, ASCR_BACK, 1}},                                 //CharAnim_Up
-	{2, (const u8[]){25, 26, ASCR_BACK, 1}},                                 //CharAnim_UpAlt
-	{2, (const u8[]){23, 24, ASCR_BACK, 1}},                                 //CharAnim_Right
-	{1, (const u8[]){ 6,  6,  7,  7,  8,  8,  9, 10, 10, 11, ASCR_BACK, 1}}, //CharAnim_RightAlt
+	{2, (const u8[]){4, 5, 6, ASCR_BACK, 0}},                                   //CharAnim_Left
+	{0, (const u8[]){ASCR_CHGANI, 0}},                                       //CharAnim_LeftAlt
+	{0, (const u8[]){ASCR_CHGANI, 0}},                                       //CharAnim_Down
+	{0, (const u8[]){ASCR_CHGANI, 0}},                                       //CharAnim_DownAlt
+	{0, (const u8[]){ASCR_CHGANI, 0}},                                       //CharAnim_Up
+	{0, (const u8[]){ASCR_CHGANI, 0}},                                       //CharAnim_UpAlt
+	{2, (const u8[]){7, 8, 9, ASCR_BACK, 0}},                                   //CharAnim_Right
+	{0, (const u8[]){ASCR_CHGANI, 0}},                                       //CharAnim_RightAlt
 };
 
 //picosp character functions
@@ -102,8 +108,12 @@ void Char_picosp_Tick(Character *character)
 			while (substep >= ((*this->pico_p) & 0x7FFF))
 			{
 				//Play animation and bump speakers
-				character->set_anim(character, ((*this->pico_p) & 0x8000) ? CharAnim_RightAlt : CharAnim_LeftAlt);
-				Speaker_Bump(&this->speaker);
+                if (random == 8)
+				    character->set_anim(character, ((*this->pico_p) & 0x8000) ? CharAnim_RightAlt : CharAnim_LeftAlt);
+				else
+                    character->set_anim(character, ((*this->pico_p) & 0x8000) ? CharAnim_Right : CharAnim_Left);
+
+                Speaker_Bump(&this->speaker);
 				this->pico_p++;
 			}
 		}
@@ -112,24 +122,28 @@ void Char_picosp_Tick(Character *character)
 	{
 		if (stage.flag & STAGE_FLAG_JUST_STEP)
 		{
-            //Perform idle dance
-            if ((character->pad_held & (INPUT_LEFT | INPUT_DOWN | INPUT_UP | INPUT_RIGHT)) == 0)
-                Character_PerformIdle(character);
-			//Perform dance
+            //Bump speakers
 			if (stage.note_scroll >= character->sing_end && (stage.song_step % stage.gf_speed) == 0)
-				//Bump speakers
 				Speaker_Bump(&this->speaker);
 			
 		}
 	}
-	
+    
+    //Get random animation numbers
+    random;
+
 	//Get parallax
 	fixed_t parallax;
+
 	if (stage.stage_id >= StageId_1_1 && stage.stage_id <= StageId_1_4)
 		parallax = FIXED_DEC(7,10);
 	else
 		parallax = FIXED_UNIT;
 	
+    //Perform idle dance
+	if ((character->pad_held & (INPUT_LEFT | INPUT_DOWN | INPUT_UP | INPUT_RIGHT)) == 0)
+		Character_PerformIdle(character);
+
 	//Animate and draw
 	Animatable_Animate(&character->animatable, (void*)this, Char_picosp_SetFrame);
 	Character_DrawParallax(character, &this->tex, &char_picosp_frame[this->frame], parallax);

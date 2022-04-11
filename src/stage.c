@@ -1072,26 +1072,26 @@ static void Stage_DrawNotes(void)
 				else
 					Stage_DrawTex(&stage.tex_hud0, &note_src, &note_dst, stage.bump);
 				
-					//Draw note fire
-					note_src.x = 192 + ((animf_count & 0x1) << 5);
-					note_src.y = 64 + ((animf_count & 0x2) * 24);
-					note_src.w = 32;
-					note_src.h = 48;
+				//Draw note fire
+				note_src.x = 192 + ((animf_count & 0x1) << 5);
+				note_src.y = 64 + ((animf_count & 0x2) * 24);
+				note_src.w = 32;
+				note_src.h = 48;
 					
-					if (stage.downscroll)
-					{
-						note_dst.y += note_dst.h;
-						note_dst.h = note_dst.h * -3 / 2;
-					}
-					else
-					{
-						note_dst.h = note_dst.h * 3 / 2;
-					}
-					//draw for opponent
-					if (stage.middlescroll && note->type & NOTE_FLAG_OPPONENT)
-						Stage_BlendTex(&stage.tex_hud0, &note_src, &note_dst, stage.bump, 1);
-					else
-						Stage_DrawTex(&stage.tex_hud0, &note_src, &note_dst, stage.bump);
+				if (stage.downscroll)
+				{
+					note_dst.y += note_dst.h;
+					note_dst.h = note_dst.h * -3 / 2;
+				}
+				else
+				{
+					note_dst.h = note_dst.h * 3 / 2;
+				}
+				//draw for opponent
+				if (stage.middlescroll && note->type & NOTE_FLAG_OPPONENT)
+					Stage_BlendTex(&stage.tex_hud0, &note_src, &note_dst, stage.bump, 1);
+				else
+					Stage_DrawTex(&stage.tex_hud0, &note_src, &note_dst, stage.bump);
 				
 			}
 			else
