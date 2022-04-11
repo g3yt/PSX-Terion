@@ -81,6 +81,7 @@ boolean noteshake;
 #include "character/tank.h"
 #include "character/gf.h"
 #include "character/gfweeb.h"
+#include "character/picosp.h"
 
 #include "stage/dummy.h"
 #include "stage/week1.h"

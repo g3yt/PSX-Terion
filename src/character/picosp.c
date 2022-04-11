@@ -34,7 +34,7 @@ typedef struct
 	IO_Data arc_main;
 	IO_Data arc_ptr[picosp_Arc_Max];
 	
-	picospx_Tex tex;
+	Gfx_Tex tex;
 	u8 frame, tex_id;
 	
 	//Speaker
@@ -50,21 +50,12 @@ static const CharFrame char_picosp_frame[] = {
 	{picosp_ArcMain_picosp0, { 75,   0,  74, 103}, { 38,  72}}, //1 bop left 2
 	{picosp_ArcMain_picosp0, {150,   0,  73, 102}, { 37,  72}}, //2 bop left 3
 	{picosp_ArcMain_picosp0, {  0, 104,  73, 103}, { 36,  73}}, //3 bop left 4
-	{picosp_ArcMain_picosp0, { 74, 104,  78, 105}, { 38,  75}}, //4 bop left 5
-	{picosp_ArcMain_picosp0, {153, 103,  81, 106}, { 41,  76}}, //5 bop left 6
 	
 	{picosp_ArcMain_picosp1, {  0,   0,  81, 104}, { 40,  73}}, //6 bop right 1
 	{picosp_ArcMain_picosp1, { 82,   0,  81, 104}, { 40,  73}}, //7 bop right 2
-	{picosp_ArcMain_picosp1, {164,   0,  80, 103}, { 39,  73}}, //8 bop right 3
+
 	{picosp_ArcMain_picosp1, {  0, 104,  79, 103}, { 38,  74}}, //9 bop right 4
 	{picosp_ArcMain_picosp1, { 80, 105,  74, 104}, { 32,  74}}, //10 bop right 5
-	{picosp_ArcMain_picosp1, {155, 104,  74, 104}, { 32,  74}}, //11 bop right 6
-	
-	{picosp_ArcMain_picosp2, {  0,   0,  73, 100}, { 34,  71}}, //12 cry 1
-	{picosp_ArcMain_picosp2, { 74,   0,  73, 102}, { 35,  72}}, //13 cry 2
-	{picosp_ArcMain_picosp2, {148,   0,  73, 102}, { 34,  72}}, //14 cry 3
-	{picosp_ArcMain_picosp2, {  0, 101,  74, 102}, { 35,  72}}, //15 cry 4
-	{picosp_ArcMain_picosp2, { 75, 102,  73, 102}, { 34,  72}}, //16 cry 5
 };
 
 static const Animation char_picosp_anim[CharAnim_Max] = {
@@ -90,7 +81,7 @@ void Char_picosp_SetFrame(void *user, u8 frame)
 		//Check if new art shall be loaded
 		const CharFrame *cframe = &char_picosp_frame[this->frame = frame];
 		if (cframe->tex != this->tex_id)
-			picospx_LoadTex(&this->tex, this->arc_ptr[this->tex_id = cframe->tex], 0);
+			Gfx_LoadTex(&this->tex, this->arc_ptr[this->tex_id = cframe->tex], 0);
 	}
 }
 
@@ -121,16 +112,14 @@ void Char_picosp_Tick(Character *character)
 	{
 		if (stage.flag & STAGE_FLAG_JUST_STEP)
 		{
+            //Perform idle dance
+            if ((character->pad_held & (INPUT_LEFT | INPUT_DOWN | INPUT_UP | INPUT_RIGHT)) == 0)
+                Character_PerformIdle(character);
 			//Perform dance
-			if (stage.note_scroll >= character->sing_end && (stage.song_step % stage.picosp_speed) == 0)
-			{
-				//Perform idle dance
-                if ((character->pad_held & (INPUT_LEFT | INPUT_DOWN | INPUT_UP | INPUT_RIGHT)) == 0)
-                    Character_PerformIdle(character);
-				
+			if (stage.note_scroll >= character->sing_end && (stage.song_step % stage.gf_speed) == 0)
 				//Bump speakers
 				Speaker_Bump(&this->speaker);
-			}
+			
 		}
 	}
 	

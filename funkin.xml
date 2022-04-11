@@ -222,6 +222,9 @@
 				<file name = "gftut.arc" type = "data" source = "iso/gf/tut.arc"/>
 				<file name = "gfweeb.arc" type = "data" source = "iso/gf/weeb.arc"/>
 				<file name = "speaker.tim" type = "data" source = "iso/gf/speaker.tim"/>
+
+                <!-- Pico Speaker assets -->
+				<file name = "picosp.arc" type = "data" source = "iso/picosp/main.arc"/>
 			</dir>
 			
 			<!-- Music -->

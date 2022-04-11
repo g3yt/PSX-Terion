@@ -358,9 +358,9 @@
 	},
 	{ //StageId_7_3 (Stress)
 		//Characters
-		{Char_BF_New,    FIXED_DEC(105,1),  FIXED_DEC(100,1)}, //TODO: carry gf
-		{Char_Tank_New, FIXED_DEC(-120,1),  FIXED_DEC(100,1)},
-		{NULL,      FIXED_DEC(0,1),  FIXED_DEC(-15,1)}, //TODO: pico funny
+		{Char_BF_New,     FIXED_DEC(105,1),  FIXED_DEC(100,1)}, //TODO: carry gf
+		{Char_Tank_New,   FIXED_DEC(-120,1),  FIXED_DEC(100,1)},
+		{Char_picosp_New, FIXED_DEC(0,1),  FIXED_DEC(-15,1)}, //TODO: pico funny
 		
 		//Stage background
 		Back_Week7_New,
