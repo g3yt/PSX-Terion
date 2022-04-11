@@ -27,6 +27,7 @@ all: \
 	iso/gf/tut.arc \
 	iso/gf/weeb.arc \
 	iso/gf/speaker.tim \
+    iso/picosp/main.arc \
 	iso/week1/back.arc \
 	iso/week2/back.arc \
 	iso/week3/back.arc \
@@ -85,6 +86,9 @@ iso/tank/good.arc: iso/tank/good0.tim iso/tank/good1.tim iso/tank/good2.tim iso/
 iso/gf/main.arc: iso/gf/gf0.tim iso/gf/gf1.tim iso/gf/gf2.tim
 iso/gf/tut.arc: iso/gf/tut0.tim iso/gf/tut1.tim
 iso/gf/weeb.arc: iso/gf/weeb0.tim iso/gf/weeb1.tim
+
+# Pico Speaker
+iso/picosp/main.arc: iso/picosp/idle.tim iso/picosp/left0.tim iso/picosp/left1.tim iso/picosp/right0.tim iso/picosp/right1.tim 
 
 # Week 1
 iso/week1/back.arc: iso/week1/back0.tim iso/week1/back1.tim

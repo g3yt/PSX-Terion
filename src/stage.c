@@ -1619,7 +1619,7 @@ void Stage_Tick(void)
 	switch (stage.state)
 	{
 		case StageState_Play:
-		{
+		{   
 			//noteshake = 1;
 
 			//middle note x
