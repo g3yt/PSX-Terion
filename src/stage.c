@@ -1618,8 +1618,6 @@ void Stage_Tick(void)
 	{
 		case StageState_Play:
 		{   
-			//noteshake = 1;
-
 			//middle note x
 			if(stage.middlescroll)
 			{
