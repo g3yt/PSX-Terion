@@ -17,12 +17,17 @@ else
 fx = stage.camera.x;
 fy = stage.camera.y;
 	
+RECT sprite_src = {0, 0, 256, 256};
+
 int sprite_x = FIXED_DEC(80,1); // X position of the sprite
 int sprite_y = FIXED_DEC(30,1); // Y position of the sprite
-
 u8 sprite_angle = 0; // Angle of the sprite
 
-RECT sprite_src = {0, 0, 256, 256};
+// Change sprite angle when L2 or R2 is pressed
+if (pad_state.held & PAD_L2)	
+    sprite_angle --;
+if (pad_state.held & PAD_R2)
+    sprite_angle ++;
 
 Gfx_DrawTexRotate(&this->tex_sprite, sprite_x, sprite_y, &sprite_src, sprite_angle, stage.camera.bzoom, fx, fy);
 ```
