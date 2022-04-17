@@ -17,6 +17,40 @@
 static u8 xa_state, xa_resync, xa_volume, xa_channel;
 static u32 xa_pos, xa_start, xa_end;
 
+//audio stuff
+#define BUFFER_SIZE (13 << 11) //13 sectors
+#define CHUNK_SIZE (BUFFER_SIZE)
+#define CHUNK_SIZE_MAX (BUFFER_SIZE * 4) // there are never more than 4 channels
+
+#define BUFFER_TIME FIXED_DEC(((BUFFER_SIZE * 28) / 16), 44100)
+
+#define BUFFER_START_ADDR 0x1010
+#define DUMMY_ADDR (BUFFER_START_ADDR + (CHUNK_SIZE_MAX * 2))
+#define ALLOC_START_ADDR (BUFFER_START_ADDR + (CHUNK_SIZE_MAX * 2) + 64)
+
+//SPU registers
+typedef struct
+{
+	u16 vol_left;
+	u16 vol_right;
+	u16 freq;
+	u16 addr;
+	u32 adsr_param;
+	u16 _reserved;
+	u16 loop_addr;
+} Audio_SPUChannel;
+
+#define SPU_CTRL     *((volatile u16*)0x1f801daa)
+#define SPU_DMA_CTRL *((volatile u16*)0x1f801dac)
+#define SPU_IRQ_ADDR *((volatile u16*)0x1f801da4)
+#define SPU_KEY_ON   *((volatile u32*)0x1f801d88)
+#define SPU_KEY_OFF  *((volatile u32*)0x1f801d8c)
+
+#define SPU_CHANNELS    ((volatile Audio_SPUChannel*)0x1f801c00)
+#define SPU_RAM_ADDR(x) ((u16)(((u32)(x)) >> 3))
+
+static volatile u32 audio_alloc_ptr = 0;
+
 //XA files and tracks
 static CdlFILE xa_files[XA_Max];
 
@@ -116,6 +150,17 @@ void Audio_Init(void)
 	//Initialize sound system
 	SsInit();
 	SsSetSerialVol(SS_SERIAL_A, 0x7F, 0x7F);
+
+	//Initialize SPU
+	SpuInit();
+	Audio_ClearAlloc();
+	
+	//Set SPU common attributes
+	SpuCommonAttr spu_attr;
+	spu_attr.mask = SPU_COMMON_MVOLL | SPU_COMMON_MVOLR;
+	spu_attr.mvol.left  = 0x3FFF;
+	spu_attr.mvol.right = 0x3FFF;
+	SpuSetCommonAttr(&spu_attr);
 	
 	//Set XA state
 	xa_state = 0;
@@ -318,5 +363,67 @@ void Audio_ProcessXA(void)
 			}
 		}
 	}
+}
+
+/* .VAG file loader */
+
+#define VAG_HEADER_SIZE 48
+
+void Audio_ClearAlloc(void) {
+	audio_alloc_ptr = ALLOC_START_ADDR;
+}
+
+u32 Audio_LoadVAGData(u32 *sound, u32 sound_size) {
+	// subtract size of .vag header (48 bytes), round to 64 bytes
+	u32 xfer_size = ((sound_size - VAG_HEADER_SIZE) + 63) & 0xffffffc0;
+	u8  *data = (u8 *) sound;
+
+	// modify sound data to ensure sound "loops" to dummy sample
+	// https://psx-spx.consoledev.net/soundprocessingunitspu/#flag-bits-in-2nd-byte-of-adpcm-header
+	data[sound_size - 15] = 1; // end + mute
+
+	// allocate SPU memory for sound
+	u32 addr = audio_alloc_ptr;
+	audio_alloc_ptr += xfer_size;
+
+	if (audio_alloc_ptr > 0x80000) {
+		// TODO: add proper error handling code
+		printf("FATAL: SPU RAM overflow! (%d bytes overflowing)\n", audio_alloc_ptr - 0x80000);
+		while (1);
+	}
+
+	SpuSetTransferStartAddr(addr); // set transfer starting address to malloced area
+	SpuSetTransferMode(SPU_TRANSFER_BY_DMA); // set transfer mode to DMA
+	SpuWrite(data + VAG_HEADER_SIZE, xfer_size); // perform actual transfer
+	SpuIsTransferCompleted(SPU_TRANSFER_WAIT); // wait for DMA to complete
+
+	printf("Allocated new sound (addr=%08x, size=%d)\n", addr, xfer_size);
+	return addr;
+}
+
+void Audio_PlaySoundOnChannel(u32 addr, u32 channel) {
+	SPU_KEY_OFF |= (1 << channel);
+
+	SPU_CHANNELS[channel].vol_left   = 0x3fff;
+	SPU_CHANNELS[channel].vol_right  = 0x3fff;
+	SPU_CHANNELS[channel].addr       = SPU_RAM_ADDR(addr);
+	SPU_CHANNELS[channel].loop_addr  = SPU_RAM_ADDR(DUMMY_ADDR);
+	SPU_CHANNELS[channel].freq       = 0x1000; // 44100 Hz
+	SPU_CHANNELS[channel].adsr_param = 0x1fc080ff;
+
+	SPU_KEY_ON |= (1 << channel);
+}
+
+void Audio_PlaySound(u32 addr) {
+    for (u32 ch = 0; ch < 24; ch++) { // channels 0-3 are reserved for streaming
+        if (SPU_CHANNELS[ch]._reserved)
+            continue;
+
+        //printf("Playing sound on channel %d (addr=%08x)\n", ch, addr);
+        Audio_PlaySoundOnChannel(addr, ch);
+        return;
+    }
+
+    printf("Could not find free channel to play sound (addr=%08x)\n", addr);
 }
 

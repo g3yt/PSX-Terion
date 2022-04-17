@@ -24,6 +24,10 @@
 #include "stage.h"
 #include "character/gf.h"
 
+#include "stdlib.h"
+
+u32 Sounds[3];
+
 //Menu messages
 static const char *funny_messages[][2] = {
 	{"PSX PORT BY CUCKYDEV", "YOU KNOW IT"},
@@ -329,6 +333,25 @@ void Menu_Load(MenuPage page)
 	
 	stage.song_step = 0;
 	
+	// to load
+	CdlFILE file;
+    IO_FindFile(&file, "\\SOUND\\SCROLL.VAG;1");
+    u32 *data = IO_ReadFile(&file);
+    Sounds[0] = Audio_LoadVAGData(data, file.size);
+
+	IO_FindFile(&file, "\\SOUND\\CONFIRM.VAG;1");
+    data = IO_ReadFile(&file);
+    Sounds[1] = Audio_LoadVAGData(data, file.size);
+
+	IO_FindFile(&file, "\\SOUND\\CANCEL.VAG;1");
+    data = IO_ReadFile(&file);
+    Sounds[2] = Audio_LoadVAGData(data, file.size);
+    
+	for (int i = 0; i < 3; i++)
+	printf("address = %08x\n", Sounds[i]);
+
+	free(data);
+
 	//Play menu music
 	Audio_PlayXA_Track(XA_GettinFreaky, 0x40, 0, 1);
 	Audio_WaitPlayXA();
@@ -470,6 +493,8 @@ void Menu_Tick(void)
 			
 			if ((pad_state.press & PAD_START) && menu.next_page == menu.page && Trans_Idle())
 			{
+				//play confirm sound
+				Audio_PlaySound(Sounds[1]);
 				menu.trans_time = FIXED_UNIT;
 				menu.page_state.title.fade = FIXED_DEC(255,1);
 				menu.page_state.title.fadespd = FIXED_DEC(300,1);
@@ -569,6 +594,8 @@ void Menu_Tick(void)
 				//Change option
 				if (pad_state.press & PAD_UP)
 				{
+					//play scroll sound
+                    Audio_PlaySound(Sounds[0]);
 					if (menu.select > 0)
 						menu.select--;
 					else
@@ -576,6 +603,8 @@ void Menu_Tick(void)
 				}
 				if (pad_state.press & PAD_DOWN)
 				{
+					//play scroll sound
+                    Audio_PlaySound(Sounds[0]);
 					if (menu.select < COUNT_OF(menu_options) - 1)
 						menu.select++;
 					else
@@ -585,6 +614,8 @@ void Menu_Tick(void)
 				//Select option if cross is pressed
 				if (pad_state.press & (PAD_START | PAD_CROSS))
 				{
+					//play confirm sound
+					Audio_PlaySound(Sounds[1]);
 					switch (menu.select)
 					{
 						case 0: //Story Mode
@@ -615,6 +646,8 @@ void Menu_Tick(void)
 				//Return to title screen if circle is pressed
 				if (pad_state.press & PAD_CIRCLE)
 				{
+					//play cancel sound
+					Audio_PlaySound(Sounds[2]);
 					menu.next_page = MenuPage_Title;
 					Trans_Start();
 				}
@@ -714,6 +747,8 @@ void Menu_Tick(void)
 				//Change option
 				if (pad_state.press & PAD_UP)
 				{
+					//play scroll sound
+                    Audio_PlaySound(Sounds[0]);
 					if (menu.select > 0)
 						menu.select--;
 					else
@@ -721,6 +756,8 @@ void Menu_Tick(void)
 				}
 				if (pad_state.press & PAD_DOWN)
 				{
+					//play scroll sound
+                    Audio_PlaySound(Sounds[0]);
 					if (menu.select < COUNT_OF(menu_options) - 1)
 						menu.select++;
 					else
@@ -730,6 +767,8 @@ void Menu_Tick(void)
 				//Select option if cross is pressed
 				if (pad_state.press & (PAD_START | PAD_CROSS))
 				{
+					//play confirm sound
+					Audio_PlaySound(Sounds[1]);
 					menu.next_page = MenuPage_Stage;
 					menu.page_param.stage.id = menu_options[menu.select].stage;
 					menu.page_param.stage.story = true;
@@ -741,6 +780,8 @@ void Menu_Tick(void)
 				//Return to main menu if circle is pressed
 				if (pad_state.press & PAD_CIRCLE)
 				{
+					//play cancel sound
+					Audio_PlaySound(Sounds[2]);
 					menu.next_page = MenuPage_Main;
 					menu.next_select = 0; //Story Mode
 					Trans_Start();
@@ -853,6 +894,8 @@ void Menu_Tick(void)
 				//Change option
 				if (pad_state.press & PAD_UP)
 				{
+					//play scroll sound
+                    Audio_PlaySound(Sounds[0]);
 					if (menu.select > 0)
 						menu.select--;
 					else
@@ -860,6 +903,8 @@ void Menu_Tick(void)
 				}
 				if (pad_state.press & PAD_DOWN)
 				{
+					//play scroll sound
+                    Audio_PlaySound(Sounds[0]);
 					if (menu.select < COUNT_OF(menu_options) - 1)
 						menu.select++;
 					else
@@ -869,6 +914,8 @@ void Menu_Tick(void)
 				//Select option if cross is pressed
 				if (pad_state.press & (PAD_START | PAD_CROSS))
 				{
+					//play confirm sound
+					Audio_PlaySound(Sounds[1]);
 					menu.next_page = MenuPage_Stage;
 					menu.page_param.stage.id = menu_options[menu.select].stage;
 					menu.page_param.stage.story = false;
@@ -878,6 +925,8 @@ void Menu_Tick(void)
 				//Return to main menu if circle is pressed
 				if (pad_state.press & PAD_CIRCLE)
 				{
+					//play cancel sound
+					Audio_PlaySound(Sounds[2]);
 					menu.next_page = MenuPage_Main;
 					menu.next_select = 1; //Freeplay
 					Trans_Start();
@@ -961,6 +1010,8 @@ void Menu_Tick(void)
 				//Change option
 				if (pad_state.press & PAD_UP)
 				{
+					//play scroll sound
+                    Audio_PlaySound(Sounds[0]);
 					if (menu.select > 0)
 						menu.select--;
 					else
@@ -968,6 +1019,8 @@ void Menu_Tick(void)
 				}
 				if (pad_state.press & PAD_DOWN)
 				{
+					//play scroll sound
+                    Audio_PlaySound(Sounds[0]);
 					if (menu.select < COUNT_OF(menu_options) - 1)
 						menu.select++;
 					else
@@ -977,6 +1030,8 @@ void Menu_Tick(void)
 				//Select option if cross is pressed
 				if (pad_state.press & (PAD_START | PAD_CROSS))
 				{
+					//play confirm sound
+					Audio_PlaySound(Sounds[1]);
 					menu.next_page = MenuPage_Stage;
 					menu.page_param.stage.id = menu_options[menu.select].stage;
 					menu.page_param.stage.story = true;
@@ -988,6 +1043,8 @@ void Menu_Tick(void)
 				//Return to main menu if circle is pressed
 				if (pad_state.press & PAD_CIRCLE)
 				{
+					//play cancel sound
+					Audio_PlaySound(Sounds[2]);
 					menu.next_page = MenuPage_Main;
 					menu.next_select = 2; //Mods
 					Trans_Start();
@@ -1080,6 +1137,8 @@ void Menu_Tick(void)
 				//Change option
 				if (pad_state.press & PAD_UP)
 				{
+					//play scroll sound
+                    Audio_PlaySound(Sounds[0]);
 					if (menu.select > 0)
 						menu.select--;
 					else
@@ -1087,6 +1146,8 @@ void Menu_Tick(void)
 				}
 				if (pad_state.press & PAD_DOWN)
 				{
+					//play scroll sound
+                    Audio_PlaySound(Sounds[0]);
 					if (menu.select < COUNT_OF(menu_options) - 1)
 						menu.select++;
 					else
@@ -1113,6 +1174,8 @@ void Menu_Tick(void)
 				//Return to main menu if circle is pressed
 				if (pad_state.press & PAD_CIRCLE)
 				{
+					//play cancel sound
+					Audio_PlaySound(Sounds[2]);
 					menu.next_page = MenuPage_Main;
 					menu.next_select = 3; //Options
 					Trans_Start();
@@ -1181,6 +1244,8 @@ void Menu_Tick(void)
 					//Change option
 					if (pad_state.press & PAD_UP)
 					{
+						//play scroll sound
+                    Audio_PlaySound(Sounds[0]);
 						if (menu.select > 0)
 							menu.select--;
 						else
@@ -1188,6 +1253,8 @@ void Menu_Tick(void)
 					}
 					if (pad_state.press & PAD_DOWN)
 					{
+						//play scroll sound
+                    Audio_PlaySound(Sounds[0]);
 						if (menu.select < menu_options - 1)
 							menu.select++;
 						else
@@ -1217,6 +1284,8 @@ void Menu_Tick(void)
 					//Return to main menu if circle is pressed
 					if (pad_state.press & PAD_CIRCLE)
 					{
+						//play cancel sound
+					    Audio_PlaySound(Sounds[2]);
 						menu.next_page = MenuPage_Main;
 						menu.next_select = 5; //Host Server
 						Trans_Start();
