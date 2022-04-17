@@ -146,10 +146,10 @@ boolean Obj_Combo_Tick_Weeb(Object *obj)
 			(22 * clipp) >> 4
 		};
 		RECT_FIXED hit_dst = {
-			this->x - FIXED_DEC(8,1),
-			this->hy,
-			FIXED_DEC(70,1),
-			(FIXED_DEC(22,1) * clipp) >> 4
+			this->x - FIXED_DEC(8 + 9 + 50,1),
+			this->hy - FIXED_DEC(16 - 20,1),
+			FIXED_DEC(140 - 10,1),
+			(FIXED_DEC(44 - 10,1) * clipp) >> 4
 		};
 
 		hit_dst.y += stage.noteshakey;
@@ -180,10 +180,10 @@ boolean Obj_Combo_Tick_Weeb(Object *obj)
 			(22 * clipp) >> 4
 		};
 		RECT_FIXED combo_dst = {
-			this->x + FIXED_DEC(48,1) - FIXED_DEC(16,1),
-			this->cy - FIXED_DEC(16,1),
-			FIXED_DEC(46,1),
-			(FIXED_DEC(22,1) * clipp) >> 4
+			this->x + FIXED_DEC(48 - 10 - 50,1),
+			this->cy - FIXED_DEC(16 + 7 - 20,1),
+			FIXED_DEC(92 - 10,1),
+			(FIXED_DEC(44 - 10,1) * clipp) >> 4
 		};
 
 		combo_dst.y += stage.noteshakey;
@@ -220,10 +220,10 @@ boolean Obj_Combo_Tick_Weeb(Object *obj)
 				(12 * clipp) >> 4
 			};
 			RECT_FIXED num_dst = {
-				this->x - FIXED_DEC(32,1) + (i * FIXED_DEC(8,1)) + FIXED_DEC(16,1),
-				this->numy[i] - FIXED_DEC(12,1),
-				FIXED_DEC(11,1),
-				(FIXED_DEC(12,1) * clipp) >> 4
+				this->x - FIXED_DEC(32 + 50,1) + (i * FIXED_DEC(16,1)) - FIXED_DEC(12,1),
+				this->numy[i] - FIXED_DEC(12 - 20,1),
+				FIXED_DEC(22,1),
+				(FIXED_DEC(24,1) * clipp) >> 4
 			};
 
 			num_dst.y += stage.noteshakey;

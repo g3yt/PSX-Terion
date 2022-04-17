@@ -20,14 +20,10 @@ all: \
 	iso/senpai/main.arc \
 	iso/senpaim/main.arc \
 	iso/spirit/main.arc \
-	iso/tank/main.arc \
-	iso/tank/ugh.arc \
-	iso/tank/good.arc \
 	iso/gf/main.arc \
 	iso/gf/tut.arc \
 	iso/gf/weeb.arc \
 	iso/gf/speaker.tim \
-    iso/picosp/main.arc \
 	iso/week1/back.arc \
 	iso/week2/back.arc \
 	iso/week3/back.arc \
@@ -35,8 +31,7 @@ all: \
 	iso/week4/hench.arc \
 	iso/week5/back.arc \
 	iso/week6/back.arc \
-	iso/week6/back3.tim \
-	iso/week7/back.arc
+	iso/week6/back3.tim 
 
 iso/%.tim: iso/%.png
 	tools/funkintimconv/funkintimconv $@ $<
@@ -77,18 +72,10 @@ iso/senpaim/main.arc: iso/senpaim/senpai0.tim iso/senpaim/senpai1.tim
 # Spirit
 iso/spirit/main.arc: iso/spirit/spirit0.tim iso/spirit/spirit1.tim
 
-# Tank
-iso/tank/main.arc: iso/tank/idle0.tim iso/tank/idle1.tim iso/tank/left.tim iso/tank/down.tim iso/tank/up.tim iso/tank/right.tim
-iso/tank/ugh.arc: iso/tank/ugh0.tim iso/tank/ugh1.tim
-iso/tank/good.arc: iso/tank/good0.tim iso/tank/good1.tim iso/tank/good2.tim iso/tank/good3.tim
-
 # GF
 iso/gf/main.arc: iso/gf/gf0.tim iso/gf/gf1.tim iso/gf/gf2.tim
 iso/gf/tut.arc: iso/gf/tut0.tim iso/gf/tut1.tim
 iso/gf/weeb.arc: iso/gf/weeb0.tim iso/gf/weeb1.tim
-
-# Pico Speaker
-iso/picosp/main.arc: iso/picosp/idle.tim iso/picosp/left0.tim iso/picosp/left1.tim iso/picosp/right0.tim iso/picosp/right1.tim 
 
 # Week 1
 iso/week1/back.arc: iso/week1/back0.tim iso/week1/back1.tim

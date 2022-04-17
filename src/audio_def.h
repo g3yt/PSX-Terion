@@ -42,11 +42,6 @@ static const XA_TrackDef xa_tracks[] = {
 	{XA_Week6A, XA_LENGTH(8928)}, //XA_Roses
 	//WEEK6B.XA
 	{XA_Week6B, XA_LENGTH(10298)}, //XA_Thorns
-	//WEEK7A.XA
-	{XA_Week7A, XA_LENGTH(8493)},  //XA_Ugh
-	{XA_Week7A, XA_LENGTH(13866)}, //XA_Guns
-	//WEEK7B.XA
-	{XA_Week7B, XA_LENGTH(12200)}, //XA_Stress
 };
 
 static const char *xa_paths[] = {
@@ -63,8 +58,6 @@ static const char *xa_paths[] = {
 	"\\MUSIC\\WEEK5B.XA;1", //XA_Week5B
 	"\\MUSIC\\WEEK6A.XA;1", //XA_Week6A
 	"\\MUSIC\\WEEK6B.XA;1", //XA_Week6B
-	"\\MUSIC\\WEEK7A.XA;1", //XA_Week7A
-	"\\MUSIC\\WEEK7B.XA;1", //XA_Week7B
 	NULL,
 };
 
@@ -110,11 +103,6 @@ static const XA_Mp3 xa_mp3s[] = {
 	{"roses", true},  //XA_Roses
 	//WEEK6B.XA
 	{"thorns", true}, //XA_Thorns
-	//WEEK7A.XA
-	{"ugh", true},  //XA_Ugh
-	{"guns", true}, //XA_Guns
-	//WEEK7B.XA
-	{"stress", true}, //XA_Stress
 	
 	{NULL, false}
 };

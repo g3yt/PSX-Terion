@@ -13,8 +13,6 @@
 
 #include "speaker.h"
 
-#include "../stage/week7.h"
-
 //GF Weeb character structure
 enum
 {

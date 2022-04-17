@@ -78,10 +78,8 @@ boolean noteshake;
 #include "character/senpai.h"
 #include "character/senpaim.h"
 #include "character/spirit.h"
-#include "character/tank.h"
 #include "character/gf.h"
 #include "character/gfweeb.h"
-#include "character/picosp.h"
 
 #include "stage/dummy.h"
 #include "stage/week1.h"
@@ -90,7 +88,6 @@ boolean noteshake;
 #include "stage/week4.h"
 #include "stage/week5.h"
 #include "stage/week6.h"
-#include "stage/week7.h"
 
 static const StageDef stage_defs[StageId_Max] = {
 	#include "stagedef_disc1.h"

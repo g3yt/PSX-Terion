@@ -682,7 +682,6 @@ void Menu_Tick(void)
 				{"4", StageId_4_1, "MOMMY MUST MURDER", {"SATIN PANTIES", "HIGH", "MILF"}},
 				{"5", StageId_5_1, "RED SNOW", {"COCOA", "EGGNOG", "WINTER HORRORLAND"}},
 				{"6", StageId_6_1, "HATING SIMULATOR", {"SENPAI", "ROSES", "THORNS"}},
-				{"7", StageId_7_1, "TANKMAN", {"UGH", "GUNS", "STRESS"}},
 			};
 			
 			//Initialize page
@@ -825,9 +824,6 @@ void Menu_Tick(void)
 				{StageId_6_1, 0xFFFF78BF, "SENPAI"},
 				{StageId_6_2, 0xFFFF78BF, "ROSES"},
 				{StageId_6_3, 0xFFFF78BF, "THORNS"},
-				{StageId_7_1, 0xFFF6B604, "UGH"},
-				{StageId_7_2, 0xFFF6B604, "GUNS"},
-				{StageId_7_3, 0xFFF6B604, "STRESS"},
 			};
 			
 			//Initialize page

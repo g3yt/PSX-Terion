@@ -11,9 +11,7 @@ all: \
   iso/music/week5a.xa \
   iso/music/week5b.xa \
   iso/music/week6a.xa \
-  iso/music/week6b.xa \
-  iso/music/week7a.xa \
-  iso/music/week7b.xa 
+  iso/music/week6b.xa 
 
 # XA converts
 iso/music/%.xa: iso/music/%.ogg
@@ -35,5 +33,3 @@ iso/music/week5a.xa: iso/music/cocoai.xa iso/music/cocoav.xa iso/music/eggnogi.x
 iso/music/week5b.xa: iso/music/winterhorrorlandi.xa iso/music/winterhorrorlandv.xa
 iso/music/week6a.xa: iso/music/senpaii.xa iso/music/senpaiv.xa iso/music/rosesi.xa iso/music/rosesv.xa
 iso/music/week6b.xa: iso/music/thornsi.xa iso/music/thornsv.xa
-iso/music/week7a.xa: iso/music/ughi.xa iso/music/ughv.xa iso/music/gunsi.xa iso/music/gunsv.xa
-iso/music/week7b.xa: iso/music/stressi.xa iso/music/stressv.xa

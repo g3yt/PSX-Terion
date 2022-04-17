@@ -13,8 +13,6 @@
 
 #include "speaker.h"
 
-#include "../stage/week7.h"
-
 //GF character structure
 enum
 {
@@ -43,8 +41,6 @@ typedef struct
 	//Speaker
 	Speaker speaker;
 	
-	//Pico test
-	u16 *pico_p;
 } Char_GF;
 
 //GF character definitions
@@ -117,57 +113,36 @@ void Char_GF_Tick(Character *character)
 	Char_GF *this = (Char_GF*)character;
 	
 	//Initialize Pico test
-	if (stage.stage_id == StageId_7_3 && stage.back != NULL && this->pico_p == NULL)
-		this->pico_p = ((Back_Week7*)stage.back)->pico_chart;
-	
-	if (this->pico_p != NULL)
+	if (stage.flag & STAGE_FLAG_JUST_STEP)
 	{
+		//Stage specific animations
 		if (stage.note_scroll >= 0)
 		{
-			//Scroll through Pico chart
-			u16 substep = stage.note_scroll >> FIXED_SHIFT;
-			while (substep >= ((*this->pico_p) & 0x7FFF))
+			switch (stage.stage_id)
 			{
-				//Play animation and bump speakers
-				character->set_anim(character, ((*this->pico_p) & 0x8000) ? CharAnim_RightAlt : CharAnim_LeftAlt);
-				Speaker_Bump(&this->speaker);
-				this->pico_p++;
+				case StageId_1_4: //Tutorial cheer
+					if (stage.song_step > 64 && stage.song_step < 192 && (stage.song_step & 0x3F) == 60)
+						character->set_anim(character, CharAnim_UpAlt);
+					break;
+				default:
+					break;
 			}
 		}
-	}
-	else
-	{
-		if (stage.flag & STAGE_FLAG_JUST_STEP)
-		{
-			//Stage specific animations
-			if (stage.note_scroll >= 0)
-			{
-				switch (stage.stage_id)
-				{
-					case StageId_1_4: //Tutorial cheer
-						if (stage.song_step > 64 && stage.song_step < 192 && (stage.song_step & 0x3F) == 60)
-							character->set_anim(character, CharAnim_UpAlt);
-						break;
-					default:
-						break;
-				}
-			}
 			
-			//Perform dance
-			if (stage.note_scroll >= character->sing_end && (stage.song_step % stage.gf_speed) == 0)
-			{
-				//Switch animation
-				if (character->animatable.anim == CharAnim_LeftAlt || character->animatable.anim == CharAnim_Right)
-					character->set_anim(character, CharAnim_RightAlt);
-				else
-					character->set_anim(character, CharAnim_LeftAlt);
-				
-				//Bump speakers
-				Speaker_Bump(&this->speaker);
-			}
+		//Perform dance
+	    if (stage.note_scroll >= character->sing_end && (stage.song_step % stage.gf_speed) == 0)
+		{
+			//Switch animation
+			if (character->animatable.anim == CharAnim_LeftAlt || character->animatable.anim == CharAnim_Right)
+				character->set_anim(character, CharAnim_RightAlt);
+			else
+				character->set_anim(character, CharAnim_LeftAlt);
+			
+			//Bump speakers
+			Speaker_Bump(&this->speaker);
 		}
 	}
-	
+
 	//Get parallax
 	fixed_t parallax;
 	if (stage.stage_id >= StageId_1_1 && stage.stage_id <= StageId_1_4)
@@ -268,12 +243,6 @@ Character *Char_GF_New(fixed_t x, fixed_t y)
 	
 	//Initialize speaker
 	Speaker_Init(&this->speaker);
-	
-	//Initialize Pico test
-	if (stage.stage_id == StageId_7_3 && stage.back != NULL)
-		this->pico_p = ((Back_Week7*)stage.back)->pico_chart;
-	else
-		this->pico_p = NULL;
 	
 	return (Character*)this;
 }
