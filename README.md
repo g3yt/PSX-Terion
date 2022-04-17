@@ -2,7 +2,7 @@
 Friday Night Funkin' on the PSX LOL
 
 ## Code samples
-
+```
 // Note shake : 
 // Add this code in stage.c, case StageState_Play:
 
@@ -25,8 +25,7 @@ u8 sprite_angle = 0; // Angle of the sprite
 RECT sprite_src = {0, 0, 256, 256};
 
 Gfx_DrawTexRotate(&this->tex_sprite, sprite_x, sprite_y, &sprite_src, sprite_angle, stage.camera.bzoom, fx, fy);
-
-
+```
 ## Compilation
 Refer to [COMPILE.md](/COMPILE.md) here
 
