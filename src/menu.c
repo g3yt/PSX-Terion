@@ -560,7 +560,7 @@ void Menu_Tick(void)
 			static const char *menu_options[] = {
 				"STORY MODE",
 				"FREEPLAY",
-				"MODS",
+				"CREDITS",
 				"OPTIONS",
 				#ifdef PSXF_NETWORK
 					"JOIN SERVER",
@@ -624,8 +624,8 @@ void Menu_Tick(void)
 						case 1: //Freeplay
 							menu.next_page = MenuPage_Freeplay;
 							break;
-						case 2: //Mods
-							menu.next_page = MenuPage_Mods;
+						case 2: //Credits
+							menu.next_page = MenuPage_Credits;
 							break;
 						case 3: //Options
 							menu.next_page = MenuPage_Options;
@@ -974,7 +974,7 @@ void Menu_Tick(void)
 			);
 			break;
 		}
-		case MenuPage_Mods:
+		case MenuPage_Credits:
 		{
 			static const struct
 			{
@@ -982,9 +982,29 @@ void Menu_Tick(void)
 				const char *text;
 				boolean difficulty;
 			} menu_options[] = {
-				{StageId_1_1, "VS KAPI", false},
+				{StageId_1_1, "    FORK DEVS", false},
+				{StageId_1_1, "UNSTOPABLE", false},
+				{StageId_1_1, "IGORSOU", false},
+				{StageId_1_1, "    PSXFUNKIN DEVELOPER", false},
+				{StageId_1_1, "CUCKYDEV", false},
+				{StageId_1_1, "    COOL PEOPLE", false},
+				{StageId_1_1, "IGORSOU", false},
+				{StageId_1_1, "DREAMCASTNICK", false},
+				{StageId_1_1, "MAXDEV", false},
+				{StageId_1_1, "CUCKYDEV", false},
+				{StageId_1_1, "LUCKY", false},
+				{StageId_1_1, "MRRUMBLEROSES", false},
+				{StageId_1_1, "JOHN PAUL", false},
+				{StageId_1_1, "VICTOR", false},
+				{StageId_1_1, "GOOMBAKUNGFU", false},
+				{StageId_1_1, "GTHREEYT", false},
+				{StageId_1_1, "BILIOUS", false},
+				{StageId_1_1, "ZERIBEN", false},
+				{StageId_1_1, "GALAXY YT", false},
+				{StageId_1_1, "NINTENDOBRO", false},
+				{StageId_1_1, "LORD SCOUT", false},
 			};
-			
+			    
 			//Initialize page
 			if (menu.page_swap)
 			{
@@ -994,7 +1014,7 @@ void Menu_Tick(void)
 			
 			//Draw page label
 			menu.font_bold.draw(&menu.font_bold,
-				"MODS",
+				"CREDITS",
 				16,
 				SCREEN_HEIGHT - 32,
 				FontAlign_Left
@@ -1027,26 +1047,13 @@ void Menu_Tick(void)
 						menu.select = 0;
 				}
 				
-				//Select option if cross is pressed
-				if (pad_state.press & (PAD_START | PAD_CROSS))
-				{
-					//play confirm sound
-					Audio_PlaySound(Sounds[1]);
-					menu.next_page = MenuPage_Stage;
-					menu.page_param.stage.id = menu_options[menu.select].stage;
-					menu.page_param.stage.story = true;
-					if (!menu_options[menu.select].difficulty)
-						menu.page_param.stage.diff = StageDiff_Hard;
-					Trans_Start();
-				}
-				
 				//Return to main menu if circle is pressed
 				if (pad_state.press & PAD_CIRCLE)
 				{
 					//play cancel sound
 					Audio_PlaySound(Sounds[2]);
 					menu.next_page = MenuPage_Main;
-					menu.next_select = 2; //Mods
+					menu.next_select = 2; //Credits
 					Trans_Start();
 				}
 			}
