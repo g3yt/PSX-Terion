@@ -14,6 +14,7 @@
 #include "random.h"
 #include "movie.h"
 #include "network.h"
+#include "mutil.h"
 
 #include "menu.h"
 #include "trans.h"
@@ -631,6 +632,46 @@ void Stage_DrawTexCol(Gfx_Tex *tex, const RECT *src, const RECT_FIXED *dst, fixe
 void Stage_DrawTex(Gfx_Tex *tex, const RECT *src, const RECT_FIXED *dst, fixed_t zoom)
 {
 	Stage_DrawTexCol(tex, src, dst, zoom, 0x80, 0x80, 0x80);
+}
+
+void Stage_DrawTexRotate(Gfx_Tex *tex, const RECT *src, const RECT_FIXED *dst, fixed_t zoom, u8 angle)
+{	
+	s16 sin = MUtil_Sin(angle);
+	s16 cos = MUtil_Cos(angle);
+	int pw = dst->w / 2000;
+    int ph = dst->h / 2000;
+
+	//Get rotated points
+	POINT p0 = {-pw, -ph};
+	MUtil_RotatePoint(&p0, sin, cos);
+	
+	POINT p1 = { pw, -ph};
+	MUtil_RotatePoint(&p1, sin, cos);
+	
+	POINT p2 = {-pw,  ph};
+	MUtil_RotatePoint(&p2, sin, cos);
+	
+	POINT p3 = { pw,  ph};
+	MUtil_RotatePoint(&p3, sin, cos);
+	
+	POINT_FIXED d0 = {
+		dst->x + ((fixed_t)p0.x << FIXED_SHIFT),
+		dst->y + ((fixed_t)p0.y << FIXED_SHIFT)
+	};
+	POINT_FIXED d1 = {
+		dst->x + ((fixed_t)p1.x << FIXED_SHIFT),
+		dst->y + ((fixed_t)p1.y << FIXED_SHIFT)
+	};
+	POINT_FIXED d2 = {
+        dst->x + ((fixed_t)p2.x << FIXED_SHIFT),
+		dst->y + ((fixed_t)p2.y << FIXED_SHIFT)
+	};
+	POINT_FIXED d3 = {
+        dst->x + ((fixed_t)p3.x << FIXED_SHIFT),
+		dst->y + ((fixed_t)p3.y << FIXED_SHIFT)
+	};
+	
+    Stage_DrawTexArb(tex, src, &d0, &d1, &d2, &d3, zoom);
 }
 
 void Stage_BlendTex(Gfx_Tex *tex, const RECT *src, const RECT_FIXED *dst, fixed_t zoom, u8 mode)

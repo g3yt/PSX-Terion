@@ -13,23 +13,28 @@ else
 
 // Sprite angle changing :
 
-// Draw sprite
+fixed_t fx, fy;
+	
+//Draw a rotated texture
 fx = stage.camera.x;
 fy = stage.camera.y;
 	
-RECT sprite_src = {0, 0, 256, 256};
-
-int sprite_x = FIXED_DEC(80,1); // X position of the sprite
-int sprite_y = FIXED_DEC(30,1); // Y position of the sprite
-u8 sprite_angle = 0; // Angle of the sprite
+u8 sprite_angle = 0; // Angle of the sprite, dont put this in a function and dont make it more than 255
+RECT tex_src = {0, 0, 255, 255};
+RECT_FIXED tex_dst = {
+	FIXED_DEC(0,1) - fx, // X position of the sprite
+	FIXED_DEC(0,1) - fy, // Y position of the sprite
+	FIXED_DEC(256,1), // Width of the sprite
+	FIXED_DEC(256,1)  // Height of the sprite
+};
 
 // Change sprite angle when L2 or R2 is pressed
 if (pad_state.held & PAD_L2)	
-    sprite_angle --;
+   	sprite_angle --;
 if (pad_state.held & PAD_R2)
-    sprite_angle ++;
-
-Gfx_DrawTexRotate(&this->tex_sprite, sprite_x, sprite_y, &sprite_src, sprite_angle, stage.camera.bzoom, fx, fy);
+   	sprite_angle ++;
+	
+Stage_DrawTexRotate(&this->tex_back1, &tex_src, &tex_dst, stage.camera.bzoom, sprite_angle);
 ```
 ## Compilation
 Refer to [COMPILE.md](/COMPILE.md) here
