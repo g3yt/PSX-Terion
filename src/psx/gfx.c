@@ -321,8 +321,8 @@ void Gfx_DrawTexRotate(Gfx_Tex *tex, const RECT *src, const RECT *dst, u8 angle)
 {	
 	s16 sin = MUtil_Sin(angle);
 	s16 cos = MUtil_Cos(angle);
-	int pw = dst->w / 2000;
-    int ph = dst->h / 2000;
+	int pw = dst->w / 2;
+    int ph = dst->h / 2;
 
 	//Get tank rotated points
 	POINT p0 = {-pw, -ph};
@@ -338,20 +338,20 @@ void Gfx_DrawTexRotate(Gfx_Tex *tex, const RECT *src, const RECT *dst, u8 angle)
 	MUtil_RotatePoint(&p3, sin, cos);
 	
 	POINT d0 = {
-		dst->x + ((fixed_t)p0.x << FIXED_SHIFT),
-		dst->y + ((fixed_t)p0.y << FIXED_SHIFT)
+		dst->x + p0.x,
+		dst->y + p0.y
 	};
 	POINT d1 = {
-		dst->x + ((fixed_t)p1.x << FIXED_SHIFT),
-		dst->y + ((fixed_t)p1.y << FIXED_SHIFT)
+		dst->x + p1.x,
+		dst->y + p1.y
 	};
 	POINT d2 = {
-        dst->x + ((fixed_t)p2.x << FIXED_SHIFT),
-		dst->y + ((fixed_t)p2.y << FIXED_SHIFT)
+        dst->x + p2.x,
+		dst->y + p2.y
 	};
 	POINT d3 = {
-        dst->x + ((fixed_t)p3.x << FIXED_SHIFT),
-		dst->y + ((fixed_t)p3.y << FIXED_SHIFT)
+        dst->x + p3.x,
+		dst->y + p3.y
 	};
 	
     Gfx_DrawTexArb(tex, src, &d0, &d1, &d2, &d3);
