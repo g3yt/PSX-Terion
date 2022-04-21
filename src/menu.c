@@ -464,8 +464,7 @@ void Menu_Tick(void)
 				x_rad << 1,
 				y_rad << 1
 			};
-			Gfx_DrawTexRotate(&menu.tex_title, &logo_src, &logo_dst, 90);
-			//Gfx_DrawTex(&menu.tex_title, &logo_src, &logo_dst);
+			Gfx_DrawTex(&menu.tex_title, &logo_src, &logo_dst);
 			
 			if (menu.page_state.title.logo_bump > 0)
 				if ((menu.page_state.title.logo_bump -= timer_dt) < 0)
