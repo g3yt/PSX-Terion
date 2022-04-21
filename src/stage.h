@@ -30,9 +30,11 @@
 
 #define STAGE_LOAD_PLAYER     (1 << 0) //Reload player character
 #define STAGE_LOAD_OPPONENT   (1 << 1) //Reload opponent character
-#define STAGE_LOAD_GIRLFRIEND (1 << 2) //Reload girlfriend character
-#define STAGE_LOAD_STAGE      (1 << 3) //Reload stage
+#define STAGE_LOAD_OPPONENT2  (1 << 2) //Reload 2nd opponent character
+#define STAGE_LOAD_GIRLFRIEND (1 << 3) //Reload girlfriend character
+#define STAGE_LOAD_STAGE      (1 << 4) //Reload stage
 #define STAGE_LOAD_FLAG       (1 << 7)
+
 
 //Stage enums
 typedef enum
@@ -111,7 +113,7 @@ typedef struct
 	{
 		Character* (*new)();
 		fixed_t x, y;
-	} pchar, ochar, gchar;
+	} pchar, ochar, ochar2, gchar;
 	
 	//Stage background
 	StageBack* (*back)();
@@ -217,6 +219,7 @@ typedef struct
 	
 	Character *player;
 	Character *opponent;
+    Character *opponent2;
 	Character *gf;
 	
 	Section *cur_section; //Current section
