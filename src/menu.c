@@ -271,6 +271,8 @@ void Menu_Load(MenuPage page)
 	
 	stage.song_step = 0;
 	
+	//sound effects temporarily disabled for repair
+/*
 	// to load
 	CdlFILE file;
     IO_FindFile(&file, "\\SOUND\\SCROLL.VAG;1");
@@ -289,6 +291,7 @@ void Menu_Load(MenuPage page)
 	printf("address = %08x\n", Sounds[i]);
 
 	free(data);
+*/
 
 	//Play menu music
 	Audio_PlayXA_Track(XA_GettinFreaky, 0x40, 0, 1);
