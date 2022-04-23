@@ -9,7 +9,6 @@
 #include "../mem.h"
 #include "../main.h"
 #include "../mutil.h"
-#include "../stage.h"
 
 //Gfx constants
 #define OTLEN 8
