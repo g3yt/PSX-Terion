@@ -1134,64 +1134,62 @@ static void Stage_CountDown(void)
 
 	switch(stage.song_step)
 	{
-		case -17:
+		case -20:
 			if (soundcooldown == 0)
 				Audio_PlaySound(Sounds[2]);
 			soundcooldown ++;
 			break;
-		case -13:
+		case -16:
 			soundcooldown = 0;
 			break;
-		case -12:
+		case -15:
 			drawshit = 3;
 			if (soundcooldown == 0)
 				Audio_PlaySound(Sounds[1]);
 			soundcooldown ++;
 			break;
-		case -8:
+		case -11:
 			soundcooldown = 0;
 			break;
-		case -7:
+		case -10:
 			drawshit = 2;
 			if (soundcooldown == 0)
 				Audio_PlaySound(Sounds[0]);
 			soundcooldown ++;
 			break;
-		case -3:
+		case -6:
 			soundcooldown = 0;
 			break;
-		case -2:
+		case -5:
 			drawshit = 1;
 			if (soundcooldown == 0)
 				Audio_PlaySound(Sounds[3]);
 			soundcooldown ++;
 			break;
-		//default: drawshit = 0; 
-		//	break;
 	}
 
 	RECT ready_src = {197, 112, 58, 125};	
-	RECT_FIXED ready_dst = {FIXED_DEC(0,1), FIXED_DEC(0,1), FIXED_DEC(58,1), FIXED_DEC(125,1)};	
+	RECT_FIXED ready_dst = {FIXED_DEC(10,1), FIXED_DEC(30,1), FIXED_DEC(58 * 2,1), FIXED_DEC(125 * 2,1)};	
 
 	RECT set_src = {201, 64, 54, 96};	
-	RECT_FIXED set_dst = {FIXED_DEC(0,1), FIXED_DEC(0,1), FIXED_DEC(54,1), FIXED_DEC(96,1)};	
+	RECT_FIXED set_dst = {FIXED_DEC(10,1), FIXED_DEC(40,1), FIXED_DEC(54 * 2,1), FIXED_DEC(96 * 2,1)};	
 
 	RECT go_src = {207, 17, 48, 95};	
-	RECT_FIXED go_dst = {FIXED_DEC(0,1), FIXED_DEC(0,1), FIXED_DEC(48,1), FIXED_DEC(95,1)};	
+	RECT_FIXED go_dst = {FIXED_DEC(10,1), FIXED_DEC(30,1), FIXED_DEC(48 * 2,1), FIXED_DEC(95 * 2,1)};	
 
-	if (drawshit == 3 && stage.song_step >= -12 && stage.song_step <= -9)
+	if (drawshit == 3 && stage.song_step >= -15 && stage.song_step <= -12)
 		Stage_DrawTexRotate(&stage.tex_hud1, &ready_src, &ready_dst, stage.bump, -65);
-	else if (drawshit == 3 && stage.song_step >= -9 && stage.song_step <= -8)
+	else if (drawshit == 3 && stage.song_step >= -12 && stage.song_step <= -11)
 		Stage_BlendTexRotate(&stage.tex_hud1, &ready_src, &ready_dst, stage.bump, -65, 1);
 
-	if (drawshit == 2 && stage.song_step >= -7 && stage.song_step <= -4)
+	if (drawshit == 2 && stage.song_step >= -10 && stage.song_step <= -7)
 		Stage_DrawTexRotate(&stage.tex_hud0, &set_src, &set_dst, stage.bump, -65);
-	else if (drawshit == 2 && stage.song_step >= -4 && stage.song_step <= -3)
+	else if (drawshit == 2 && stage.song_step >= -7 && stage.song_step <= -6)
 		Stage_BlendTexRotate(&stage.tex_hud0, &set_src, &set_dst, stage.bump, -65, 1);
 
-	if (drawshit == 1 && stage.song_step >= -2 && stage.song_step <= 1)
+	if (drawshit == 1 && stage.song_step >= -5 && stage.song_step <= -2)
 		Stage_DrawTexRotate(&stage.tex_hud1, &go_src, &go_dst, stage.bump, -65);
-	else if (drawshit == 1 && stage.song_step >= 1 && stage.song_step <= 2)
+	else if (drawshit == 1 && stage.song_step >= -2 && stage.song_step <= -1)
 		Stage_BlendTexRotate(&stage.tex_hud1, &go_src, &go_dst, stage.bump, -65, 1);
 }
 
@@ -1379,7 +1377,7 @@ static void Stage_LoadMusic(void)
 	
 	//Initialize music state
 	stage.note_scroll = FIXED_DEC(-5 * 4 * 12,1);
-	stage.song_time = FIXED_DIV(stage.note_scroll, stage.step_crochet);
+	stage.song_time = FIXED_DIV(stage.note_scroll, stage.step_crochet) - FIXED_DEC(1,1);
 	stage.interp_time = 0;
 	stage.interp_ms = 0;
 	stage.interp_speed = 0;
