@@ -415,8 +415,6 @@ void Audio_PlaySoundOnChannel(u32 addr, u32 channel) {
 }
 
 void Audio_PlaySound(u32 addr) {
-	//sound effects temporarily disabled for repair
-/*
     for (u32 ch = 0; ch < 24; ch++) { // channels 0-3 are reserved for streaming
         if (SPU_CHANNELS[ch]._reserved)
             continue;
@@ -427,6 +425,5 @@ void Audio_PlaySound(u32 addr) {
     }
 
     printf("Could not find free channel to play sound (addr=%08x)\n", addr);
-*/
 }
 

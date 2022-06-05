@@ -72,6 +72,10 @@ boolean has2opponents;
 boolean opponent2sing;
 boolean opponentsing;
 
+static u32 Sounds[4];
+int soundcooldown;
+int drawshit;
+
 #include "character/bf.h"
 #include "character/bfweeb.h"
 #include "character/dad.h"
@@ -674,6 +678,46 @@ void Stage_DrawTexRotate(Gfx_Tex *tex, const RECT *src, const RECT_FIXED *dst, f
     Stage_DrawTexArb(tex, src, &d0, &d1, &d2, &d3, zoom);
 }
 
+void Stage_BlendTexRotate(Gfx_Tex *tex, const RECT *src, const RECT_FIXED *dst, fixed_t zoom, u8 angle, u8 mode)
+{	
+	s16 sin = MUtil_Sin(angle);
+	s16 cos = MUtil_Cos(angle);
+	int pw = dst->w / 2000;
+    int ph = dst->h / 2000;
+
+	//Get rotated points
+	POINT p0 = {-pw, -ph};
+	MUtil_RotatePoint(&p0, sin, cos);
+	
+	POINT p1 = { pw, -ph};
+	MUtil_RotatePoint(&p1, sin, cos);
+	
+	POINT p2 = {-pw,  ph};
+	MUtil_RotatePoint(&p2, sin, cos);
+	
+	POINT p3 = { pw,  ph};
+	MUtil_RotatePoint(&p3, sin, cos);
+	
+	POINT_FIXED d0 = {
+		dst->x + ((fixed_t)p0.x << FIXED_SHIFT),
+		dst->y + ((fixed_t)p0.y << FIXED_SHIFT)
+	};
+	POINT_FIXED d1 = {
+		dst->x + ((fixed_t)p1.x << FIXED_SHIFT),
+		dst->y + ((fixed_t)p1.y << FIXED_SHIFT)
+	};
+	POINT_FIXED d2 = {
+        dst->x + ((fixed_t)p2.x << FIXED_SHIFT),
+		dst->y + ((fixed_t)p2.y << FIXED_SHIFT)
+	};
+	POINT_FIXED d3 = {
+        dst->x + ((fixed_t)p3.x << FIXED_SHIFT),
+		dst->y + ((fixed_t)p3.y << FIXED_SHIFT)
+	};
+	
+    Stage_BlendTexArb(tex, src, &d0, &d1, &d2, &d3, zoom, mode);
+}
+
 void Stage_BlendTex(Gfx_Tex *tex, const RECT *src, const RECT_FIXED *dst, fixed_t zoom, u8 mode)
 {
 	fixed_t xz = dst->x;
@@ -1085,6 +1129,72 @@ static void Stage_DrawNotes(void)
 	}
 }
 
+static void Stage_CountDown(void)
+{
+
+	switch(stage.song_step)
+	{
+		case -17:
+			if (soundcooldown == 0)
+				Audio_PlaySound(Sounds[2]);
+			soundcooldown ++;
+			break;
+		case -13:
+			soundcooldown = 0;
+			break;
+		case -12:
+			drawshit = 3;
+			if (soundcooldown == 0)
+				Audio_PlaySound(Sounds[1]);
+			soundcooldown ++;
+			break;
+		case -8:
+			soundcooldown = 0;
+			break;
+		case -7:
+			drawshit = 2;
+			if (soundcooldown == 0)
+				Audio_PlaySound(Sounds[0]);
+			soundcooldown ++;
+			break;
+		case -3:
+			soundcooldown = 0;
+			break;
+		case -2:
+			drawshit = 1;
+			if (soundcooldown == 0)
+				Audio_PlaySound(Sounds[3]);
+			soundcooldown ++;
+			break;
+		//default: drawshit = 0; 
+		//	break;
+	}
+
+	RECT ready_src = {197, 112, 58, 125};	
+	RECT_FIXED ready_dst = {FIXED_DEC(0,1), FIXED_DEC(0,1), FIXED_DEC(58,1), FIXED_DEC(125,1)};	
+
+	RECT set_src = {201, 64, 54, 96};	
+	RECT_FIXED set_dst = {FIXED_DEC(0,1), FIXED_DEC(0,1), FIXED_DEC(54,1), FIXED_DEC(96,1)};	
+
+	RECT go_src = {207, 17, 48, 95};	
+	RECT_FIXED go_dst = {FIXED_DEC(0,1), FIXED_DEC(0,1), FIXED_DEC(48,1), FIXED_DEC(95,1)};	
+
+	if (drawshit == 3 && stage.song_step >= -12 && stage.song_step <= -9)
+		Stage_DrawTexRotate(&stage.tex_hud1, &ready_src, &ready_dst, stage.bump, -65);
+	else if (drawshit == 3 && stage.song_step >= -9 && stage.song_step <= -8)
+		Stage_BlendTexRotate(&stage.tex_hud1, &ready_src, &ready_dst, stage.bump, -65, 1);
+
+	if (drawshit == 2 && stage.song_step >= -7 && stage.song_step <= -4)
+		Stage_DrawTexRotate(&stage.tex_hud0, &set_src, &set_dst, stage.bump, -65);
+	else if (drawshit == 2 && stage.song_step >= -4 && stage.song_step <= -3)
+		Stage_BlendTexRotate(&stage.tex_hud0, &set_src, &set_dst, stage.bump, -65, 1);
+
+	if (drawshit == 1 && stage.song_step >= -2 && stage.song_step <= 1)
+		Stage_DrawTexRotate(&stage.tex_hud1, &go_src, &go_dst, stage.bump, -65);
+	else if (drawshit == 1 && stage.song_step >= 1 && stage.song_step <= 2)
+		Stage_BlendTexRotate(&stage.tex_hud1, &go_src, &go_dst, stage.bump, -65, 1);
+}
+
 //Stage loads
 static void Stage_SwapChars(void)
 {
@@ -1202,6 +1312,58 @@ static void Stage_LoadChart(void)
 	Stage_ChangeBPM(stage.cur_section->flag & SECTION_FLAG_BPM_MASK, 0);
 }
 
+static void Stage_LoadSFX(void)
+{
+	if (stage.stage_id >= StageId_6_1 && stage.stage_id <= StageId_6_3)
+	{
+		//Load SFX
+	 	CdlFILE file;
+	  	IO_FindFile(&file, "\\SOUNDS\\INTRO1P.VAG;1");
+	    u32 *data = IO_ReadFile(&file);
+	    Sounds[0] = Audio_LoadVAGData(data, file.size);
+	    Mem_Free(data);
+
+		IO_FindFile(&file, "\\SOUNDS\\INTRO2P.VAG;1");
+	    data = IO_ReadFile(&file);
+	    Sounds[1] = Audio_LoadVAGData(data, file.size);
+	    Mem_Free(data);
+
+		IO_FindFile(&file, "\\SOUNDS\\INTRO3P.VAG;1");
+	    data = IO_ReadFile(&file);
+	    Sounds[2] = Audio_LoadVAGData(data, file.size);
+	    Mem_Free(data);
+
+	   	IO_FindFile(&file, "\\SOUNDS\\INTROGOP.VAG;1");
+	    data = IO_ReadFile(&file);
+	    Sounds[3] = Audio_LoadVAGData(data, file.size);
+	    Mem_Free(data);
+	}
+	else
+	{
+		//Load SFX
+	 	CdlFILE file;
+	  	IO_FindFile(&file, "\\SOUNDS\\INTRO1.VAG;1");
+	    u32 *data = IO_ReadFile(&file);
+	    Sounds[0] = Audio_LoadVAGData(data, file.size);
+	    Mem_Free(data);
+
+		IO_FindFile(&file, "\\SOUNDS\\INTRO2.VAG;1");
+	    data = IO_ReadFile(&file);
+	    Sounds[1] = Audio_LoadVAGData(data, file.size);
+	    Mem_Free(data);
+
+		IO_FindFile(&file, "\\SOUNDS\\INTRO3.VAG;1");
+	    data = IO_ReadFile(&file);
+	    Sounds[2] = Audio_LoadVAGData(data, file.size);
+	    Mem_Free(data);
+
+	   	IO_FindFile(&file, "\\SOUNDS\\INTROGO.VAG;1");
+	    data = IO_ReadFile(&file);
+	    Sounds[3] = Audio_LoadVAGData(data, file.size);
+	    Mem_Free(data);
+	}
+}
+
 static void Stage_LoadMusic(void)
 {
 	//Offset sing ends
@@ -1250,6 +1412,8 @@ static void Stage_LoadState(void)
 		stage.player_state[i].combo = 0;
 		opponentsing = 1;	
 		opponent2sing = 1;
+		soundcooldown = 0;
+		drawshit = 0;
 		stage.player_state[i].miss = 0;
 		stage.player_state[i].accuracy = 0;
 		stage.player_state[i].max_accuracy = 0;
@@ -1289,7 +1453,10 @@ void Stage_Load(StageId id, StageDiff difficulty, boolean story)
 	}
 	//Load stage background
 	Stage_LoadStage();
-	
+
+	//Load SFX
+	Stage_LoadSFX();
+
 	//Load characters
 	Stage_LoadPlayer();
 	Stage_LoadOpponent();
@@ -1548,6 +1715,9 @@ void Stage_Tick(void)
 				note_x[7] = FIXED_DEC(-26,1) - FIXED_DEC(SCREEN_WIDEADD,4);
 			}
 
+
+
+			Stage_CountDown();
 			if (stage.botplay == 1)
 			{
 				//Draw botplay

@@ -26,7 +26,7 @@
 
 #include "stdlib.h"
 
-u32 Sounds[3];
+static u32 Sounds[3];
 
 //Menu messages
 static const char *funny_messages[][2] = {
@@ -270,28 +270,23 @@ void Menu_Load(MenuPage page)
 	Trans_Clear();
 	
 	stage.song_step = 0;
-	
-	//sound effects temporarily disabled for repair
-/*
+
 	// to load
 	CdlFILE file;
-    IO_FindFile(&file, "\\SOUND\\SCROLL.VAG;1");
+    IO_FindFile(&file, "\\SOUNDS\\SCROLL.VAG;1");
     u32 *data = IO_ReadFile(&file);
     Sounds[0] = Audio_LoadVAGData(data, file.size);
+    Mem_Free(data);
 
-	IO_FindFile(&file, "\\SOUND\\CONFIRM.VAG;1");
+	IO_FindFile(&file, "\\SOUNDS\\CONFIRM.VAG;1");
     data = IO_ReadFile(&file);
     Sounds[1] = Audio_LoadVAGData(data, file.size);
+    Mem_Free(data);
 
-	IO_FindFile(&file, "\\SOUND\\CANCEL.VAG;1");
+	IO_FindFile(&file, "\\SOUNDS\\CANCEL.VAG;1");
     data = IO_ReadFile(&file);
     Sounds[2] = Audio_LoadVAGData(data, file.size);
-    
-	for (int i = 0; i < 3; i++)
-	printf("address = %08x\n", Sounds[i]);
-
-	free(data);
-*/
+    Mem_Free(data);
 
 	//Play menu music
 	Audio_PlayXA_Track(XA_GettinFreaky, 0x40, 0, 1);
