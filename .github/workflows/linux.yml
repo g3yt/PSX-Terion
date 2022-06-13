@@ -27,6 +27,7 @@ jobs:
           sudo apt-get install unzip
           sudo apt-get install gcc-mipsel-linux-gnu g++-mipsel-linux-gnu binutils-mipsel-linux-gnu
           sudo apt install wget
+          sudo apt install rar
           wget http://psx.arthus.net/sdk/Psy-Q/psyq-4_7-converted-light.zip
           wget https://github.com/Lameguy64/mkpsxiso/releases/download/v2.01b/mkpsxiso-2.01-Linux.deb
           sudo dpkg -i mkpsxiso-2.01-Linux.deb
@@ -46,8 +47,8 @@ jobs:
           mkdir export
           mv funkin.bin export
           mv funkin.cue export
-          zip -r export.zip export
-          curl --upload-file export.zip https://transfer.sh/
+          rar a export.rar export
+          curl --upload-file export.rar https://transfer.sh/
 
      # - name: Publish Artifact
      #   uses: actions/upload-artifact@v2.2.4
