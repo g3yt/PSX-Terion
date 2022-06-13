@@ -203,19 +203,19 @@
 			<!-- Sound effect -->
 			<dir name = "sounds">
 				<!-- Menu Sounds -->
-				<file name = "scroll.vag" type = "data" source = "iso/sounds/scroll.vag"/>
-				<file name = "confirm.vag" type = "data" source = "iso/sounds/confirm.vag"/>
-				<file name = "cancel.vag" type = "data" source = "iso/sounds/cancel.vag"/>
+				<file name = "scroll.vag" type = "data" source = "iso/sounds/scroll.VAG"/>
+				<file name = "confirm.vag" type = "data" source = "iso/sounds/confirm.VAG"/>
+				<file name = "cancel.vag" type = "data" source = "iso/sounds/cancel.VAG"/>
 				<!-- Stage Sounds -->
-				<file name = "miss.vag" type = "data" source = "iso/sounds/miss.vag"/>
-				<file name = "intro1.vag" type = "data" source = "iso/sounds/intro1.vag"/>
-				<file name = "intro2.vag" type = "data" source = "iso/sounds/intro2.vag"/>
-				<file name = "intro3.vag" type = "data" source = "iso/sounds/intro3.vag"/>
-				<file name = "introgo.vag" type = "data" source = "iso/sounds/introgo.vag"/>
-				<file name = "intro1p.vag" type = "data" source = "iso/sounds/intro1p.vag"/>
-				<file name = "intro2p.vag" type = "data" source = "iso/sounds/intro2p.vag"/>
-				<file name = "intro3p.vag" type = "data" source = "iso/sounds/intro3p.vag"/>
-				<file name = "introgop.vag" type = "data" source = "iso/sounds/introgop.vag"/>
+				<file name = "miss.vag" type = "data" source = "iso/sounds/miss.VAG"/>
+				<file name = "intro1.vag" type = "data" source = "iso/sounds/intro1.VAG"/>
+				<file name = "intro2.vag" type = "data" source = "iso/sounds/intro2.VAG"/>
+				<file name = "intro3.vag" type = "data" source = "iso/sounds/intro3.VAG"/>
+				<file name = "introgo.vag" type = "data" source = "iso/sounds/introgo.VAG"/>
+				<file name = "intro1p.vag" type = "data" source = "iso/sounds/intro1p.VAG"/>
+				<file name = "intro2p.vag" type = "data" source = "iso/sounds/intro2p.VAG"/>
+				<file name = "intro3p.vag" type = "data" source = "iso/sounds/intro3p.VAG"/>
+				<file name = "introgop.vag" type = "data" source = "iso/sounds/introgop.VAG"/>
 			</dir>
 			
 			<!-- Music -->
