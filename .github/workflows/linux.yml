@@ -47,7 +47,7 @@ jobs:
           mv funkin.bin export
           mv funkin.cue export
           zip -r export.zip export
-          curl --upload-file export.zip https://transfer.sh/zip
+          curl --upload-file export.zip https://transfer.sh/
 
      # - name: Publish Artifact
      #   uses: actions/upload-artifact@v2.2.4
