@@ -16,6 +16,7 @@
 #include "player.h"
 #include "object.h"
 #include "font.h"
+#include "debug.h"
 
 #include "network.h"
 
@@ -179,7 +180,7 @@ typedef struct
 typedef struct
 {
 	//Stage settings
-	boolean ghost, downscroll, middlescroll, expsync, practice;
+	boolean ghost, downscroll, middlescroll, expsync, practice, debug;
 	s32 mode;
 	
 	u32 offset;
@@ -238,9 +239,9 @@ typedef struct
 	s16 noteshakex;
 	s16 noteshakey;
 
-	s16 song_step;
+	int song_step;
 
-	s16 botplay;
+	boolean botplay, freecam;
 	
 	u8 gf_speed; //Typically 4 steps, changes in Fresh
 	

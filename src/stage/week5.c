@@ -50,7 +50,8 @@ void Back_Week5_DrawBG(StageBack *back)
 		FIXED_DEC(570,1),
 		FIXED_DEC(27,1)
 	};
-	
+
+	Debug_StageMoveDebug(&snow_dst, 3, fx, fy);
 	Stage_DrawTex(&this->tex_back2, &snow_src, &snow_dst, stage.camera.bzoom);
 	snow_src.y = 255; snow_src.h = 0;
 	snow_dst.y += snow_dst.h - FIXED_UNIT;
@@ -80,6 +81,7 @@ void Back_Week5_DrawBG(StageBack *back)
 			lbop_p->dst.w + (beat_bop << 2),
 			lbop_p->dst.h - (beat_bop << 3),
 		};
+		Debug_StageMoveDebug(&lbop_dst, 4, fx, fy);
 		Stage_DrawTex(&this->tex_back2, &lbop_p->src, &lbop_dst, stage.camera.bzoom);
 	}
 	
@@ -94,7 +96,7 @@ void Back_Week5_DrawBG(StageBack *back)
 		FIXED_DEC(174,1),
 		FIXED_DEC(210,1)
 	};
-	
+	Debug_StageMoveDebug(&tree_dst, 5, fx, fy);
 	Stage_DrawTex(&this->tex_back5, &tree_src, &tree_dst, stage.camera.bzoom);
 	
 	//Draw second floor
@@ -117,7 +119,8 @@ void Back_Week5_DrawBG(StageBack *back)
 		0,
 		FIXED_DEC(180,1)
 	};
-	
+	Debug_StageMoveDebug(&floor_dst, 6, fx, fy);
+
 	const struct Back_Week5_FloorPiece *floor_p = floor_piece;
 	for (size_t i = 0; i < COUNT_OF(floor_piece); i++, floor_p++)
 	{
@@ -145,6 +148,7 @@ void Back_Week5_DrawBG(StageBack *back)
 			ubop_p->dst.w,
 			ubop_p->dst.h - (beat_bop << 2),
 		};
+		Debug_StageMoveDebug(&ubop_dst, 7, fx, fy);
 		Stage_DrawTex(&this->tex_back4, &ubop_p->src, &ubop_dst, stage.camera.bzoom);
 	}
 	
@@ -168,7 +172,8 @@ void Back_Week5_DrawBG(StageBack *back)
 		0,
 		FIXED_DEC(190,1)
 	};
-	
+	Debug_StageMoveDebug(&wall_dst, 8, fx, fy);
+
 	RECT wall_src = {0, 255, 0, 0};
 	RECT_FIXED wall_fill;
 	wall_fill.x = wall_dst.x;

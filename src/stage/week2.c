@@ -38,7 +38,8 @@ void Back_Week2_DrawBG(StageBack *back)
 		FIXED_DEC(216,1),
 		FIXED_DEC(120,1)
 	};
-	
+
+	Debug_StageMoveDebug(&window_dst, 3, fx, fy);
 	Stage_DrawTex(&this->tex_back1, &window_src, &window_dst, stage.camera.bzoom);
 	
 	//Draw window light
@@ -49,7 +50,8 @@ void Back_Week2_DrawBG(StageBack *back)
 		FIXED_DEC(350,1),
 		FIXED_DEC(148,1)
 	};
-	
+
+	Debug_StageMoveDebug(&windowl_dst, 4, fx, fy);	
 	Stage_DrawTex(&this->tex_back1, &windowl_src, &windowl_dst, stage.camera.bzoom);
 	
 	//Draw background
@@ -61,27 +63,8 @@ void Back_Week2_DrawBG(StageBack *back)
 		FIXED_DEC(267,1)
 	};
 	
+	Debug_StageMoveDebug(&back_dst, 5, fx, fy);
 	Stage_DrawTex(&this->tex_back0, &back_src, &back_dst, stage.camera.bzoom);
-	
-	#if SCREEN_WIDTH > 320
-		RECT backl_src = {0, 0, 1, 256};
-		RECT_FIXED backl_dst = {
-			FIXED_DEC(-185,1) - FIXED_DEC(SCREEN_WIDEADD,2) - fx,
-			FIXED_DEC(-125,1) - fy,
-			FIXED_DEC(SCREEN_WIDEADD,2),
-			FIXED_DEC(267,1)
-		};
-		RECT backr_src = {255, 0, 0, 256};
-		RECT_FIXED backr_dst = {
-			FIXED_DEC(168,1) - fx,
-			FIXED_DEC(-125,1) - fy,
-			FIXED_DEC(SCREEN_WIDEADD,2),
-			FIXED_DEC(267,1)
-		};
-		
-		Stage_DrawTex(&this->tex_back0, &backl_src, &backl_dst, stage.camera.bzoom);
-		Stage_DrawTex(&this->tex_back0, &backr_src, &backr_dst, stage.camera.bzoom);
-	#endif
 }
 
 void Back_Week2_Free(StageBack *back)

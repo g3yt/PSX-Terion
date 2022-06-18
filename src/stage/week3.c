@@ -95,7 +95,9 @@ void Back_Week3_DrawBG(StageBack *back)
 		0,
 		FIXED_DEC(220,1)
 	};
-	
+
+	Debug_StageMoveDebug(&roof_dst, 3, fx, fy);
+
 	const struct Back_Week3_RoofPiece *roof_p = roof_piece;
 	for (size_t i = 0; i < COUNT_OF(roof_piece); i++, roof_p++)
 	{
@@ -135,6 +137,8 @@ void Back_Week3_DrawBG(StageBack *back)
 			FIXED_DEC(120,1)
 		};
 		
+		Debug_StageMoveDebug(&train_dst, 5, fx, fy);
+
 		for (int i = 0; i < 24; i++, train_dst.x += train_dst.w)
 		{
 			if (train_dst.x >= (SCREEN_WIDTH2 << FIXED_SHIFT) || train_dst.x <= -(train_dst.w + (SCREEN_WIDTH2 << FIXED_SHIFT)))
@@ -159,7 +163,8 @@ void Back_Week3_DrawBG(StageBack *back)
 		FIXED_DEC(39,1),
 		FIXED_DEC(121,1)
 	};
-	
+	Debug_StageMoveDebug(&arcl_dst, 6, fx, fy);
+	Debug_StageMoveDebug(&arcr_dst, 7, fx, fy);
 	Stage_DrawTex(&this->tex_back3, &arcl_src, &arcl_dst, stage.camera.bzoom);
 	Stage_DrawTex(&this->tex_back3, &arcr_src, &arcr_dst, stage.camera.bzoom);
 	
@@ -188,7 +193,8 @@ void Back_Week3_DrawBG(StageBack *back)
 		u8 win_r = (((fixed_t)this->win_r * this->win_time) >> FIXED_SHIFT) / 6;
 		u8 win_g = (((fixed_t)this->win_g * this->win_time) >> FIXED_SHIFT) / 6;
 		u8 win_b = (((fixed_t)this->win_b * this->win_time) >> FIXED_SHIFT) / 6;
-		
+		Debug_StageMoveDebug(&lightl_dst, 8, fx, fy);
+		Debug_StageMoveDebug(&lightr_dst, 9, fx, fy);
 		Stage_DrawTexCol(&this->tex_back1, &lightl_src, &lightl_dst, stage.camera.bzoom, win_r, win_g, win_b);
 		Stage_DrawTexCol(&this->tex_back1, &lightr_src, &lightr_dst, stage.camera.bzoom, win_r, win_g, win_b);
 	}
@@ -201,7 +207,8 @@ void Back_Week3_DrawBG(StageBack *back)
 		FIXED_DEC(240,1),
 		FIXED_DEC(120,1)
 	};
-	
+	Debug_StageMoveDebug(&building_dst, 10, fx, fy);
+
 	Stage_DrawTex(&this->tex_back0, &building_src, &building_dst, stage.camera.bzoom);
 	building_dst.x += building_dst.w;
 	building_src.y += building_src.h;
@@ -222,7 +229,7 @@ void Back_Week3_DrawBG(StageBack *back)
 		FIXED_DEC(172,1) + FIXED_DEC(SCREEN_WIDEOADD,1),
 		FIXED_DEC(110,1) + FIXED_DEC(SCREEN_WIDEOADD,2)
 	};
-	
+	Debug_StageMoveDebug(&sky_dst, 11, fx, fy);
 	Stage_DrawTex(&this->tex_back5, &sky_src, &sky_dst, stage.camera.bzoom);
 	sky_dst.x += sky_dst.w;
 	sky_src.y += sky_src.h;
