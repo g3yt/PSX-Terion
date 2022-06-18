@@ -96,7 +96,7 @@ void Back_Week3_DrawBG(StageBack *back)
 		FIXED_DEC(220,1)
 	};
 
-	Debug_StageMoveDebug(&roof_dst, 3, fx, fy);
+	Debug_StageMoveDebug(&roof_dst, 4, fx, fy);
 
 	const struct Back_Week3_RoofPiece *roof_p = roof_piece;
 	for (size_t i = 0; i < COUNT_OF(roof_piece); i++, roof_p++)

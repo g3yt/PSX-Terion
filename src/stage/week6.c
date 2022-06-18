@@ -70,7 +70,7 @@ void Week6_Freaks_Draw(Back_Week6 *this, fixed_t x, fixed_t y, boolean flip)
 	
 	RECT src = {cframe->src[0], cframe->src[1], cframe->src[2], cframe->src[3]};
 	RECT_FIXED dst = {ox, oy, src.w << FIXED_SHIFT, src.h << FIXED_SHIFT};
-	Debug_StageMoveDebug(&dst, 3, (stage.camera.x << 2) / 5, (stage.camera.y << 2) / 5);
+	Debug_StageMoveDebug(&dst, 4, (stage.camera.x << 2) / 5, (stage.camera.y << 2) / 5);
 	Stage_DrawTex(&this->tex_back2, &src, &dst, stage.camera.bzoom);
 }
 
@@ -153,8 +153,8 @@ void Back_Week6_DrawBG(StageBack *back)
 		FIXED_DEC(50,1)
 	};
 	
-	Debug_StageMoveDebug(&bg_tree_l_dst, 4, fx, fy);
-	Debug_StageMoveDebug(&bg_tree_r_dst, 5, fx, fy);
+	Debug_StageMoveDebug(&bg_tree_l_dst, 5, fx, fy);
+	Debug_StageMoveDebug(&bg_tree_r_dst, 6, fx, fy);
 	Stage_DrawTex(&this->tex_back1, &bg_tree_l_src, &bg_tree_l_dst, stage.camera.bzoom);
 	Stage_DrawTex(&this->tex_back1, &bg_tree_r_src, &bg_tree_r_dst, stage.camera.bzoom);
 	
@@ -169,7 +169,7 @@ void Back_Week6_DrawBG(StageBack *back)
 		FIXED_DEC(255,1),
 		FIXED_DEC(75,1)
 	};
-	Debug_StageMoveDebug(&school_dst, 6, fx, fy);
+	Debug_StageMoveDebug(&school_dst, 7, fx, fy);
 	Stage_DrawTex(&this->tex_back0, &school_src, &school_dst, stage.camera.bzoom);
 	
 	//Draw street
@@ -212,7 +212,7 @@ void Back_Week6_DrawBG(StageBack *back)
 		FIXED_DEC(255,1),
 		FIXED_DEC(125,1)
 	};
-	Debug_StageMoveDebug(&sky_dst, 7, fx, fy);
+	Debug_StageMoveDebug(&sky_dst, 8, fx, fy);
 	Stage_DrawTex(&this->tex_back0, &sky_src, &sky_dst, stage.camera.bzoom);
 }
 

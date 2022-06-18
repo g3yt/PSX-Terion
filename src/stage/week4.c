@@ -83,7 +83,7 @@ void Week4_Henchmen_Draw(Back_Week4 *this, fixed_t x, fixed_t y)
 	
 	RECT src = {cframe->src[0], cframe->src[1], cframe->src[2], cframe->src[3]};
 	RECT_FIXED dst = {ox, oy, src.w << FIXED_SHIFT, src.h << FIXED_SHIFT};
-	Debug_StageMoveDebug(&dst, 3, stage.camera.x >> 1, stage.camera.y >> 1);
+	Debug_StageMoveDebug(&dst, 4, stage.camera.x >> 1, stage.camera.y >> 1);
 	Stage_DrawTex(&this->tex_hench, &src, &dst, stage.camera.bzoom);
 }
 
@@ -121,7 +121,7 @@ void Back_Week4_DrawFG(StageBack *back)
 		FIXED_DEC(400,1),
 		FIXED_DEC(200,1)
 	};
-	Debug_StageMoveDebug(&car_dst, 4, fx, fy);
+	Debug_StageMoveDebug(&car_dst, 5, fx, fy);
 	Stage_DrawTex(&this->tex_back3, &car_src, &car_dst, stage.camera.bzoom);
 }
 
@@ -142,7 +142,7 @@ void Back_Week4_DrawMD(StageBack *back)
 		FIXED_DEC(256,1),
 		FIXED_DEC(128,1)
 	};
-	Debug_StageMoveDebug(&fglimo_dst, 5, fx, fy);
+	Debug_StageMoveDebug(&fglimo_dst, 6, fx, fy);
 	Stage_DrawTex(&this->tex_back0, &fglimo_src, &fglimo_dst, stage.camera.bzoom);
 	fglimo_dst.x += fglimo_dst.w;
 	fglimo_dst.y -= (fglimo_dst.h * 22) >> 7;
@@ -188,7 +188,7 @@ void Back_Week4_DrawBG(StageBack *back)
 		FIXED_DEC(256,1),
 		FIXED_DEC(128,1)
 	};
-	Debug_StageMoveDebug(&bglimo_dst, 6, fx, fy);
+	Debug_StageMoveDebug(&bglimo_dst, 7, fx, fy);
 	Stage_DrawTex(&this->tex_back1, &bglimo_src, &bglimo_dst, stage.camera.bzoom);
 	bglimo_dst.x += bglimo_dst.w;
 	bglimo_src.y += 128;
@@ -205,7 +205,7 @@ void Back_Week4_DrawBG(StageBack *back)
 		FIXED_DEC(340 + SCREEN_WIDEOADD,1),
 		FIXED_DEC(260,1)
 	};
-	Debug_StageMoveDebug(&sunset_dst, 7, fx, fy);
+	Debug_StageMoveDebug(&sunset_dst, 8, fx, fy);
 	Stage_DrawTex(&this->tex_back2, &sunset_src, &sunset_dst, stage.camera.bzoom);
 }
 

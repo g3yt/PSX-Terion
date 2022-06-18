@@ -151,7 +151,7 @@ static void Stage_ScrollCamera(void)
 		if (pad_state.held & PAD_CROSS)
 			stage.camera.zoom += FIXED_DEC(1,100);
 	}
-	else
+	else if (!stage.debug)
 	{
 		//Get delta position
 		fixed_t dx = stage.camera.tx - stage.camera.x;

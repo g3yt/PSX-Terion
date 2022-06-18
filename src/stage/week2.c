@@ -39,7 +39,7 @@ void Back_Week2_DrawBG(StageBack *back)
 		FIXED_DEC(120,1)
 	};
 
-	Debug_StageMoveDebug(&window_dst, 3, fx, fy);
+	Debug_StageMoveDebug(&window_dst, 4, fx, fy);
 	Stage_DrawTex(&this->tex_back1, &window_src, &window_dst, stage.camera.bzoom);
 	
 	//Draw window light
@@ -51,7 +51,7 @@ void Back_Week2_DrawBG(StageBack *back)
 		FIXED_DEC(148,1)
 	};
 
-	Debug_StageMoveDebug(&windowl_dst, 4, fx, fy);	
+	Debug_StageMoveDebug(&windowl_dst, 5, fx, fy);	
 	Stage_DrawTex(&this->tex_back1, &windowl_src, &windowl_dst, stage.camera.bzoom);
 	
 	//Draw background
@@ -63,7 +63,7 @@ void Back_Week2_DrawBG(StageBack *back)
 		FIXED_DEC(267,1)
 	};
 	
-	Debug_StageMoveDebug(&back_dst, 5, fx, fy);
+	Debug_StageMoveDebug(&back_dst, 6, fx, fy);
 	Stage_DrawTex(&this->tex_back0, &back_src, &back_dst, stage.camera.bzoom);
 }
 

@@ -98,6 +98,16 @@ void Debug_StageDebug()
 				case 1:
 				if (debug.switchcooldown == 0)
 				{
+					debug.debugx = stage.opponent2->x / 1024; 
+					debug.debugy = stage.opponent2->y / 1024; 
+				}
+				debug.switchcooldown ++;
+				stage.opponent2->x = FIXED_DEC(debug.debugx,1);
+				stage.opponent2->y = FIXED_DEC(debug.debugy,1);
+				break;
+				case 2:
+				if (debug.switchcooldown == 0)
+				{
 					debug.debugx = stage.gf->x / 1024; 
 					debug.debugy = stage.gf->y / 1024; 
 				}
@@ -105,7 +115,7 @@ void Debug_StageDebug()
 				stage.gf->x = FIXED_DEC(debug.debugx,1);
 				stage.gf->y = FIXED_DEC(debug.debugy,1);
 				break;
-				case 2:
+				case 3:
 				if (debug.switchcooldown == 0)
 				{
 					debug.debugx = stage.player->x / 1024; 

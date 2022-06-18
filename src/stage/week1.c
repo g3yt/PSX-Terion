@@ -47,8 +47,8 @@ void Back_Week1_DrawBG(StageBack *back)
 		FIXED_DEC(256,1)
 	};
 	
-	Debug_StageMoveDebug(&curtainl_dst, 3, fx, fy);
-	Debug_StageMoveDebug(&curtainr_dst, 4, fx, fy);
+	Debug_StageMoveDebug(&curtainl_dst, 4, fx, fy);
+	Debug_StageMoveDebug(&curtainr_dst, 5, fx, fy);
 	Stage_DrawTex(&this->tex_back1, &curtainl_src, &curtainl_dst, stage.camera.bzoom);
 	Stage_DrawTex(&this->tex_back1, &curtainr_src, &curtainr_dst, stage.camera.bzoom);
 	
@@ -107,8 +107,8 @@ void Back_Week1_DrawBG(StageBack *back)
 		SCREEN_HEIGHT,
 	};
 	
-	Debug_StageMoveDebug(&backl_dst, 5, fx, fy);
-	Debug_StageMoveDebug(&backr_dst, 6, fx, fy);
+	Debug_StageMoveDebug(&backl_dst, 6, fx, fy);
+	Debug_StageMoveDebug(&backr_dst, 7, fx, fy);
 	Stage_DrawTex(&this->tex_back0, &backl_src, &backl_dst, stage.camera.bzoom);
 	Stage_DrawTex(&this->tex_back0, &backr_src, &backr_dst, stage.camera.bzoom);
 	Gfx_DrawTex(&this->tex_back0, &backf_src, &backf_dst);
