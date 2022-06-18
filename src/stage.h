@@ -179,8 +179,9 @@ typedef struct
 
 typedef struct
 {
+	DISPENV disp[2];
 	//Stage settings
-	boolean ghost, downscroll, middlescroll, expsync, practice, debug;
+	boolean ghost, downscroll, middlescroll, expsync, practice, debug, palmode;
 	s32 mode;
 	
 	u32 offset;
