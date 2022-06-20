@@ -15,7 +15,6 @@
 #define OTLEN 8
 
 //Gfx state
-DRAWENV draw[2];
 u8 db;
 
 static u32 ot[2][OTLEN];    //Ordering table length
@@ -28,22 +27,10 @@ void Gfx_Init(void)
 	//Reset GPU
 	ResetGraph(0);
 	
-	//Initialize display environment
-	SetDefDispEnv(&stage.disp[0], 0, 0, 320, 240);
-	SetDefDispEnv(&stage.disp[1], 0, 240, 320, 240);
-	
-	//Initialize draw environment
-	SetDefDrawEnv(&draw[0], 0, 240, 320, 240);
-	SetDefDrawEnv(&draw[1], 0, 0, 320, 240);
-	
 	//Set draw background
-	draw[0].isbg = draw[1].isbg = 1;
-	setRGB0(&draw[0], 0, 0, 0);
-	setRGB0(&draw[1], 0, 0, 0);
-	
-	//Load font
-	FntLoad(960, 0);
-	FntOpen(0, 8, 320, 224, 0, 100);
+	stage.draw[0].isbg = stage.draw[1].isbg = 1;
+	setRGB0(&stage.draw[0], 0, 0, 0);
+	setRGB0(&stage.draw[1], 0, 0, 0);
 	
 	//Initialize drawing state
 	nextpri = pribuff[0];
@@ -53,8 +40,7 @@ void Gfx_Init(void)
 }
 
 void Gfx_Quit(void)
-{
-	
+{	
 }
 
 void Gfx_Flip(void)
@@ -65,7 +51,7 @@ void Gfx_Flip(void)
 	
 	//Apply environments
 	PutDispEnv(&stage.disp[db]);
-	PutDrawEnv(&draw[db]);
+	PutDrawEnv(&stage.draw[db]);
 	
 	//Enable display
 	SetDispMask(1);
@@ -82,18 +68,18 @@ void Gfx_Flip(void)
 
 void Gfx_SetClear(u8 r, u8 g, u8 b)
 {
-	setRGB0(&draw[0], r, g, b);
-	setRGB0(&draw[1], r, g, b);
+	setRGB0(&stage.draw[0], r, g, b);
+	setRGB0(&stage.draw[1], r, g, b);
 }
 
 void Gfx_EnableClear(void)
 {
-	draw[0].isbg = draw[1].isbg = 1;
+	stage.draw[0].isbg = stage.draw[1].isbg = 1;
 }
 
 void Gfx_DisableClear(void)
 {
-	draw[0].isbg = draw[1].isbg = 0;
+	stage.draw[0].isbg = stage.draw[1].isbg = 0;
 }
 
 void Gfx_LoadTex(Gfx_Tex *tex, IO_Data data, Gfx_LoadTex_Flag flag)

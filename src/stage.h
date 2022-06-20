@@ -180,6 +180,8 @@ typedef struct
 typedef struct
 {
 	DISPENV disp[2];
+	DRAWENV draw[2];
+	
 	//Stage settings
 	boolean ghost, downscroll, middlescroll, expsync, practice, debug, palmode;
 	s32 mode;
