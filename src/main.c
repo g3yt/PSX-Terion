@@ -91,6 +91,21 @@ int main(int argc, char **argv)
 		#endif
 		
 		#ifdef PSXF169
+			screen.SCREEN_WIDTH   = 512;
+			screen.SCREEN_HEIGHT  = 240;
+			screen.SCREEN_WIDTH2  = (screen.SCREEN_WIDTH >> 1);
+			screen.SCREEN_HEIGHT2 = (screen.SCREEN_HEIGHT >> 1);
+
+			screen.SCREEN_WIDEADD = (screen.SCREEN_WIDTH - 512);
+			screen.SCREEN_TALLADD = (screen.SCREEN_HEIGHT - 240);
+			screen.SCREEN_WIDEADD2 = (screen.SCREEN_WIDEADD >> 1);
+			screen.SCREEN_TALLADD2 = (screen.SCREEN_TALLADD >> 1);
+
+			screen.SCREEN_WIDEOADD = (screen.SCREEN_WIDEADD > 0 ? screen.SCREEN_WIDEADD : 0);
+			screen.SCREEN_TALLOADD = (screen.SCREEN_TALLADD > 0 ? screen.SCREEN_TALLADD : 0);
+			screen.SCREEN_WIDEOADD2 = (screen.SCREEN_WIDEOADD >> 1);
+			screen.SCREEN_TALLOADD2 = (screen.SCREEN_TALLOADD >> 1);	
+
 			//Initialize display environment
 			SetDefDispEnv(&stage.disp[0], 0, 0, 512, 240);
 			SetDefDispEnv(&stage.disp[1], 0, 240, 512, 240);
@@ -103,6 +118,21 @@ int main(int argc, char **argv)
 			FntLoad(960, 0);
 			FntOpen(0, 8, 512, 224, 0, 100);
 		#else
+			screen.SCREEN_WIDTH   = 320;
+			screen.SCREEN_HEIGHT  = 240;
+			screen.SCREEN_WIDTH2  = (screen.SCREEN_WIDTH >> 1);
+			screen.SCREEN_HEIGHT2 = (screen.SCREEN_HEIGHT >> 1);
+
+			screen.SCREEN_WIDEADD = (screen.SCREEN_WIDTH - 320);
+			screen.SCREEN_TALLADD = (screen.SCREEN_HEIGHT - 240);
+			screen.SCREEN_WIDEADD2 = (screen.SCREEN_WIDEADD >> 1);
+			screen.SCREEN_TALLADD2 = (screen.SCREEN_TALLADD >> 1);
+
+			screen.SCREEN_WIDEOADD = (screen.SCREEN_WIDEADD > 0 ? screen.SCREEN_WIDEADD : 0);
+			screen.SCREEN_TALLOADD = (screen.SCREEN_TALLADD > 0 ? screen.SCREEN_TALLADD : 0);
+			screen.SCREEN_WIDEOADD2 = (screen.SCREEN_WIDEOADD >> 1);
+			screen.SCREEN_TALLOADD2 = (screen.SCREEN_TALLOADD >> 1);	
+			
 			//Initialize display environment
 			SetDefDispEnv(&stage.disp[0], 0, 0, 320, 240);
 			SetDefDispEnv(&stage.disp[1], 0, 240, 320, 240);
