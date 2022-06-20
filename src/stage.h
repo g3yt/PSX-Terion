@@ -183,7 +183,7 @@ typedef struct
 	DRAWENV draw[2];
 	
 	//Stage settings
-	boolean ghost, downscroll, middlescroll, expsync, practice, debug, palmode;
+	boolean ghost, downscroll, middlescroll, expsync, practice, debug, palmode, widescreen;
 	s32 mode;
 	
 	u32 offset;

@@ -77,20 +77,20 @@ void Back_Week3_DrawBG(StageBack *back)
 	fx = stage.camera.x;
 	fy = stage.camera.y;
 	
-	static const struct Back_Week3_RoofPiece
+	struct Back_Week3_RoofPiece
 	{
 		RECT src;
 		fixed_t scale;
 	} roof_piece[] = {
-		{{  0, 0,  16, 256}, FIXED_MUL(FIXED_DEC(3,1) * 7 / 10, FIXED_UNIT + FIXED_DEC(SCREEN_WIDEOADD,2) * 10 / 336)},
+		{{  0, 0,  16, 256}, FIXED_MUL(FIXED_DEC(3,1) * 7 / 10, FIXED_UNIT + FIXED_DEC(screen.SCREEN_WIDEOADD,2) * 10 / 336)},
 		{{ 16, 0,  55, 256}, FIXED_DEC(1,1) * 9 / 10},
 		{{ 71, 0, 128, 256}, FIXED_DEC(265,100) * 7 / 10},
 		{{199, 0,  55, 256}, FIXED_DEC(1,1) * 9 / 10},
-		{{255, 0,   0, 256}, FIXED_DEC(16,1) + FIXED_DEC(SCREEN_WIDEOADD2,1)}
+		{{255, 0,   0, 256}, FIXED_DEC(16,1) + FIXED_DEC(screen.SCREEN_WIDEOADD2,1)}
 	};
 	
 	RECT_FIXED roof_dst = {
-		FIXED_DEC(-210,1) - FIXED_DEC(SCREEN_WIDEOADD,2) - fx,
+		FIXED_DEC(-210,1) - FIXED_DEC(screen.SCREEN_WIDEOADD,2) - fx,
 		FIXED_DEC(-106,1) - fy,
 		0,
 		FIXED_DEC(220,1)
@@ -107,7 +107,7 @@ void Back_Week3_DrawBG(StageBack *back)
 	}
 	
 	RECT roof_fillsrc = {0, 254, 1, 0};
-	RECT roof_fill = {0, SCREEN_HEIGHT * 2 / 3, SCREEN_WIDTH, SCREEN_HEIGHT * 1 / 3};
+	RECT roof_fill = {0, screen.SCREEN_HEIGHT * 2 / 3, screen.SCREEN_WIDTH, screen.SCREEN_HEIGHT * 1 / 3};
 	Gfx_DrawTex(&this->tex_back2, &roof_fillsrc, &roof_fill);
 	
 	//Move train
@@ -141,7 +141,7 @@ void Back_Week3_DrawBG(StageBack *back)
 
 		for (int i = 0; i < 24; i++, train_dst.x += train_dst.w)
 		{
-			if (train_dst.x >= (SCREEN_WIDTH2 << FIXED_SHIFT) || train_dst.x <= -(train_dst.w + (SCREEN_WIDTH2 << FIXED_SHIFT)))
+			if (train_dst.x >= (screen.SCREEN_WIDTH2 << FIXED_SHIFT) || train_dst.x <= -(train_dst.w + (screen.SCREEN_WIDTH2 << FIXED_SHIFT)))
 				continue;
 			Stage_DrawTex(&this->tex_back4, &train_src, &train_dst, stage.camera.bzoom);
 		}
@@ -215,7 +215,7 @@ void Back_Week3_DrawBG(StageBack *back)
 	Stage_DrawTex(&this->tex_back0, &building_src, &building_dst, stage.camera.bzoom);
 	
 	RECT building_fillsrc = {0, 255, 1, 0};
-	RECT building_fill = {0, SCREEN_HEIGHT * 3 / 7, SCREEN_WIDTH, SCREEN_HEIGHT * 4 / 7};
+	RECT building_fill = {0, screen.SCREEN_HEIGHT * 3 / 7, screen.SCREEN_WIDTH, screen.SCREEN_HEIGHT * 4 / 7};
 	Gfx_DrawTex(&this->tex_back0, &building_fillsrc, &building_fill);
 	
 	//Draw sky
@@ -224,10 +224,10 @@ void Back_Week3_DrawBG(StageBack *back)
 	
 	RECT sky_src = {0, 0, 255, 128};
 	RECT_FIXED sky_dst = {
-		FIXED_DEC(-166,1) - FIXED_DEC(SCREEN_WIDEOADD,2) - fx,
-		FIXED_DEC(-117,1) - FIXED_DEC(SCREEN_WIDEOADD,4) - fy,
-		FIXED_DEC(172,1) + FIXED_DEC(SCREEN_WIDEOADD,1),
-		FIXED_DEC(110,1) + FIXED_DEC(SCREEN_WIDEOADD,2)
+		FIXED_DEC(-166,1) - FIXED_DEC(screen.SCREEN_WIDEOADD,2) - fx,
+		FIXED_DEC(-117,1) - FIXED_DEC(screen.SCREEN_WIDEOADD,4) - fy,
+		FIXED_DEC(172,1) + FIXED_DEC(screen.SCREEN_WIDEOADD,1),
+		FIXED_DEC(110,1) + FIXED_DEC(screen.SCREEN_WIDEOADD,2)
 	};
 	Debug_StageMoveDebug(&sky_dst, 11, fx, fy);
 	Stage_DrawTex(&this->tex_back5, &sky_src, &sky_dst, stage.camera.bzoom);

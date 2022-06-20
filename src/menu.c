@@ -154,7 +154,7 @@ static const char *Menu_LowerIf(const char *text, boolean lower)
 static void Menu_DrawBack(boolean flash, s32 scroll, u8 r0, u8 g0, u8 b0, u8 r1, u8 g1, u8 b1)
 {
 	RECT back_src = {0, 0, 255, 255};
-	RECT back_dst = {0, -scroll - SCREEN_WIDEADD2, SCREEN_WIDTH, SCREEN_WIDTH * 4 / 5};
+	RECT back_dst = {0, -scroll - screen.SCREEN_WIDEADD2, screen.SCREEN_WIDTH, screen.SCREEN_WIDTH * 4 / 5};
 	
 	if (flash || (animf_count & 4) == 0)
 		Gfx_DrawTexCol(&menu.tex_back, &back_src, &back_dst, r0, g0, b0);
@@ -362,42 +362,42 @@ void Menu_Tick(void)
 				switch (beat)
 				{
 					case 3:
-						menu.font_bold.draw(&menu.font_bold, "PRESENT", SCREEN_WIDTH2, SCREEN_HEIGHT2 + 32, FontAlign_Center);
+						menu.font_bold.draw(&menu.font_bold, "PRESENT", screen.SCREEN_WIDTH2, screen.SCREEN_HEIGHT2 + 32, FontAlign_Center);
 				//Fallthrough
 					case 2:
 					case 1:
-						menu.font_bold.draw(&menu.font_bold, "NINJAMUFFIN",   SCREEN_WIDTH2, SCREEN_HEIGHT2 - 32, FontAlign_Center);
-						menu.font_bold.draw(&menu.font_bold, "PHANTOMARCADE", SCREEN_WIDTH2, SCREEN_HEIGHT2 - 16, FontAlign_Center);
-						menu.font_bold.draw(&menu.font_bold, "KAWAISPRITE",   SCREEN_WIDTH2, SCREEN_HEIGHT2,      FontAlign_Center);
-						menu.font_bold.draw(&menu.font_bold, "EVILSKER",      SCREEN_WIDTH2, SCREEN_HEIGHT2 + 16, FontAlign_Center);
+						menu.font_bold.draw(&menu.font_bold, "NINJAMUFFIN",   screen.SCREEN_WIDTH2, screen.SCREEN_HEIGHT2 - 32, FontAlign_Center);
+						menu.font_bold.draw(&menu.font_bold, "PHANTOMARCADE", screen.SCREEN_WIDTH2, screen.SCREEN_HEIGHT2 - 16, FontAlign_Center);
+						menu.font_bold.draw(&menu.font_bold, "KAWAISPRITE",   screen.SCREEN_WIDTH2, screen.SCREEN_HEIGHT2,      FontAlign_Center);
+						menu.font_bold.draw(&menu.font_bold, "EVILSKER",      screen.SCREEN_WIDTH2, screen.SCREEN_HEIGHT2 + 16, FontAlign_Center);
 						break;
 					
 					case 7:
-						menu.font_bold.draw(&menu.font_bold, "NEWGROUNDS",    SCREEN_WIDTH2, SCREEN_HEIGHT2 - 32, FontAlign_Center);
-						Gfx_BlitTex(&menu.tex_ng, &src_ng, (SCREEN_WIDTH - 128) >> 1, SCREEN_HEIGHT2 - 16);
+						menu.font_bold.draw(&menu.font_bold, "NEWGROUNDS",    screen.SCREEN_WIDTH2, screen.SCREEN_HEIGHT2 - 32, FontAlign_Center);
+						Gfx_BlitTex(&menu.tex_ng, &src_ng, (screen.SCREEN_WIDTH - 128) >> 1, screen.SCREEN_HEIGHT2 - 16);
 				//Fallthrough
 					case 6:
 					case 5:
-						menu.font_bold.draw(&menu.font_bold, "IN ASSOCIATION", SCREEN_WIDTH2, SCREEN_HEIGHT2 - 64, FontAlign_Center);
-						menu.font_bold.draw(&menu.font_bold, "WITH",           SCREEN_WIDTH2, SCREEN_HEIGHT2 - 48, FontAlign_Center);
+						menu.font_bold.draw(&menu.font_bold, "IN ASSOCIATION", screen.SCREEN_WIDTH2, screen.SCREEN_HEIGHT2 - 64, FontAlign_Center);
+						menu.font_bold.draw(&menu.font_bold, "WITH",           screen.SCREEN_WIDTH2, screen.SCREEN_HEIGHT2 - 48, FontAlign_Center);
 						break;
 					
 					case 11:
-						menu.font_bold.draw(&menu.font_bold, funny_message[1], SCREEN_WIDTH2, SCREEN_HEIGHT2, FontAlign_Center);
+						menu.font_bold.draw(&menu.font_bold, funny_message[1], screen.SCREEN_WIDTH2, screen.SCREEN_HEIGHT2, FontAlign_Center);
 				//Fallthrough
 					case 10:
 					case 9:
-						menu.font_bold.draw(&menu.font_bold, funny_message[0], SCREEN_WIDTH2, SCREEN_HEIGHT2 - 16, FontAlign_Center);
+						menu.font_bold.draw(&menu.font_bold, funny_message[0], screen.SCREEN_WIDTH2, screen.SCREEN_HEIGHT2 - 16, FontAlign_Center);
 						break;
 					
 					case 15:
-						menu.font_bold.draw(&menu.font_bold, "FUNKIN", SCREEN_WIDTH2, SCREEN_HEIGHT2 + 8, FontAlign_Center);
+						menu.font_bold.draw(&menu.font_bold, "FUNKIN", screen.SCREEN_WIDTH2, screen.SCREEN_HEIGHT2 + 8, FontAlign_Center);
 				//Fallthrough
 					case 14:
-						menu.font_bold.draw(&menu.font_bold, "NIGHT", SCREEN_WIDTH2, SCREEN_HEIGHT2 - 8, FontAlign_Center);
+						menu.font_bold.draw(&menu.font_bold, "NIGHT", screen.SCREEN_WIDTH2, screen.SCREEN_HEIGHT2 - 8, FontAlign_Center);
 				//Fallthrough
 					case 13:
-						menu.font_bold.draw(&menu.font_bold, "FRIDAY", SCREEN_WIDTH2, SCREEN_HEIGHT2 - 24, FontAlign_Center);
+						menu.font_bold.draw(&menu.font_bold, "FRIDAY", screen.SCREEN_WIDTH2, screen.SCREEN_HEIGHT2 - 24, FontAlign_Center);
 						break;
 				}
 				break;
@@ -417,7 +417,7 @@ void Menu_Tick(void)
 			//Draw white fade
 			if (menu.page_state.title.fade > 0)
 			{
-				static const RECT flash = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+				RECT flash = {0, 0, screen.SCREEN_WIDTH, screen.SCREEN_HEIGHT};
 				u8 flash_col = menu.page_state.title.fade >> FIXED_SHIFT;
 				Gfx_BlendRect(&flash, flash_col, flash_col, flash_col, 1);
 				menu.page_state.title.fade -= FIXED_MUL(menu.page_state.title.fadespd, timer_dt);
@@ -457,7 +457,7 @@ void Menu_Tick(void)
 			
 			RECT logo_src = {0, 0, 176, 112};
 			RECT logo_dst = {
-				100 - x_rad + (SCREEN_WIDEADD2 >> 1),
+				100 - x_rad + (screen.SCREEN_WIDEADD2 >> 1),
 				68 - y_rad,
 				x_rad << 1,
 				y_rad << 1
@@ -478,13 +478,13 @@ void Menu_Tick(void)
 				u8 press_b = (206 + ((press_lerp * (255 - 206)) >> 8)) >> 1;
 				
 				RECT press_src = {0, 112, 256, 32};
-				Gfx_BlitTexCol(&menu.tex_title, &press_src, (SCREEN_WIDTH - 256) / 2, SCREEN_HEIGHT - 48, press_r, press_g, press_b);
+				Gfx_BlitTexCol(&menu.tex_title, &press_src, (screen.SCREEN_WIDTH - 256) / 2, screen.SCREEN_HEIGHT - 48, press_r, press_g, press_b);
 			}
 			else
 			{
 				//Flash white
 				RECT press_src = {0, (animf_count & 1) ? 144 : 112, 256, 32};
-				Gfx_BlitTex(&menu.tex_title, &press_src, (SCREEN_WIDTH - 256) / 2, SCREEN_HEIGHT - 48);
+				Gfx_BlitTex(&menu.tex_title, &press_src, (screen.SCREEN_WIDTH - 256) / 2, screen.SCREEN_HEIGHT - 48);
 			}
 			
 			//Draw Girlfriend
@@ -509,7 +509,7 @@ void Menu_Tick(void)
 			menu.font_bold.draw(&menu.font_bold,
 				"PSXFUNKIN BY CUCKYDEV",
 				16,
-				SCREEN_HEIGHT - 32,
+				screen.SCREEN_HEIGHT - 32,
 				FontAlign_Left
 			);
 			
@@ -585,8 +585,8 @@ void Menu_Tick(void)
 				{
 					menu.font_bold.draw(&menu.font_bold,
 						Menu_LowerIf(menu_options[i], menu.select != i),
-						SCREEN_WIDTH2,
-						SCREEN_HEIGHT2 + (i << 5) - 48 - (menu.scroll >> FIXED_SHIFT),
+						screen.SCREEN_WIDTH2,
+						screen.SCREEN_HEIGHT2 + (i << 5) - 48 - (menu.scroll >> FIXED_SHIFT),
 						FontAlign_Center
 					);
 				}
@@ -596,8 +596,8 @@ void Menu_Tick(void)
 				//Draw selected option
 				menu.font_bold.draw(&menu.font_bold,
 					menu_options[menu.select],
-					SCREEN_WIDTH2,
-					SCREEN_HEIGHT2 + (menu.select << 5) - 48 - (menu.scroll >> FIXED_SHIFT),
+					screen.SCREEN_WIDTH2,
+					screen.SCREEN_HEIGHT2 + (menu.select << 5) - 48 - (menu.scroll >> FIXED_SHIFT),
 					FontAlign_Center
 				);
 			}
@@ -641,14 +641,14 @@ void Menu_Tick(void)
 			//Draw white fade
 			if (menu.page_state.title.fade > 0)
 			{
-				static const RECT flash = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+				RECT flash2 = {0, 0, screen.SCREEN_WIDTH, screen.SCREEN_HEIGHT};
 				u8 flash_col = menu.page_state.title.fade >> FIXED_SHIFT;
-				Gfx_BlendRect(&flash, flash_col, flash_col, flash_col, 1);
+				Gfx_BlendRect(&flash2, flash_col, flash_col, flash_col, 1);
 				menu.page_state.title.fade -= FIXED_MUL(menu.page_state.title.fadespd, timer_dt);
 			}
 			
 			//Draw difficulty selector
-			Menu_DifficultySelector(SCREEN_WIDTH - 75, 80);
+			Menu_DifficultySelector(screen.SCREEN_WIDTH - 75, 80);
 			
 			//Handle option and selection
 			if (menu.trans_time > 0 && (menu.trans_time -= timer_dt) <= 0)
@@ -703,7 +703,7 @@ void Menu_Tick(void)
 			//Draw week name and tracks
 			menu.font_bold.draw(&menu.font_bold,
 				menu_options[menu.select].name,
-				SCREEN_WIDTH - 16,
+				screen.SCREEN_WIDTH - 16,
 				24,
 				FontAlign_Right
 			);
@@ -714,14 +714,14 @@ void Menu_Tick(void)
 				if (*trackp != NULL)
 					menu.font_bold.draw(&menu.font_bold,
 						*trackp,
-						SCREEN_WIDTH - 16,
-						SCREEN_HEIGHT - (4 * 24) + (i * 24),
+						screen.SCREEN_WIDTH - 16,
+						screen.SCREEN_HEIGHT - (4 * 24) + (i * 24),
 						FontAlign_Right
 					);
 			}
 			
 			//Draw upper strip
-			RECT name_bar = {0, 16, SCREEN_WIDTH, 32};
+			RECT name_bar = {0, 16, screen.SCREEN_WIDTH, 32};
 			Gfx_DrawRect(&name_bar, 249, 207, 81);
 			
 			//Draw options
@@ -736,7 +736,7 @@ void Menu_Tick(void)
 					s32 y = 64 + (i * 48) - (menu.scroll >> FIXED_SHIFT);
 					if (y <= 16)
 						continue;
-					if (y >= SCREEN_HEIGHT)
+					if (y >= screen.SCREEN_HEIGHT)
 						break;
 					Menu_DrawWeek(menu_options[i].week, 48, y);
 				}
@@ -782,7 +782,7 @@ void Menu_Tick(void)
 			//Initialize page
 			if (menu.page_swap)
 			{
-				menu.scroll = COUNT_OF(menu_options) * FIXED_DEC(24 + SCREEN_HEIGHT2,1);
+				menu.scroll = COUNT_OF(menu_options) * FIXED_DEC(24 + screen.SCREEN_HEIGHT2,1);
 				menu.page_param.stage.diff = StageDiff_Normal;
 				menu.page_state.freeplay.back_r = FIXED_DEC(255,1);
 				menu.page_state.freeplay.back_g = FIXED_DEC(255,1);
@@ -793,12 +793,12 @@ void Menu_Tick(void)
 			menu.font_bold.draw(&menu.font_bold,
 				"FREEPLAY",
 				16,
-				SCREEN_HEIGHT - 32,
+				screen.SCREEN_HEIGHT - 32,
 				FontAlign_Left
 			);
 			
 			//Draw difficulty selector
-			Menu_DifficultySelector(SCREEN_WIDTH - 100, SCREEN_HEIGHT2 - 48);
+			Menu_DifficultySelector(screen.SCREEN_WIDTH - 100, screen.SCREEN_HEIGHT2 - 48);
 			
 			//Handle option and selection
 			if (menu.next_page == menu.page && Trans_Idle())
@@ -853,16 +853,16 @@ void Menu_Tick(void)
 			{
 				//Get position on screen
 				s32 y = (i * 24) - 8 - (menu.scroll >> FIXED_SHIFT);
-				if (y <= -SCREEN_HEIGHT2 - 8)
+				if (y <= -screen.SCREEN_HEIGHT2 - 8)
 					continue;
-				if (y >= SCREEN_HEIGHT2 + 8)
+				if (y >= screen.SCREEN_HEIGHT2 + 8)
 					break;
 				
 				//Draw text
 				menu.font_bold.draw(&menu.font_bold,
 					Menu_LowerIf(menu_options[i].text, menu.select != i),
 					48 + (y >> 2),
-					SCREEN_HEIGHT2 + y - 8,
+					screen.SCREEN_HEIGHT2 + y - 8,
 					FontAlign_Left
 				);
 			}
@@ -920,7 +920,7 @@ void Menu_Tick(void)
 			//Initialize page
 			if (menu.page_swap)
 			{
-				menu.scroll = COUNT_OF(menu_options) * FIXED_DEC(24 + SCREEN_HEIGHT2,1);
+				menu.scroll = COUNT_OF(menu_options) * FIXED_DEC(24 + screen.SCREEN_HEIGHT2,1);
 				menu.page_param.stage.diff = StageDiff_Normal;
 			}
 			
@@ -928,13 +928,13 @@ void Menu_Tick(void)
 			menu.font_bold.draw(&menu.font_bold,
 				"CREDITS",
 				16,
-				SCREEN_HEIGHT - 32,
+				screen.SCREEN_HEIGHT - 32,
 				FontAlign_Left
 			);
 			
 			//Draw difficulty selector
 			if (menu_options[menu.select].difficulty)
-				Menu_DifficultySelector(SCREEN_WIDTH - 100, SCREEN_HEIGHT2 - 48);
+				Menu_DifficultySelector(screen.SCREEN_WIDTH - 100, screen.SCREEN_HEIGHT2 - 48);
 			
 			//Handle option and selection
 			if (menu.next_page == menu.page && Trans_Idle())
@@ -978,16 +978,16 @@ void Menu_Tick(void)
 			{
 				//Get position on screen
 				s32 y = (i * 24) - 8 - (menu.scroll >> FIXED_SHIFT);
-				if (y <= -SCREEN_HEIGHT2 - 8)
+				if (y <= -screen.SCREEN_HEIGHT2 - 8)
 					continue;
-				if (y >= SCREEN_HEIGHT2 + 8)
+				if (y >= screen.SCREEN_HEIGHT2 + 8)
 					break;
 				
 				//Draw text
 				menu.font_bold.draw(&menu.font_bold,
 					Menu_LowerIf(menu_options[i].text, menu.select != i),
 					48 + (y >> 2),
-					SCREEN_HEIGHT2 + y - 8,
+					screen.SCREEN_HEIGHT2 + y - 8,
 					FontAlign_Left
 				);
 			}
@@ -1042,13 +1042,13 @@ void Menu_Tick(void)
 			
 			//Initialize page
 			if (menu.page_swap)
-				menu.scroll = COUNT_OF(menu_options) * FIXED_DEC(24 + SCREEN_HEIGHT2,1);
+				menu.scroll = COUNT_OF(menu_options) * FIXED_DEC(24 + screen.SCREEN_HEIGHT2,1);
 			
 			//Draw page label
 			menu.font_bold.draw(&menu.font_bold,
 				"OPTIONS",
 				16,
-				SCREEN_HEIGHT - 32,
+				screen.SCREEN_HEIGHT - 32,
 				FontAlign_Left
 			);
 			
@@ -1111,9 +1111,9 @@ void Menu_Tick(void)
 			{
 				//Get position on screen
 				s32 y = (i * 24) - 8 - (menu.scroll >> FIXED_SHIFT);
-				if (y <= -SCREEN_HEIGHT2 - 8)
+				if (y <= -screen.SCREEN_HEIGHT2 - 8)
 					continue;
-				if (y >= SCREEN_HEIGHT2 + 8)
+				if (y >= screen.SCREEN_HEIGHT2 + 8)
 					break;
 				
 				//Draw text
@@ -1130,7 +1130,7 @@ void Menu_Tick(void)
 				menu.font_bold.draw(&menu.font_bold,
 					Menu_LowerIf(text, menu.select != i),
 					48 + (y >> 2),
-					SCREEN_HEIGHT2 + y - 8,
+					screen.SCREEN_HEIGHT2 + y - 8,
 					FontAlign_Left
 				);
 			}

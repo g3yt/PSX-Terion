@@ -32,7 +32,7 @@ void Trans_Set(void)
 {
 	//Initialize transition fading in
 	transition.state = TransState_In;
-	transition.cover = FIXED_DEC(SCREEN_HEIGHT,1);
+	transition.cover = FIXED_DEC(screen.SCREEN_HEIGHT,1);
 }
 
 void Trans_Clear(void)
@@ -68,16 +68,16 @@ boolean Trans_Tick(void)
 			s16 cover = transition.cover >> FIXED_SHIFT;
 			RECT trans_rect = {
 				0,
-				SCREEN_HEIGHT - cover,
-				SCREEN_WIDTH,
+				screen.SCREEN_HEIGHT - cover,
+				screen.SCREEN_WIDTH,
 				cover
 			};
 			Gfx_DrawRect(&trans_rect, 0, 0, 0);
 			
 			RECT trans_fade = {
 				0,
-				SCREEN_HEIGHT - cover - TRANS_FADE_LEN,
-				SCREEN_WIDTH,
+				screen.SCREEN_HEIGHT - cover - TRANS_FADE_LEN,
+				screen.SCREEN_WIDTH,
 				1
 			};
 			for (int i = 0; i < TRANS_FADE_LEN; i++)
@@ -92,7 +92,7 @@ boolean Trans_Tick(void)
 		{
 			//Increment transition coverage
 			boolean result;
-			if (transition.cover >= FIXED_DEC(SCREEN_HEIGHT,1))
+			if (transition.cover >= FIXED_DEC(screen.SCREEN_HEIGHT,1))
 			{
 				transition.state = TransState_In;
 				result = true;
@@ -108,7 +108,7 @@ boolean Trans_Tick(void)
 			RECT trans_rect = {
 				0,
 				0,
-				SCREEN_WIDTH,
+				screen.SCREEN_WIDTH,
 				cover
 			};
 			Gfx_DrawRect(&trans_rect, 0, 0, 0);
@@ -116,7 +116,7 @@ boolean Trans_Tick(void)
 			RECT trans_fade = {
 				0,
 				cover + TRANS_FADE_LEN,
-				SCREEN_WIDTH,
+				screen.SCREEN_WIDTH,
 				1
 			};
 			for (int i = 0; i < TRANS_FADE_LEN; i++)

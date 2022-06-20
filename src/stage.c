@@ -28,31 +28,9 @@
 //#define STAGE_NOHUD //Disable the HUD
 
 //normal note x
-static int note_x[8] = {
-	//BF
-	 FIXED_DEC(26,1) + FIXED_DEC(SCREEN_WIDEADD,4),
-	 FIXED_DEC(60,1) + FIXED_DEC(SCREEN_WIDEADD,4),//+34
-	 FIXED_DEC(94,1) + FIXED_DEC(SCREEN_WIDEADD,4),
-	FIXED_DEC(128,1) + FIXED_DEC(SCREEN_WIDEADD,4),
-	//Opponent
-	FIXED_DEC(-128,1) - FIXED_DEC(SCREEN_WIDEADD,4),
-	 FIXED_DEC(-94,1) - FIXED_DEC(SCREEN_WIDEADD,4),//+34
-	 FIXED_DEC(-60,1) - FIXED_DEC(SCREEN_WIDEADD,4),
-	 FIXED_DEC(-26,1) - FIXED_DEC(SCREEN_WIDEADD,4),
-};
+int note_x[8];
 
-static int note_y[8] = {
-	//BF
-	 FIXED_DEC(32 - SCREEN_HEIGHT2, 1),
-	 FIXED_DEC(32 - SCREEN_HEIGHT2, 1),//+34
-	 FIXED_DEC(32 - SCREEN_HEIGHT2, 1),
-	 FIXED_DEC(32 - SCREEN_HEIGHT2, 1),
-	//Opponent
-	 FIXED_DEC(32 - SCREEN_HEIGHT2, 1),
-	 FIXED_DEC(32 - SCREEN_HEIGHT2, 1),//+34
-	 FIXED_DEC(32 - SCREEN_HEIGHT2, 1),
-	 FIXED_DEC(32 - SCREEN_HEIGHT2, 1),
-};
+int note_y[8];
 
 static const u16 note_key[] = {INPUT_LEFT, INPUT_DOWN, INPUT_UP, INPUT_RIGHT};
 static const u8 note_anims[4][3] = {
@@ -617,8 +595,8 @@ void Stage_DrawTexCol(Gfx_Tex *tex, const RECT *src, const RECT_FIXED *dst, fixe
 		}
 	}
 	
-	fixed_t l = (SCREEN_WIDTH2  << FIXED_SHIFT) + FIXED_MUL(xz, zoom);// + FIXED_DEC(1,2);
-	fixed_t t = (SCREEN_HEIGHT2 << FIXED_SHIFT) + FIXED_MUL(yz, zoom);// + FIXED_DEC(1,2);
+	fixed_t l = (screen.SCREEN_WIDTH2  << FIXED_SHIFT) + FIXED_MUL(xz, zoom);// + FIXED_DEC(1,2);
+	fixed_t t = (screen.SCREEN_HEIGHT2 << FIXED_SHIFT) + FIXED_MUL(yz, zoom);// + FIXED_DEC(1,2);
 	fixed_t r = l + FIXED_MUL(wz, zoom);
 	fixed_t b = t + FIXED_MUL(hz, zoom);
 	
@@ -771,8 +749,8 @@ void Stage_BlendTex(Gfx_Tex *tex, const RECT *src, const RECT_FIXED *dst, fixed_
 		}
 	}
 	
-	fixed_t l = (SCREEN_WIDTH2  << FIXED_SHIFT) + FIXED_MUL(xz, zoom);// + FIXED_DEC(1,2);
-	fixed_t t = (SCREEN_HEIGHT2 << FIXED_SHIFT) + FIXED_MUL(yz, zoom);// + FIXED_DEC(1,2);
+	fixed_t l = (screen.SCREEN_WIDTH2  << FIXED_SHIFT) + FIXED_MUL(xz, zoom);// + FIXED_DEC(1,2);
+	fixed_t t = (screen.SCREEN_HEIGHT2 << FIXED_SHIFT) + FIXED_MUL(yz, zoom);// + FIXED_DEC(1,2);
 	fixed_t r = l + FIXED_MUL(wz, zoom);
 	fixed_t b = t + FIXED_MUL(hz, zoom);
 	
@@ -799,10 +777,10 @@ void Stage_DrawTexArb(Gfx_Tex *tex, const RECT *src, const POINT_FIXED *p0, cons
 	#endif
 	
 	//Get screen-space points
-	POINT s0 = {SCREEN_WIDTH2 + (FIXED_MUL(p0->x, zoom) >> FIXED_SHIFT), SCREEN_HEIGHT2 + (FIXED_MUL(p0->y, zoom) >> FIXED_SHIFT)};
-	POINT s1 = {SCREEN_WIDTH2 + (FIXED_MUL(p1->x, zoom) >> FIXED_SHIFT), SCREEN_HEIGHT2 + (FIXED_MUL(p1->y, zoom) >> FIXED_SHIFT)};
-	POINT s2 = {SCREEN_WIDTH2 + (FIXED_MUL(p2->x, zoom) >> FIXED_SHIFT), SCREEN_HEIGHT2 + (FIXED_MUL(p2->y, zoom) >> FIXED_SHIFT)};
-	POINT s3 = {SCREEN_WIDTH2 + (FIXED_MUL(p3->x, zoom) >> FIXED_SHIFT), SCREEN_HEIGHT2 + (FIXED_MUL(p3->y, zoom) >> FIXED_SHIFT)};
+	POINT s0 = {screen.SCREEN_WIDTH2 + (FIXED_MUL(p0->x, zoom) >> FIXED_SHIFT), screen.SCREEN_HEIGHT2 + (FIXED_MUL(p0->y, zoom) >> FIXED_SHIFT)};
+	POINT s1 = {screen.SCREEN_WIDTH2 + (FIXED_MUL(p1->x, zoom) >> FIXED_SHIFT), screen.SCREEN_HEIGHT2 + (FIXED_MUL(p1->y, zoom) >> FIXED_SHIFT)};
+	POINT s2 = {screen.SCREEN_WIDTH2 + (FIXED_MUL(p2->x, zoom) >> FIXED_SHIFT), screen.SCREEN_HEIGHT2 + (FIXED_MUL(p2->y, zoom) >> FIXED_SHIFT)};
+	POINT s3 = {screen.SCREEN_WIDTH2 + (FIXED_MUL(p3->x, zoom) >> FIXED_SHIFT), screen.SCREEN_HEIGHT2 + (FIXED_MUL(p3->y, zoom) >> FIXED_SHIFT)};
 	
 	Gfx_DrawTexArb(tex, src, &s0, &s1, &s2, &s3);
 }
@@ -816,10 +794,10 @@ void Stage_BlendTexArb(Gfx_Tex *tex, const RECT *src, const POINT_FIXED *p0, con
 	#endif
 	
 	//Get screen-space points
-	POINT s0 = {SCREEN_WIDTH2 + (FIXED_MUL(p0->x, zoom) >> FIXED_SHIFT), SCREEN_HEIGHT2 + (FIXED_MUL(p0->y, zoom) >> FIXED_SHIFT)};
-	POINT s1 = {SCREEN_WIDTH2 + (FIXED_MUL(p1->x, zoom) >> FIXED_SHIFT), SCREEN_HEIGHT2 + (FIXED_MUL(p1->y, zoom) >> FIXED_SHIFT)};
-	POINT s2 = {SCREEN_WIDTH2 + (FIXED_MUL(p2->x, zoom) >> FIXED_SHIFT), SCREEN_HEIGHT2 + (FIXED_MUL(p2->y, zoom) >> FIXED_SHIFT)};
-	POINT s3 = {SCREEN_WIDTH2 + (FIXED_MUL(p3->x, zoom) >> FIXED_SHIFT), SCREEN_HEIGHT2 + (FIXED_MUL(p3->y, zoom) >> FIXED_SHIFT)};
+	POINT s0 = {screen.SCREEN_WIDTH2 + (FIXED_MUL(p0->x, zoom) >> FIXED_SHIFT), screen.SCREEN_HEIGHT2 + (FIXED_MUL(p0->y, zoom) >> FIXED_SHIFT)};
+	POINT s1 = {screen.SCREEN_WIDTH2 + (FIXED_MUL(p1->x, zoom) >> FIXED_SHIFT), screen.SCREEN_HEIGHT2 + (FIXED_MUL(p1->y, zoom) >> FIXED_SHIFT)};
+	POINT s2 = {screen.SCREEN_WIDTH2 + (FIXED_MUL(p2->x, zoom) >> FIXED_SHIFT), screen.SCREEN_HEIGHT2 + (FIXED_MUL(p2->y, zoom) >> FIXED_SHIFT)};
+	POINT s3 = {screen.SCREEN_WIDTH2 + (FIXED_MUL(p3->x, zoom) >> FIXED_SHIFT), screen.SCREEN_HEIGHT2 + (FIXED_MUL(p3->y, zoom) >> FIXED_SHIFT)};
 	
 	Gfx_BlendTexArb(tex, src, &s0, &s1, &s2, &s3, mode);
 }
@@ -844,7 +822,7 @@ static void Stage_DrawHealth(s16 health, u8 i, s8 ox)
 	};
 	RECT_FIXED dst = {
 		hx + ox * FIXED_DEC(23,1) - FIXED_DEC(23,1),
-		FIXED_DEC(SCREEN_HEIGHT2 - 32 + 4 - 23, 1),
+		FIXED_DEC(screen.SCREEN_HEIGHT2 - 32 + 4 - 23, 1),
 		src.w << FIXED_SHIFT,
 		src.h << FIXED_SHIFT
 	};
@@ -953,7 +931,7 @@ static void Stage_DrawNotes(void)
 		fixed_t y = note_y[(note->type & 0x7) ^ stage.note_swap] + FIXED_MUL(stage.speed, time * 150);
 		
 		//Check if went above screen
-		if (y < FIXED_DEC(-16 - SCREEN_HEIGHT2, 1))
+		if (y < FIXED_DEC(-16 - screen.SCREEN_HEIGHT2, 1))
 		{
 			//Wait for note to exit late time
 			if (note_fp + stage.late_safe >= stage.note_scroll)
@@ -980,7 +958,7 @@ static void Stage_DrawNotes(void)
 			//Don't draw if below screen
 			RECT note_src;
 			RECT_FIXED note_dst;
-			if (y > (FIXED_DEC(SCREEN_HEIGHT,2) + scroll.size) || note->pos == 0xFFFF)
+			if (y > (FIXED_DEC(screen.SCREEN_HEIGHT,2) + scroll.size) || note->pos == 0xFFFF)
 				break;
 			
 			//Draw note
@@ -1684,6 +1662,29 @@ void Stage_Tick(void)
 	{
 		case StageState_Play:
 		{   
+	
+		//BF
+		note_x[0] = FIXED_DEC(26,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
+		note_x[1] = FIXED_DEC(60,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);//+34
+		note_x[2] = FIXED_DEC(94,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
+		note_x[3] = FIXED_DEC(128,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
+		//Opponent
+		note_x[4] = FIXED_DEC(-128,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
+		note_x[5] = FIXED_DEC(-94,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);//+34
+		note_x[6] = FIXED_DEC(-60,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
+		note_x[7] = FIXED_DEC(-26,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
+	
+		//BF
+		note_y[0] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
+		note_y[1] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);//+34
+		note_y[2] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
+		note_y[3] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
+		//Opponent
+		note_y[4] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
+		note_y[5] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);//+34
+		note_y[6] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
+		note_y[7] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
+
 			if (stage.debug)
 				Debug_StageDebug();
 
@@ -1698,28 +1699,28 @@ void Stage_Tick(void)
 			if(stage.middlescroll)
 			{
 				//bf
-				note_x[0] = FIXED_DEC(26 - 78,1) + FIXED_DEC(SCREEN_WIDEADD,4);
-				note_x[1] = FIXED_DEC(60 - 78,1) + FIXED_DEC(SCREEN_WIDEADD,4); //+34
-				note_x[2] = FIXED_DEC(94 - 78,1) + FIXED_DEC(SCREEN_WIDEADD,4);
-				note_x[3] = FIXED_DEC(128 - 78,1) + FIXED_DEC(SCREEN_WIDEADD,4);
+				note_x[0] = FIXED_DEC(26 - 78,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
+				note_x[1] = FIXED_DEC(60 - 78,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4); //+34
+				note_x[2] = FIXED_DEC(94 - 78,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
+				note_x[3] = FIXED_DEC(128 - 78,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
 				//opponent
-				note_x[4] = FIXED_DEC(-50 - 78,1) - FIXED_DEC(SCREEN_WIDEADD,4);
-				note_x[5] = FIXED_DEC(-16 - 78,1) - FIXED_DEC(SCREEN_WIDEADD,4); //+34
-				note_x[6] = FIXED_DEC(170 - 78,1) - FIXED_DEC(SCREEN_WIDEADD,4);
-				note_x[7] = FIXED_DEC(204 - 78,1) - FIXED_DEC(SCREEN_WIDEADD,4);
+				note_x[4] = FIXED_DEC(-50 - 78,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
+				note_x[5] = FIXED_DEC(-16 - 78,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4); //+34
+				note_x[6] = FIXED_DEC(170 - 78,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
+				note_x[7] = FIXED_DEC(204 - 78,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
 			}
 			else
 			{
 				//bf
-				note_x[0] = FIXED_DEC(26,1) + FIXED_DEC(SCREEN_WIDEADD,4);
-				note_x[1] = FIXED_DEC(60,1) + FIXED_DEC(SCREEN_WIDEADD,4); //+34
-				note_x[2] = FIXED_DEC(94,1) + FIXED_DEC(SCREEN_WIDEADD,4);
-				note_x[3] = FIXED_DEC(128,1) + FIXED_DEC(SCREEN_WIDEADD,4);
+				note_x[0] = FIXED_DEC(26,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
+				note_x[1] = FIXED_DEC(60,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4); //+34
+				note_x[2] = FIXED_DEC(94,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
+				note_x[3] = FIXED_DEC(128,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
 				//opponent
-				note_x[4] = FIXED_DEC(-128,1) - FIXED_DEC(SCREEN_WIDEADD,4);
-				note_x[5] = FIXED_DEC(-94,1) - FIXED_DEC(SCREEN_WIDEADD,4); //+34
-				note_x[6] = FIXED_DEC(-60,1) - FIXED_DEC(SCREEN_WIDEADD,4);
-				note_x[7] = FIXED_DEC(-26,1) - FIXED_DEC(SCREEN_WIDEADD,4);
+				note_x[4] = FIXED_DEC(-128,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
+				note_x[5] = FIXED_DEC(-94,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4); //+34
+				note_x[6] = FIXED_DEC(-60,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
+				note_x[7] = FIXED_DEC(-26,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
 			}
 
 
@@ -2005,7 +2006,7 @@ void Stage_Tick(void)
 					//Draw health bar
 					RECT health_fill = {0, 0, 256 - (256 * stage.player_state[0].health / 20000), 8};
 					RECT health_back = {0, 8, 256, 8};
-					RECT_FIXED health_dst = {FIXED_DEC(-128,1), (SCREEN_HEIGHT2 - 32) << FIXED_SHIFT, 0, FIXED_DEC(8,1)};
+					RECT_FIXED health_dst = {FIXED_DEC(-128,1), (screen.SCREEN_HEIGHT2 - 32) << FIXED_SHIFT, 0, FIXED_DEC(8,1)};
 					if (stage.downscroll)
 						health_dst.y = -health_dst.y - health_dst.h;
 					
@@ -2049,7 +2050,7 @@ void Stage_Tick(void)
 					stage.font_cdr.draw(&stage.font_cdr,
 						this->info_text,
 						(stage.mode == StageMode_2P && i == 0) ? FIXED_DEC(10,1) : FIXED_DEC(-80,1), 
-						(SCREEN_HEIGHT2 - 22) << FIXED_SHIFT,
+						(screen.SCREEN_HEIGHT2 - 22) << FIXED_SHIFT,
 						FontAlign_Left
 					);
 				}
