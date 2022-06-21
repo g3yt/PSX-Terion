@@ -1158,7 +1158,7 @@ static void Stage_CountDown(void)
 	RECT ready_src = {197, 112, 58, 125};	
 	RECT_FIXED ready_dst = {FIXED_DEC(10,1), FIXED_DEC(30,1), FIXED_DEC(58 * 2,1), FIXED_DEC(125 * 2,1)};	
 
-	RECT set_src = {201, 64, 54, 96};	
+	RECT set_src = {211, 65, 44, 94};	
 	RECT_FIXED set_dst = {FIXED_DEC(10,1), FIXED_DEC(40,1), FIXED_DEC(54 * 2,1), FIXED_DEC(96 * 2,1)};	
 
 	RECT go_src = {207, 17, 48, 95};	
@@ -1407,11 +1407,22 @@ static void Stage_LoadState(void)
 		stage.player_state[i].min_accuracy = 0;
 		stage.player_state[i].refresh_score = false;
 		stage.player_state[i].score = 0;
-		sprintf(stage.player_state[i].info_text, "Score:0  |  Misses:?  |  Rating:? (?)");
+		sprintf(stage.player_state[i].info_text, "Score:0  |  Misses:?  |  Rating: (?)");
 		
 		stage.player_state[i].pad_held = stage.player_state[i].pad_press = 0;
 	}
 	
+	//BF
+	note_y[0] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
+	note_y[1] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);//+34
+	note_y[2] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
+	note_y[3] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
+	//Opponent
+	note_y[4] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
+	note_y[5] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);//+34
+	note_y[6] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
+	note_y[7] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
+
 	ObjectList_Free(&stage.objlist_splash);
 	ObjectList_Free(&stage.objlist_fg);
 	ObjectList_Free(&stage.objlist_bg);
@@ -1668,29 +1679,6 @@ void Stage_Tick(void)
 	{
 		case StageState_Play:
 		{   
-	
-		//BF
-		note_x[0] = FIXED_DEC(26,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
-		note_x[1] = FIXED_DEC(60,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);//+34
-		note_x[2] = FIXED_DEC(94,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
-		note_x[3] = FIXED_DEC(128,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
-		//Opponent
-		note_x[4] = FIXED_DEC(-128,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
-		note_x[5] = FIXED_DEC(-94,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);//+34
-		note_x[6] = FIXED_DEC(-60,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
-		note_x[7] = FIXED_DEC(-26,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
-	
-		//BF
-		note_y[0] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
-		note_y[1] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);//+34
-		note_y[2] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
-		note_y[3] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
-		//Opponent
-		note_y[4] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
-		note_y[5] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);//+34
-		note_y[6] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
-		note_y[7] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
-
 			if (stage.debug)
 				Debug_StageDebug();
 
@@ -2046,9 +2034,9 @@ void Stage_Tick(void)
 					if (this->refresh_score)
 					{
 						if (this->score != 0)
-							sprintf(this->info_text, "Score:%d0  |  Misses:%d  |  Rating:%s (%d%%)", this->score * stage.max_score / this->max_score, this->miss, this->miss,  this->accuracy);
+							sprintf(this->info_text, "Score: %d0  |  Misses: %d  |  Rating: (%d%%)", this->score * stage.max_score / this->max_score, this->miss,  this->accuracy);
 						else
-							sprintf(this->info_text, "Score:0  |  Misses:?  |  Rating:? (?%%)");
+							sprintf(this->info_text, "Score: 0  |  Misses: ?  |  Rating: (?%%)");
 						this->refresh_score = false;
 					}
 					
@@ -2130,8 +2118,16 @@ void Stage_Tick(void)
 			ObjectList_Tick(&stage.objlist_fg);
 			
 			//Tick characters
-			stage.player->tick(stage.player);
-			stage.opponent->tick(stage.opponent);
+			if (stage.mode == StageMode_Swap)
+			{
+				stage.opponent->tick(stage.opponent);
+				stage.player->tick(stage.player);
+			}
+			else
+			{
+				stage.player->tick(stage.player);
+				stage.opponent->tick(stage.opponent);
+			}
             if (stage.opponent2 != NULL)
 				stage.opponent2->tick(stage.opponent2);
 			
