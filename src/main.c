@@ -51,7 +51,6 @@ static u8 malloc_heap[0x1A0000];
 //Entry point
 int main(int argc, char **argv)
 {
-	int widecooldown;
 	//botplay
 	stage.botplay = 1;
 	//Remember arguments
@@ -78,21 +77,7 @@ int main(int argc, char **argv)
 	//Game loop
 	while (PSX_Running())
 	{
-		//Prepare frame
-		Timer_Tick();
-		Audio_ProcessXA();
-		Pad_Update();
-		
-		#ifdef MEM_STAT
-			//Memory stats
-			size_t mem_used, mem_size, mem_max;
-			Mem_GetStat(&mem_used, &mem_size, &mem_max);
-			#ifndef MEM_BAR
-				FntPrint("mem: %08X/%08X (max %08X)\n", mem_used, mem_size, mem_max);
-			#endif
-		#endif
-		
-		if (stage.widescreen && widecooldown == 2) {
+		if (stage.widescreen) {
 			screen.SCREEN_WIDTH   = 512;
 			screen.SCREEN_HEIGHT  = 240;
 			screen.SCREEN_WIDTH2  = (screen.SCREEN_WIDTH >> 1);
@@ -108,55 +93,47 @@ int main(int argc, char **argv)
 			screen.SCREEN_WIDEOADD2 = (screen.SCREEN_WIDEOADD >> 1);
 			screen.SCREEN_TALLOADD2 = (screen.SCREEN_TALLOADD >> 1);	
 
-			//Initialize display environment
-			SetDefDispEnv(&stage.disp[0], 0, 0, 512, 240);
-			SetDefDispEnv(&stage.disp[1], 0, 240, 512, 240);
-			
-			//Initialize draw environment
-			SetDefDrawEnv(&stage.draw[0], 0, 240, 512, 240);
-			SetDefDrawEnv(&stage.draw[1], 0, 0, 512, 240);
-			
-			//Load font
-			FntLoad(960, 0);
-			FntOpen(0, 8, 512, 224, 0, 100);
-			if (widecooldown > 2)
-				widecooldown = 1;
-			if (widecooldown != 1)
-				widecooldown ++;
+			if (stage.dascreen == 1 && stage.screencooldown == 0) {
+				Gfx_Init();
+			}
+			stage.screencooldown ++;
 		}
-		else if (widecooldown == 2) {
+		else {
+			stage.dascreen = 0;
 			screen.SCREEN_WIDTH   = 320;
 			screen.SCREEN_HEIGHT  = 240;
 			screen.SCREEN_WIDTH2  = (screen.SCREEN_WIDTH >> 1);
 			screen.SCREEN_HEIGHT2 = (screen.SCREEN_HEIGHT >> 1);
-
 			screen.SCREEN_WIDEADD = (screen.SCREEN_WIDTH - 320);
+
 			screen.SCREEN_TALLADD = (screen.SCREEN_HEIGHT - 240);
 			screen.SCREEN_WIDEADD2 = (screen.SCREEN_WIDEADD >> 1);
 			screen.SCREEN_TALLADD2 = (screen.SCREEN_TALLADD >> 1);
-
 			screen.SCREEN_WIDEOADD = (screen.SCREEN_WIDEADD > 0 ? screen.SCREEN_WIDEADD : 0);
+
 			screen.SCREEN_TALLOADD = (screen.SCREEN_TALLADD > 0 ? screen.SCREEN_TALLADD : 0);
 			screen.SCREEN_WIDEOADD2 = (screen.SCREEN_WIDEOADD >> 1);
 			screen.SCREEN_TALLOADD2 = (screen.SCREEN_TALLOADD >> 1);	
 			
-			//Initialize display environment
-			SetDefDispEnv(&stage.disp[0], 0, 0, 320, 240);
-			SetDefDispEnv(&stage.disp[1], 0, 240, 320, 240);
-			
-			//Initialize draw environment
-			SetDefDrawEnv(&stage.draw[0], 0, 240, 320, 240);
-			SetDefDrawEnv(&stage.draw[1], 0, 0, 320, 240);
-			
-			//Load font
-			FntLoad(960, 0);
-			FntOpen(0, 8, 320, 224, 0, 100);
-
-			if (widecooldown > 2)
-				widecooldown = 1;
-	
-				widecooldown ++;
+			if (stage.dascreen == 0 && stage.screencooldown == 0) {
+				Gfx_Init();
+			}
+			stage.screencooldown ++;
 		}
+
+		//Prepare frame
+		Timer_Tick();
+		Audio_ProcessXA();
+		Pad_Update();
+		
+		#ifdef MEM_STAT
+			//Memory stats
+			size_t mem_used, mem_size, mem_max;
+			Mem_GetStat(&mem_used, &mem_size, &mem_max);
+			#ifndef MEM_BAR
+				FntPrint("mem: %08X/%08X (max %08X)\n", mem_used, mem_size, mem_max);
+			#endif
+		#endif
 
 		//Set video mode
 		switch (stage.palmode)

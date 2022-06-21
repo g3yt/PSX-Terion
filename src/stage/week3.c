@@ -21,9 +21,8 @@ typedef struct
 	Gfx_Tex tex_back0; //Buildings
 	Gfx_Tex tex_back1; //Lights
 	Gfx_Tex tex_back2; //Rooftop
-	Gfx_Tex tex_back3; //Background train arc
+	Gfx_Tex tex_back3; //sky
 	Gfx_Tex tex_back4; //Train
-	Gfx_Tex tex_back5; //Sky
 	
 	//Window state
 	u8 win_r, win_g, win_b;
@@ -129,7 +128,7 @@ void Back_Week3_DrawBG(StageBack *back)
 		this->train_x  -= timer_dt * 2000;
 		
 		//Draw train
-		RECT train_src = {0, 0, 256, 256};
+		RECT train_src = {78, 0, 178, 256};
 		RECT_FIXED train_dst = {
 			this->train_x - fx,
 			FIXED_DEC(-65,1) - fy,
@@ -165,8 +164,8 @@ void Back_Week3_DrawBG(StageBack *back)
 	};
 	Debug_StageMoveDebug(&arcl_dst, 6, fx, fy);
 	Debug_StageMoveDebug(&arcr_dst, 7, fx, fy);
-	Stage_DrawTex(&this->tex_back3, &arcl_src, &arcl_dst, stage.camera.bzoom);
-	Stage_DrawTex(&this->tex_back3, &arcr_src, &arcr_dst, stage.camera.bzoom);
+	Stage_DrawTex(&this->tex_back4, &arcl_src, &arcl_dst, stage.camera.bzoom);
+	Stage_DrawTex(&this->tex_back4, &arcr_src, &arcr_dst, stage.camera.bzoom);
 	
 	//Draw lights
 	fx = stage.camera.x >> 1;
@@ -230,10 +229,10 @@ void Back_Week3_DrawBG(StageBack *back)
 		FIXED_DEC(110,1) + FIXED_DEC(screen.SCREEN_WIDEOADD,2)
 	};
 	Debug_StageMoveDebug(&sky_dst, 11, fx, fy);
-	Stage_DrawTex(&this->tex_back5, &sky_src, &sky_dst, stage.camera.bzoom);
+	Stage_DrawTex(&this->tex_back3, &sky_src, &sky_dst, stage.camera.bzoom);
 	sky_dst.x += sky_dst.w;
 	sky_src.y += sky_src.h;
-	Stage_DrawTex(&this->tex_back5, &sky_src, &sky_dst, stage.camera.bzoom);
+	Stage_DrawTex(&this->tex_back3, &sky_src, &sky_dst, stage.camera.bzoom);
 }
 
 void Back_Week3_Free(StageBack *back)
@@ -264,7 +263,6 @@ StageBack *Back_Week3_New(void)
 	Gfx_LoadTex(&this->tex_back2, Archive_Find(arc_back, "back2.tim"), 0);
 	Gfx_LoadTex(&this->tex_back3, Archive_Find(arc_back, "back3.tim"), 0);
 	Gfx_LoadTex(&this->tex_back4, Archive_Find(arc_back, "back4.tim"), 0);
-	Gfx_LoadTex(&this->tex_back5, Archive_Find(arc_back, "back5.tim"), 0);
 	Mem_Free(arc_back);
 	
 	//Initialize window state

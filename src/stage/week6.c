@@ -20,8 +20,8 @@ typedef struct
 	
 	//Textures
 	Gfx_Tex tex_back0; //Background
-	Gfx_Tex tex_back1; //Trees
-	Gfx_Tex tex_back2; //Freaks
+	Gfx_Tex tex_back1; //Freaks
+	Gfx_Tex tex_back2; //thorns
 	
 	//Freaks state
 	Animatable freaks_animatable;
@@ -71,7 +71,7 @@ void Week6_Freaks_Draw(Back_Week6 *this, fixed_t x, fixed_t y, boolean flip)
 	RECT src = {cframe->src[0], cframe->src[1], cframe->src[2], cframe->src[3]};
 	RECT_FIXED dst = {ox, oy, src.w << FIXED_SHIFT, src.h << FIXED_SHIFT};
 	Debug_StageMoveDebug(&dst, 4, (stage.camera.x << 2) / 5, (stage.camera.y << 2) / 5);
-	Stage_DrawTex(&this->tex_back2, &src, &dst, stage.camera.bzoom);
+	Stage_DrawTex(&this->tex_back1, &src, &dst, stage.camera.bzoom);
 }
 
 //Week 6 background functions
@@ -133,7 +133,7 @@ void Back_Week6_DrawBG(StageBack *back)
 			treep[j].y += ((MUtil_Sin(FIXED_MUL(animf_count, fg_tree_p->off[j])) * FIXED_DEC(3,1)) >> 8) - fy;
 		}
 		
-		Stage_DrawTexArb(&this->tex_back1, &fg_tree_p->src, &treep[0], &treep[1], &treep[2], &treep[3], stage.camera.bzoom);
+		Stage_DrawTexArb(&this->tex_back0, &fg_tree_p->src, &treep[0], &treep[1], &treep[2], &treep[3], stage.camera.bzoom);
 	}
 	
 	//Draw background trees
@@ -155,14 +155,14 @@ void Back_Week6_DrawBG(StageBack *back)
 	
 	Debug_StageMoveDebug(&bg_tree_l_dst, 5, fx, fy);
 	Debug_StageMoveDebug(&bg_tree_r_dst, 6, fx, fy);
-	Stage_DrawTex(&this->tex_back1, &bg_tree_l_src, &bg_tree_l_dst, stage.camera.bzoom);
-	Stage_DrawTex(&this->tex_back1, &bg_tree_r_src, &bg_tree_r_dst, stage.camera.bzoom);
+	Stage_DrawTex(&this->tex_back0, &bg_tree_l_src, &bg_tree_l_dst, stage.camera.bzoom);
+	Stage_DrawTex(&this->tex_back0, &bg_tree_r_src, &bg_tree_r_dst, stage.camera.bzoom);
 	
 	//Draw school
 	fx = stage.camera.x >> 3;
 	fy = stage.camera.y >> 3;
 	
-	RECT school_src = {0, 0, 255, 75};
+	RECT school_src = {0, 134, 256, 68};
 	RECT_FIXED school_dst = {
 		FIXED_DEC(-128,1) - fx,
 		FIXED_DEC(-56,1) - fy,
@@ -197,23 +197,12 @@ void Back_Week6_DrawBG(StageBack *back)
 		FIXED_DEC(19,1) + FIXED_DEC(58,1) - fy,
 	};
 	
-	RECT street_src = {0, 75, 255, 54};
+	RECT street_src = {0, 202, 255, 53};
 	
 	Stage_DrawTexArb(&this->tex_back0, &street_src, &street_d0, &street_d1, &street_d2, &street_d3, stage.camera.bzoom);
-	
-	//Draw sky
-	fx = stage.camera.x >> 4;
-	fy = stage.camera.y >> 4;
-	
-	RECT sky_src = {0, 130, 255, 125};
-	RECT_FIXED sky_dst = {
-		FIXED_DEC(-128,1) - fx,
-		FIXED_DEC(-72,1) - fy,
-		FIXED_DEC(255,1),
-		FIXED_DEC(125,1)
-	};
-	Debug_StageMoveDebug(&sky_dst, 8, fx, fy);
-	Stage_DrawTex(&this->tex_back0, &sky_src, &sky_dst, stage.camera.bzoom);
+
+	if (stage.stage_id == StageId_6_1 ||stage.stage_id == StageId_6_2)
+		Gfx_SetClear(167, 209, 242);
 }
 
 static fixed_t week6_back_paraly[] = {
@@ -309,7 +298,6 @@ StageBack *Back_Week6_New(void)
 		IO_Data arc_back = IO_Read("\\WEEK6\\BACK.ARC;1");
 		Gfx_LoadTex(&this->tex_back0, Archive_Find(arc_back, "back0.tim"), 0);
 		Gfx_LoadTex(&this->tex_back1, Archive_Find(arc_back, "back1.tim"), 0);
-		Gfx_LoadTex(&this->tex_back2, Archive_Find(arc_back, "back2.tim"), 0);
 		Mem_Free(arc_back);
 		
 		//Initialize freaks state
@@ -325,7 +313,7 @@ StageBack *Back_Week6_New(void)
 		this->back.free = Back_Week6_Free;
 		
 		//Load background texture
-		Gfx_LoadTex(&this->tex_back0, IO_Read("\\WEEK6\\BACK3.TIM;1"), GFX_LOADTEX_FREE);
+		Gfx_LoadTex(&this->tex_back0, IO_Read("\\WEEK6\\BACK2.TIM;1"), GFX_LOADTEX_FREE);
 	}
 	
 	return (StageBack*)this;

@@ -181,9 +181,11 @@ typedef struct
 {
 	DISPENV disp[2];
 	DRAWENV draw[2];
-	
+
 	//Stage settings
 	boolean ghost, downscroll, middlescroll, expsync, practice, debug, palmode, widescreen;
+	boolean dascreen;
+	int screencooldown;
 	s32 mode;
 	
 	u32 offset;
