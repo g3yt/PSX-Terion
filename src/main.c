@@ -38,7 +38,7 @@ void ErrorLock(void)
 }
 
 //Memory heap
-//#define MEM_STAT //This will enable the Mem_GetStat function which returns information about available memory in the heap
+#define MEM_STAT //This will enable the Mem_GetStat function which returns information about available memory in the heap
 
 #define MEM_IMPLEMENTATION
 #include "mem.h"
@@ -52,7 +52,7 @@ static u8 malloc_heap[0x1A0000];
 int main(int argc, char **argv)
 {
 	//botplay
-	//stage.botplay = 1;
+	stage.botplay = 1;
 	//Remember arguments
 	my_argc = argc;
 	my_argv = argv;
