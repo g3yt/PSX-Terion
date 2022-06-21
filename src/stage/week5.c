@@ -8,6 +8,7 @@
 
 #include "../archive.h"
 #include "../mem.h"
+#include "../mutil.h"
 
 //Week 5 background structure
 typedef struct
@@ -24,6 +25,38 @@ typedef struct
 	Gfx_Tex tex_back5; //Tree
 } Back_Week5;
 
+int particx;
+int particy[2];
+boolean movepart;
+
+static void drawparticle(Gfx_Tex *tex)
+{
+	if (stage.song_step > 0)	
+	{
+		particx += 3;
+
+		particy[0] -= 5;
+		particy[1] += 1;
+		if(particy[0] > 250)
+			particy[0] -= 250;
+		if(particy[1] > 250)
+			particy[1] -= 250;
+
+	}
+	RECT bit_src = {175, 185, 4, 4};
+	RECT_FIXED bit_dst = {
+		FIXED_DEC(particx - 380,1) - stage.camera.x,
+		FIXED_DEC(MUtil_Sin(particy[0]) / 9 + -40,1) - stage.camera.y,
+		FIXED_DEC(4,1),
+		FIXED_DEC(4,1)
+	};
+
+	Stage_DrawTex(tex, &bit_src, &bit_dst, stage.camera.bzoom);
+
+	bit_dst.y = FIXED_DEC(MUtil_Sin(particy[1]) / 8 + -30,1) - stage.camera.y;
+	Stage_DrawTex(tex, &bit_src, &bit_dst, stage.camera.bzoom);
+}
+
 //Week 5 background functions
 void Back_Week5_DrawBG(StageBack *back)
 {
@@ -32,17 +65,50 @@ void Back_Week5_DrawBG(StageBack *back)
 	fixed_t fx, fy;
 	
 	fixed_t beat_bop;
-	if ((stage.song_step & 0x3) == 0)
+	if ((stage.song_step & 0x3) == 0) {
 		beat_bop = FIXED_UNIT - ((stage.note_scroll / 24) & FIXED_LAND);
+		movepart = 1;
+	}
 	else
 		beat_bop = 0;
-	
-	//Draw Santa
-	
-	//Draw snow
 	fx = stage.camera.x;
 	fy = stage.camera.y;
+
+	if (particy[0] < -120 || stage.song_step < 0)
+	{
+		movepart = 0;
+		particx = 10;
+		particy[0] = 20;
+		particy[1] = 0;
+
+	}
+
+	//Draw Santa
+	struct Back_Week5_Santa
+	{
+		RECT src;
+		RECT_FIXED dst;
+	} santap[] = {
+		{{0, 0, 169, 188}, {FIXED_DEC(-446,1), FIXED_DEC(-60,1), FIXED_DEC(169,1), FIXED_DEC(188,1)}},
+	};
 	
+	const struct Back_Week5_Santa *santa = santap;
+	for (size_t i = 0; i < COUNT_OF(santap); i++, santa++)
+	{
+		RECT_FIXED santa_dst = {
+			santa->dst.x - fx - (beat_bop << 1),
+			santa->dst.y - fy + (beat_bop << 3),
+			santa->dst.w + (beat_bop << 2),
+			santa->dst.h - (beat_bop << 3),
+		};
+		Debug_StageMoveDebug(&santa_dst, 10, fx, fy);
+		Stage_DrawTex(&this->tex_back3, &santa->src, &santa_dst, stage.camera.bzoom);
+	}
+
+	if (movepart)
+		drawparticle(&this->tex_back3);
+
+	//Draw snow	
 	RECT snow_src = {120, 155, 136, 101};
 	RECT_FIXED snow_dst = {
 		FIXED_DEC(-350,1) - fx,
@@ -152,7 +218,8 @@ void Back_Week5_DrawBG(StageBack *back)
 	};
 	if (stage.widescreen)
 	{
-		ubop_piece[1].dst.x += FIXED_DEC(50,1);
+		ubop_piece[1].dst.x += FIXED_DEC(70,1);
+		ubop_piece[1].dst.y += FIXED_DEC(2,1);
 
 	}
 	const struct Back_Week5_UpperBop *ubop_p = ubop_piece;
@@ -188,7 +255,7 @@ void Back_Week5_DrawBG(StageBack *back)
 		wall_piece[2].scale += FIXED_DEC(1,1);
 	}
 	RECT_FIXED wall_dst = {
-		FIXED_DEC(-180,1) - fx,
+		FIXED_DEC(-186,1) - fx,
 		FIXED_DEC(-130,1) - fy,
 		0,
 		FIXED_DEC(190,1)

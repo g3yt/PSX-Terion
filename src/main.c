@@ -51,8 +51,6 @@ static u8 malloc_heap[0x1A0000];
 //Entry point
 int main(int argc, char **argv)
 {
-	stage.debug = 1;
-	stage.widescreen = 1;
 	//botplay
 	stage.botplay = 1;
 	//Remember arguments
