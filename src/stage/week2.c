@@ -63,6 +63,11 @@ void Back_Week2_DrawBG(StageBack *back)
 		FIXED_DEC(267,1)
 	};
 	
+	if (stage.widescreen)
+	{
+		back_dst.x = FIXED_DEC(-287,1) - fx;
+		back_dst.w = FIXED_DEC(556,1);
+	}
 	Debug_StageMoveDebug(&back_dst, 6, fx, fy);
 	Stage_DrawTex(&this->tex_back0, &back_src, &back_dst, stage.camera.bzoom);
 }

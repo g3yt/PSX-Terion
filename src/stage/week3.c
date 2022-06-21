@@ -95,8 +95,6 @@ void Back_Week3_DrawBG(StageBack *back)
 		FIXED_DEC(220,1)
 	};
 
-	Debug_StageMoveDebug(&roof_dst, 4, fx, fy);
-
 	const struct Back_Week3_RoofPiece *roof_p = roof_piece;
 	for (size_t i = 0; i < COUNT_OF(roof_piece); i++, roof_p++)
 	{
@@ -105,10 +103,20 @@ void Back_Week3_DrawBG(StageBack *back)
 		roof_dst.x += roof_dst.w;
 	}
 	
-	RECT roof_fillsrc = {0, 254, 1, 0};
-	RECT roof_fill = {0, screen.SCREEN_HEIGHT * 2 / 3, screen.SCREEN_WIDTH, screen.SCREEN_HEIGHT * 1 / 3};
-	Gfx_DrawTex(&this->tex_back2, &roof_fillsrc, &roof_fill);
+	RECT roof_fillsrc = {66, 164, 7, 92};
+	RECT_FIXED roof_fill = {FIXED_DEC(-303,1) - fx, FIXED_DEC(35,1) - fy, FIXED_DEC(574,1), FIXED_DEC(79,1)};
+	Stage_DrawTex(&this->tex_back2, &roof_fillsrc, &roof_fill, stage.camera.bzoom);
+	roof_fill.y = FIXED_DEC(77,1) - fy;
+	Stage_DrawTex(&this->tex_back2, &roof_fillsrc, &roof_fill, stage.camera.bzoom);
 	
+	RECT thing_src = {67, 58, 138, 36};
+	RECT_FIXED thing_dst = {FIXED_DEC(-171,1) - fx, FIXED_DEC(-68,1) - fy, FIXED_DEC(-145,1), FIXED_DEC(31,1)};
+		
+	Debug_StageMoveDebug(&thing_dst, 4, fx, fy);
+	Stage_DrawTex(&this->tex_back2, &thing_src, &thing_dst, stage.camera.bzoom);
+	RECT_FIXED thing2_dst = {FIXED_DEC(154,1) - fx, FIXED_DEC(-72,1) - fy, FIXED_DEC(115,1), FIXED_DEC(31,1)};
+	Stage_DrawTex(&this->tex_back2, &thing_src, &thing2_dst, stage.camera.bzoom);
+
 	//Move train
 	if (this->train_x <= TRAIN_END_X)
 	{
@@ -229,6 +237,12 @@ void Back_Week3_DrawBG(StageBack *back)
 		FIXED_DEC(110,1) + FIXED_DEC(screen.SCREEN_WIDEOADD,2)
 	};
 	Debug_StageMoveDebug(&sky_dst, 11, fx, fy);
+	if (stage.widescreen)
+	{
+		sky_dst.x = FIXED_DEC(-264,1) - fx;
+		sky_dst.w = FIXED_DEC(262,1);
+		sky_dst.h = FIXED_DEC(154,1);
+	}
 	Stage_DrawTex(&this->tex_back3, &sky_src, &sky_dst, stage.camera.bzoom);
 	sky_dst.x += sky_dst.w;
 	sky_src.y += sky_src.h;

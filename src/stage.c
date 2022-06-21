@@ -114,43 +114,49 @@ static void Stage_FocusCharacter(Character *ch, fixed_t div)
 
 static void Stage_ScrollCamera(void)
 {
-	if (stage.freecam)
+	if (stage.debug)
+		Debug_ScrollCamera();
+	else 
 	{
-		if (pad_state.held & PAD_LEFT)
-			stage.camera.x -= FIXED_DEC(2,1);
-		if (pad_state.held & PAD_UP)
-			stage.camera.y -= FIXED_DEC(2,1);
-		if (pad_state.held & PAD_RIGHT)
-			stage.camera.x += FIXED_DEC(2,1);
-		if (pad_state.held & PAD_DOWN)
-			stage.camera.y += FIXED_DEC(2,1);
-		if (pad_state.held & PAD_TRIANGLE)
-			stage.camera.zoom -= FIXED_DEC(1,100);
-		if (pad_state.held & PAD_CROSS)
-			stage.camera.zoom += FIXED_DEC(1,100);
-	}
-	else if (!stage.debug)
-	{
-		//Get delta position
-		fixed_t dx = stage.camera.tx - stage.camera.x;
-		fixed_t dy = stage.camera.ty - stage.camera.y;
-		fixed_t dz = stage.camera.tz - stage.camera.zoom;
-		
-		//Scroll based off current divisor
-		stage.camera.x += FIXED_MUL(dx, stage.camera.td);
-		stage.camera.y += FIXED_MUL(dy, stage.camera.td);
-		stage.camera.zoom += FIXED_MUL(dz, stage.camera.td);
-		
-		//Shake in Week 4
-		if (stage.stage_id >= StageId_4_1 && stage.stage_id <= StageId_4_3)
+		if (stage.freecam)
 		{
-			stage.camera.x += RandomRange(FIXED_DEC(-1,10),FIXED_DEC(1,10));
-			stage.camera.y += RandomRange(FIXED_DEC(-25,100),FIXED_DEC(25,100));
+			if (pad_state.held & PAD_LEFT)
+				stage.camera.x -= FIXED_DEC(2,1);
+			if (pad_state.held & PAD_UP)
+				stage.camera.y -= FIXED_DEC(2,1);
+			if (pad_state.held & PAD_RIGHT)
+				stage.camera.x += FIXED_DEC(2,1);
+			if (pad_state.held & PAD_DOWN)
+				stage.camera.y += FIXED_DEC(2,1);
+			if (pad_state.held & PAD_TRIANGLE)
+				stage.camera.zoom -= FIXED_DEC(1,100);
+			if (pad_state.held & PAD_CROSS)
+				stage.camera.zoom += FIXED_DEC(1,100);
+		}
+		else
+		{
+			//Get delta position
+			fixed_t dx = stage.camera.tx - stage.camera.x;
+			fixed_t dy = stage.camera.ty - stage.camera.y;
+			fixed_t dz = stage.camera.tz - stage.camera.zoom;
+			
+			//Scroll based off current divisor
+			stage.camera.x += FIXED_MUL(dx, stage.camera.td);
+			stage.camera.y += FIXED_MUL(dy, stage.camera.td);
+			stage.camera.zoom += FIXED_MUL(dz, stage.camera.td);
+			
+			//Shake in Week 4
+			if (stage.stage_id >= StageId_4_1 && stage.stage_id <= StageId_4_3)
+			{
+				stage.camera.x += RandomRange(FIXED_DEC(-1,10),FIXED_DEC(1,10));
+				stage.camera.y += RandomRange(FIXED_DEC(-25,100),FIXED_DEC(25,100));
+			}
 		}
 	}
-	
+		
 	//Update other camera stuff
 	stage.camera.bzoom = FIXED_MUL(stage.camera.zoom, stage.bump);
+
 }
 
 //Stage section functions

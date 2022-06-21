@@ -46,6 +46,12 @@ void Back_Week1_DrawBG(StageBack *back)
 		FIXED_DEC(134,1),
 		FIXED_DEC(256,1)
 	};
+
+	if (stage.widescreen)
+	{
+		curtainl_dst.x = FIXED_DEC(-326,1) - fx;
+		curtainr_dst.x = FIXED_DEC(146,1) - fx;
+	}
 	
 	Debug_StageMoveDebug(&curtainl_dst, 4, fx, fy);
 	Debug_StageMoveDebug(&curtainr_dst, 5, fx, fy);
@@ -79,6 +85,14 @@ void Back_Week1_DrawBG(StageBack *back)
 	
 	RECT stage_src = {0, 0, 255, 59};
 	
+	if (stage.widescreen)
+	{
+		stage_d2.x -= FIXED_DEC(120,1);
+		stage_d3.x += FIXED_DEC(120,1);
+		stage_d0.x -= FIXED_DEC(120,1);
+		stage_d1.x += FIXED_DEC(120,1);
+	}
+
 	Stage_DrawTexArb(&this->tex_back0, &stage_src, &stage_d0, &stage_d1, &stage_d2, &stage_d3, stage.camera.bzoom);
 	
 	//Draw back
