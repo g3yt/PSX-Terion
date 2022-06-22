@@ -42,7 +42,7 @@ jobs:
           make -f Makefile.tim -j8
           make -f Makefile.cht -j8
           make -f Makefile.xa -j8
-          ./mkpsxiso -y funkin.xml
+          sudo ./mkpsxiso -y funkin.xml
           mkdir export
           mv funkin.bin export
           mv funkin.cue export
