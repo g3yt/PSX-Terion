@@ -29,7 +29,8 @@ jobs:
           sudo apt install wget
           sudo apt install rar
           wget http://psx.arthus.net/sdk/Psy-Q/psyq-4_7-converted-light.zip
-          wget http://download1349.mediafire.com/j0755zl70zwg/lwpv2urjilg8kt6/mkpsxiso
+          wget https://github.com/Lameguy64/mkpsxiso/releases/download/v2.01b/mkpsxiso-2.01-Linux.deb
+          sudo dpkg -i mkpsxiso-2.01-Linux.deb
           unzip psyq-4_7-converted-light.zip
           mv psyq-4_7-converted mips/psyq
           sudo apt-get install libtinyxml2-dev
@@ -42,7 +43,7 @@ jobs:
           make -f Makefile.tim -j8
           make -f Makefile.cht -j8
           make -f Makefile.xa -j8
-          ./mkpsxiso -y funkin.xml
+          mkpsxiso -y funkin.xml
           mkdir export
           mv funkin.bin export
           mv funkin.cue export
