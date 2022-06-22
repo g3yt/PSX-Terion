@@ -29,7 +29,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: script run line haha
         run: |
-          C:\tools\msys64\usr\bin\bash -lc "./msys2-mingw/run.sh -b"
+          C:\msys64\usr\bin\bash -lc "./msys2-mingw/run.sh -b"
           pacman -Syu
           pacman -Su
 
