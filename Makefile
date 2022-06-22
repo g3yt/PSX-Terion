@@ -36,6 +36,7 @@ SRCS = src/main.c \
        src/character/mom.c \
        src/character/xmasbf.c \
        src/character/xmasp.c \
+       src/character/monster.c \
        src/character/senpai.c \
        src/character/senpaim.c \
        src/character/spirit.c \

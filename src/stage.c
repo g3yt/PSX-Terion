@@ -61,6 +61,7 @@ int drawshit;
 #include "character/mom.h"
 #include "character/xmasbf.h"
 #include "character/xmasp.h"
+#include "character/monster.h"
 #include "character/senpai.h"
 #include "character/senpaim.h"
 #include "character/spirit.h"
