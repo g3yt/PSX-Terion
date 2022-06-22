@@ -136,26 +136,46 @@ Character *Char_Monster_New(fixed_t x, fixed_t y)
 	
 	this->character.health_i = 1;
 	
-	this->character.focus_x = FIXED_DEC(65,1);
-	this->character.focus_y = FIXED_DEC(-115,1);
+	this->character.focus_x =  FIXED_DEC(65,1);
+	this->character.focus_y = FIXED_DEC(-80,1);
 	this->character.focus_zoom = FIXED_DEC(1,1);
 	
-	//Load art
-	this->arc_main = IO_Read("\\CHAR\\MONSTERX.ARC;1");
-	
-	const char **pathp = (const char *[]){
-		"idle0.tim", //Monster_ArcMain_Idle0
-		"idle1.tim", //Monster_ArcMain_Idle1
-		"left.tim",  //Monster_ArcMain_Left
-		"down.tim",  //Monster_ArcMain_Down
-		"up.tim",    //Monster_ArcMain_Up
-		"right.tim", //Monster_ArcMain_Right
-		NULL
-	};
-	IO_Data *arc_ptr = this->arc_ptr;
-	for (; *pathp != NULL; pathp++)
-		*arc_ptr++ = Archive_Find(this->arc_main, *pathp);
-	
+	if (stage.stage_id == StageId_5_3)
+	{
+		//Load art
+		this->arc_main = IO_Read("\\CHAR\\MONSTERX.ARC;1");
+		
+		const char **pathp = (const char *[]){
+			"idleb0.tim", //Monster_ArcMain_Idle0
+			"idleb1.tim", //Monster_ArcMain_Idle1
+			"leftb.tim",  //Monster_ArcMain_Left
+			"downb.tim",  //Monster_ArcMain_Down
+			"upb.tim",    //Monster_ArcMain_Up
+			"rightb.tim", //Monster_ArcMain_Right
+			NULL
+		};
+		IO_Data *arc_ptr = this->arc_ptr;
+		for (; *pathp != NULL; pathp++)
+			*arc_ptr++ = Archive_Find(this->arc_main, *pathp);
+	}
+	else
+	{
+		//Load art
+		this->arc_main = IO_Read("\\CHAR\\MONSTER.ARC;1");
+		
+		const char **pathp = (const char *[]){
+			"idle0.tim", //Monster_ArcMain_Idle0
+			"idle1.tim", //Monster_ArcMain_Idle1
+			"left.tim",  //Monster_ArcMain_Left
+			"down.tim",  //Monster_ArcMain_Down
+			"up.tim",    //Monster_ArcMain_Up
+			"right.tim", //Monster_ArcMain_Right
+			NULL
+		};
+		IO_Data *arc_ptr = this->arc_ptr;
+		for (; *pathp != NULL; pathp++)
+			*arc_ptr++ = Archive_Find(this->arc_main, *pathp);
+	}
 	//Initialize render state
 	this->tex_id = this->frame = 0xFF;
 	
