@@ -18,19 +18,12 @@ jobs:
     
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-
       - name: Set up MinGW
-        uses: egor-tensin/setup-mingw@v2
-        with:
-            platform: x64
-      # Runs a set of commands using the runners shell
+        run: choco install msys2
+      - uses: actions/checkout@v2
       - name: script run line haha
-      - shell: mingw {0}
-        run: |
-          pacman -Syu
+        run: C:\tools\msys64\usr\bin\bash -lc "./msys2-mingw/run.sh -b"
+        env:
           pacman -Su
 
      # - name: Publish Artifact
