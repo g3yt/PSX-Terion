@@ -22,7 +22,6 @@ typedef struct
 	Gfx_Tex tex_back2; //Lower bop
 	Gfx_Tex tex_back3; //Santa
 	Gfx_Tex tex_back4; //Upper bop
-	Gfx_Tex tex_back5; //Tree
 } Back_Week5;
 
 int particx;
@@ -33,8 +32,10 @@ static void drawparticle(Gfx_Tex *tex)
 {
 	if (stage.song_step > 0)	
 	{
-		particx += 3;
-
+		if (stage.stage_id == StageId_5_2)
+			particx += 4;
+		else
+			particx += 3;
 		particy[0] -= 5;
 		particy[1] += 1;
 		if(particy[0] > 250)
@@ -43,7 +44,7 @@ static void drawparticle(Gfx_Tex *tex)
 			particy[1] -= 250;
 
 	}
-	RECT bit_src = {175, 185, 4, 4};
+	RECT bit_src = {4, 172, 4, 4};
 	RECT_FIXED bit_dst = {
 		FIXED_DEC(particx - 380,1) - stage.camera.x,
 		FIXED_DEC(MUtil_Sin(particy[0]) / 9 + -40,1) - stage.camera.y,
@@ -52,7 +53,7 @@ static void drawparticle(Gfx_Tex *tex)
 	};
 
 	Stage_DrawTex(tex, &bit_src, &bit_dst, stage.camera.bzoom);
-
+	FntPrint("%d %d", particx, particy[0]);
 	bit_dst.y = FIXED_DEC(MUtil_Sin(particy[1]) / 8 + -30,1) - stage.camera.y;
 	Stage_DrawTex(tex, &bit_src, &bit_dst, stage.camera.bzoom);
 }
@@ -74,7 +75,7 @@ void Back_Week5_DrawBG(StageBack *back)
 	fx = stage.camera.x;
 	fy = stage.camera.y;
 
-	if (particy[0] < -120 || stage.song_step < 0)
+	if (particx > 94 || stage.song_step < 0)
 	{
 		movepart = 0;
 		particx = 10;
@@ -89,7 +90,7 @@ void Back_Week5_DrawBG(StageBack *back)
 		RECT src;
 		RECT_FIXED dst;
 	} santap[] = {
-		{{0, 0, 169, 188}, {FIXED_DEC(-446,1), FIXED_DEC(-60,1), FIXED_DEC(169,1), FIXED_DEC(188,1)}},
+		{{0, 0, 117, 150}, {FIXED_DEC(-446,1), FIXED_DEC(-60,1), FIXED_DEC(169,1), FIXED_DEC(188,1)}},
 	};
 	
 	const struct Back_Week5_Santa *santa = santap;
@@ -160,7 +161,7 @@ void Back_Week5_DrawBG(StageBack *back)
 	fx = stage.camera.x * 2 / 5;
 	fy = stage.camera.y * 2 / 5;
 	
-	RECT tree_src = {0, 0, 174, 210};
+	RECT tree_src = {118, 0, 138, 210};
 	RECT_FIXED tree_dst = {
 		FIXED_DEC(-86,1) - fx,
 		FIXED_DEC(-150,1) - fy,
@@ -168,7 +169,7 @@ void Back_Week5_DrawBG(StageBack *back)
 		FIXED_DEC(210,1)
 	};
 	Debug_StageMoveDebug(&tree_dst, 6, fx, fy);
-	Stage_DrawTex(&this->tex_back5, &tree_src, &tree_dst, stage.camera.bzoom);
+	Stage_DrawTex(&this->tex_back3, &tree_src, &tree_dst, stage.camera.bzoom);
 	
 	//Draw second floor
 	fx = stage.camera.x >> 2;
@@ -287,6 +288,49 @@ void Back_Week5_DrawBG(StageBack *back)
 	}
 }
 
+
+//Week 5 background functions
+void Back_Week5_DrawBGHorror(StageBack *back)
+{
+	Back_Week5 *this = (Back_Week5*)back;
+	
+	fixed_t fx, fy;
+
+	fx = stage.camera.x;
+	fy = stage.camera.y;
+
+	//Draw snow	
+	RECT tree_src = {0, 0, 156, 256};
+	RECT_FIXED tree_dst = {
+		FIXED_DEC(-350,1) - fx,
+		FIXED_DEC(44,1) - fy,
+		FIXED_DEC(154,1),
+		FIXED_DEC(270,1)
+	};
+	Stage_DrawTex(&this->tex_back2, &tree_src, &tree_dst, stage.camera.bzoom);
+
+	//Draw snow	
+	RECT snow_src = {120, 155, 136, 101};
+	RECT_FIXED snow_dst = {
+		FIXED_DEC(-350,1) - fx,
+		FIXED_DEC(44,1) - fy,
+		FIXED_DEC(570,1),
+		FIXED_DEC(27,1)
+	};
+
+	if (stage.widescreen)
+	{
+		snow_dst.x = FIXED_DEC(-429,1) - fx;
+		snow_dst.w = FIXED_DEC(736,1);
+	}
+	Debug_StageMoveDebug(&snow_dst, 4, fx, fy);
+	Stage_DrawTex(&this->tex_back2, &snow_src, &snow_dst, stage.camera.bzoom);
+	snow_src.y = 255; snow_src.h = 0;
+	snow_dst.y += snow_dst.h - FIXED_UNIT;
+	snow_dst.h *= 3;
+	Stage_DrawTex(&this->tex_back2, &snow_src, &snow_dst, stage.camera.bzoom);
+}
+
 void Back_Week5_Free(StageBack *back)
 {
 	Back_Week5 *this = (Back_Week5*)back;
@@ -302,21 +346,37 @@ StageBack *Back_Week5_New()
 	if (this == NULL)
 		return NULL;
 	
-	//Set background functions
-	this->back.draw_fg = NULL;
-	this->back.draw_md = NULL;
-	this->back.draw_bg = Back_Week5_DrawBG;
-	this->back.free = Back_Week5_Free;
-	
-	//Load background textures
-	IO_Data arc_back = IO_Read("\\WEEK5\\BACK.ARC;1");
-	Gfx_LoadTex(&this->tex_back0, Archive_Find(arc_back, "back0.tim"), 0);
-	Gfx_LoadTex(&this->tex_back1, Archive_Find(arc_back, "back1.tim"), 0);
-	Gfx_LoadTex(&this->tex_back2, Archive_Find(arc_back, "back2.tim"), 0);
-	Gfx_LoadTex(&this->tex_back3, Archive_Find(arc_back, "back3.tim"), 0);
-	Gfx_LoadTex(&this->tex_back4, Archive_Find(arc_back, "back4.tim"), 0);
-	Gfx_LoadTex(&this->tex_back5, Archive_Find(arc_back, "back5.tim"), 0);
-	Mem_Free(arc_back);
-	
+	if (stage.stage_id != StageId_5_3)
+	{
+		//Set background functions
+		this->back.draw_fg = NULL;
+		this->back.draw_md = NULL;
+		this->back.draw_bg = Back_Week5_DrawBG;
+		this->back.free = Back_Week5_Free;
+		
+		//Load background textures
+		IO_Data arc_back = IO_Read("\\WEEK5\\BACK.ARC;1");
+		Gfx_LoadTex(&this->tex_back0, Archive_Find(arc_back, "back0.tim"), 0);
+		Gfx_LoadTex(&this->tex_back1, Archive_Find(arc_back, "back1.tim"), 0);
+		Gfx_LoadTex(&this->tex_back2, Archive_Find(arc_back, "back2.tim"), 0);
+		Gfx_LoadTex(&this->tex_back3, Archive_Find(arc_back, "back3.tim"), 0);
+		Gfx_LoadTex(&this->tex_back4, Archive_Find(arc_back, "back4.tim"), 0);
+		Mem_Free(arc_back);
+	}
+	else
+	{
+		//Set background functions
+		this->back.draw_fg = NULL;
+		this->back.draw_md = NULL;
+		this->back.draw_bg = Back_Week5_DrawBGHorror;
+		this->back.free = Back_Week5_Free;
+		
+		//Load background textures
+		IO_Data arc_back = IO_Read("\\WEEK5\\BACK.ARC;1");
+		Gfx_LoadTex(&this->tex_back0, Archive_Find(arc_back, "back5.tim"), 0);
+		Gfx_LoadTex(&this->tex_back1, Archive_Find(arc_back, "back6.tim"), 0);
+		Mem_Free(arc_back);
+	}
+
 	return (StageBack*)this;
 }

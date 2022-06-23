@@ -1408,7 +1408,7 @@ static void Stage_LoadState(void)
 		stage.player_state[i].min_accuracy = 0;
 		stage.player_state[i].refresh_score = false;
 		stage.player_state[i].score = 0;
-		sprintf(stage.player_state[i].info_text, "Score:0  |  Misses:?  |  Rating: (?)");
+		sprintf(stage.player_state[i].info_text, "Score: 0  |  Misses: ?  |  Rating: (?)");
 		
 		stage.player_state[i].pad_held = stage.player_state[i].pad_press = 0;
 	}
