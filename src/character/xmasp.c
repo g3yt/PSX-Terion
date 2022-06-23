@@ -110,6 +110,11 @@ void Char_XmasP_Tick(Character *character)
 {
 	Char_XmasP *this = (Char_XmasP*)character;
 	
+	if (stage.widescreen)
+		this->character.focus_x = FIXED_DEC(25,1);
+	else 
+		this->character.focus_x = FIXED_DEC(-213 - -190,1);
+
 	//Perform idle dance
 	if ((character->pad_held & (INPUT_LEFT | INPUT_DOWN | INPUT_UP | INPUT_RIGHT)) == 0)
 		Character_PerformIdle(character);
@@ -158,7 +163,6 @@ Character *Char_XmasP_New(fixed_t x, fixed_t y)
 	
 	this->character.health_i = 7;
 	
-	this->character.focus_x = FIXED_DEC(25,1);
 	this->character.focus_y = FIXED_DEC(-100,1);
 	this->character.focus_zoom = FIXED_DEC(1,1);
 	

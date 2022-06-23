@@ -13,11 +13,13 @@ all: \
 	iso/bf/weeb.arc \
 	iso/dad/main.arc \
 	iso/spook/main.arc \
+	iso/monster/main.arc \
 	iso/pico/main.arc \
 	iso/mom/main.arc \
 	iso/mom/hair.tim \
 	iso/bf/xmas.arc \
 	iso/xmasp/main.arc \
+    iso/monster/xmas.arc \
 	iso/senpai/main.arc \
 	iso/senpaim/main.arc \
 	iso/spirit/main.arc \
@@ -32,7 +34,7 @@ all: \
 	iso/week4/hench.arc \
 	iso/week5/back.arc \
 	iso/week6/back.arc \
-	iso/week6/back3.tim 
+	iso/week6/back2.tim 
 
 iso/%.tim: iso/%.png
 	tools/funkintimconv/funkintimconv $@ $<
@@ -66,6 +68,11 @@ iso/bf/xmas.arc: iso/bf/xmasbf0.tim iso/bf/xmasbf1.tim iso/bf/xmasbf2.tim iso/bf
 # Xmas Parents
 iso/xmasp/main.arc: iso/xmasp/idle0.tim iso/xmasp/idle1.tim iso/xmasp/idle2.tim iso/xmasp/idle3.tim iso/xmasp/lefta0.tim iso/xmasp/lefta1.tim iso/xmasp/leftb0.tim iso/xmasp/leftb1.tim iso/xmasp/downa0.tim iso/xmasp/downa1.tim iso/xmasp/downb0.tim iso/xmasp/downb1.tim iso/xmasp/upa0.tim iso/xmasp/upa1.tim iso/xmasp/upb0.tim iso/xmasp/upb1.tim iso/xmasp/righta0.tim iso/xmasp/righta1.tim iso/xmasp/rightb0.tim iso/xmasp/rightb1.tim
 
+# Monster
+iso/monster/xmas.arc: iso/monster/idleb0.tim iso/monster/idleb1.tim iso/monster/leftb.tim iso/monster/downb.tim iso/monster/upb.tim iso/monster/rightb.tim
+
+iso/monster/main.arc: iso/monster/idle0.tim iso/monster/idle1.tim iso/monster/left.tim iso/monster/down.tim iso/monster/up.tim iso/monster/right.tim
+
 # Senpai
 iso/senpai/main.arc: iso/senpai/senpai0.tim iso/senpai/senpai1.tim
 iso/senpaim/main.arc: iso/senpaim/senpai0.tim iso/senpaim/senpai1.tim
@@ -85,7 +92,7 @@ iso/week1/back.arc: iso/week1/back0.tim iso/week1/back1.tim
 iso/week2/back.arc: iso/week2/back0.tim iso/week2/back1.tim iso/week2/back2.tim
 
 # Week 3
-iso/week3/back.arc: iso/week3/back0.tim iso/week3/back1.tim iso/week3/back2.tim iso/week3/back3.tim iso/week3/back4.tim iso/week3/back5.tim
+iso/week3/back.arc: iso/week3/back0.tim iso/week3/back1.tim iso/week3/back2.tim iso/week3/back3.tim iso/week3/back4.tim 
 
 # Week 4
 iso/week4/back.arc: iso/week4/back0.tim iso/week4/back1.tim iso/week4/back2.tim iso/week4/back3.tim
@@ -95,7 +102,7 @@ iso/week4/hench.arc: iso/week4/hench0.tim iso/week4/hench1.tim
 iso/week5/back.arc: iso/week5/back0.tim iso/week5/back1.tim iso/week5/back2.tim iso/week5/back3.tim iso/week5/back4.tim iso/week5/back5.tim
 
 # Week6
-iso/week6/back.arc: iso/week6/back0.tim iso/week6/back1.tim iso/week6/back2.tim
+iso/week6/back.arc: iso/week6/back0.tim iso/week6/back1.tim
 
 # Week 7
 iso/week7/back.arc: iso/week7/back0.tim iso/week7/back1.tim iso/week7/back2.tim iso/week7/back3.tim

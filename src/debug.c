@@ -25,18 +25,25 @@ static void Drawdebugtxt()
 			FIXED_DEC(-105 + 10, 1),
 			FontAlign_Left
 		);
-		sprintf(debug.debugtext, "with L1 and R1, switch debug modes with L2 and R2");
+		sprintf(debug.debugtext, "with L1 and R1, switch debug modes with L2 and R2,");
 		stage.font_cdr.draw(&stage.font_cdr,
 			debug.debugtext,
 			FIXED_DEC(-158, 1),
 			FIXED_DEC(-105 + 20, 1),
 			FontAlign_Left
 		);
-		sprintf(debug.debugtext, "x %d, y %d, w %d, h %d, selection %d, mode %d", debug.debugx, debug.debugy, debug.debugw, debug.debugh, debug.selection, debug.mode);
+		sprintf(debug.debugtext, "Focus camera with select");
 		stage.font_cdr.draw(&stage.font_cdr,
 			debug.debugtext,
 			FIXED_DEC(-158, 1),
 			FIXED_DEC(-105 + 30, 1),
+			FontAlign_Left
+		);
+		sprintf(debug.debugtext, "x %d, y %d, w %d, h %d, selection %d, mode %d", debug.debugx, debug.debugy, debug.debugw, debug.debugh, debug.selection, debug.mode);
+		stage.font_cdr.draw(&stage.font_cdr,
+			debug.debugtext,
+			FIXED_DEC(-158, 1),
+			FIXED_DEC(-105 + 40, 1),
 			FontAlign_Left
 		);
 		stage.freecam = 0;
@@ -194,5 +201,36 @@ void Debug_StageMoveDebug(RECT_FIXED *dst, int dacase, fixed_t fx, fixed_t fy)
 			dst->w = FIXED_DEC(debug.debugw,1);
 			dst->h = FIXED_DEC(debug.debugh,1);
 		}
+	}
+}
+
+void Debug_ScrollCamera(void)
+{
+	if (stage.freecam)
+	{
+		if (pad_state.held & PAD_LEFT)
+			stage.camera.x -= FIXED_DEC(2,1);
+		if (pad_state.held & PAD_UP)
+			stage.camera.y -= FIXED_DEC(2,1);
+		if (pad_state.held & PAD_RIGHT)
+			stage.camera.x += FIXED_DEC(2,1);
+		if (pad_state.held & PAD_DOWN)
+			stage.camera.y += FIXED_DEC(2,1);
+		if (pad_state.held & PAD_TRIANGLE)
+			stage.camera.zoom -= FIXED_DEC(1,100);
+		if (pad_state.held & PAD_CROSS)
+			stage.camera.zoom += FIXED_DEC(1,100);
+	}
+	else if (pad_state.held & PAD_SELECT)
+	{
+		//Get delta position
+		fixed_t dx = stage.camera.tx - stage.camera.x;
+		fixed_t dy = stage.camera.ty - stage.camera.y;
+		fixed_t dz = stage.camera.tz - stage.camera.zoom;
+		
+		//Scroll based off current divisor
+		stage.camera.x += FIXED_MUL(dx, stage.camera.td);
+		stage.camera.y += FIXED_MUL(dy, stage.camera.td);
+		stage.camera.zoom += FIXED_MUL(dz, stage.camera.td);
 	}
 }

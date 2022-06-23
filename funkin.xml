@@ -148,7 +148,7 @@
 			<dir name = "week6">
 				<!-- Background art -->
 				<file name = "back.arc" type = "data" source = "iso/week6/back.arc"/>
-				<file name = "back3.tim" type = "data" source = "iso/week6/back3.tim"/>
+				<file name = "back2.tim" type = "data" source = "iso/week6/back2.tim"/>
 				
 				<!-- Senpai charts -->
 				<file name = "6.1e.cht" type = "data" source = "iso/chart/senpai-easy.json.cht"/>
@@ -176,6 +176,8 @@
 				
 				<!-- Spook assets -->
 				<file name = "spook.arc" type = "data" source = "iso/spook/main.arc"/>
+				<!-- Monster assets -->
+				<file name = "monster.arc" type = "data" source = "iso/monster/main.arc"/>
 				
 				<!-- Pico assets -->
 				<file name = "pico.arc" type = "data" source = "iso/pico/main.arc"/>
@@ -187,6 +189,7 @@
 				<!-- Christmas assets -->
 				<file name = "xmasbf.arc" type = "data" source = "iso/bf/xmas.arc"/>
 				<file name = "xmasp.arc" type = "data" source = "iso/xmasp/main.arc"/>
+				<file name = "monsterx.arc" type = "data" source = "iso/monster/xmas.arc"/>
 				
 				<!-- Senpai assets -->
 				<file name = "senpai.arc" type = "data" source = "iso/senpai/main.arc"/>

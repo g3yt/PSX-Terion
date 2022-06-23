@@ -104,7 +104,7 @@
 	{ //StageId_2_3 (Monster)
 		//Characters
 		{Char_BF_New,      FIXED_DEC(56,1),   FIXED_DEC(85,1)},
-		{Char_Spook_New,  FIXED_DEC(-90,1),   FIXED_DEC(85,1)},
+		{Char_Monster_New,  FIXED_DEC(-90,1),   FIXED_DEC(85,1)},
         {NULL},
 		{Char_GF_New,       FIXED_DEC(0,1),  FIXED_DEC(-15,1)},
 		
@@ -277,7 +277,7 @@
 	{ //StageId_5_3 (Winter Horrorland)
 		//Characters
 		{Char_XmasBF_New, FIXED_DEC(105,1),  FIXED_DEC(100,1)},
-		{Char_Dad_New,   FIXED_DEC(-120,1),  FIXED_DEC(100,1)},
+		{Char_Monster_New,   FIXED_DEC(-120,1),  FIXED_DEC(100,1)},
 		{NULL},
         {NULL},
 		

@@ -142,6 +142,12 @@ void Back_Week4_DrawMD(StageBack *back)
 		FIXED_DEC(256,1),
 		FIXED_DEC(128,1)
 	};
+		
+	if (stage.widescreen)
+	{
+		fglimo_dst.x = FIXED_DEC(-254,1) - fx;
+		fglimo_dst.w = FIXED_DEC(303,1);
+	}
 	Debug_StageMoveDebug(&fglimo_dst, 6, fx, fy);
 	Stage_DrawTex(&this->tex_back0, &fglimo_src, &fglimo_dst, stage.camera.bzoom);
 	fglimo_dst.x += fglimo_dst.w;
@@ -203,8 +209,13 @@ void Back_Week4_DrawBG(StageBack *back)
 		FIXED_DEC(-165 - screen.SCREEN_WIDEOADD2,1) - fx,
 		FIXED_DEC(-140,1) - fy,
 		FIXED_DEC(340 + screen.SCREEN_WIDEOADD,1),
-		FIXED_DEC(260,1)
+		FIXED_DEC(265,1)
 	};
+	if (stage.widescreen)
+	{
+		sunset_dst.x = FIXED_DEC(-265,1) - fx;
+		sunset_dst.w = FIXED_DEC(537,1);
+	}
 	Debug_StageMoveDebug(&sunset_dst, 8, fx, fy);
 	Stage_DrawTex(&this->tex_back2, &sunset_src, &sunset_dst, stage.camera.bzoom);
 }
