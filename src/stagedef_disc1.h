@@ -279,7 +279,7 @@
 		{Char_XmasBF_New, FIXED_DEC(105,1),  FIXED_DEC(100,1)},
 		{Char_Monster_New,   FIXED_DEC(-120,1),  FIXED_DEC(100,1)},
 		{NULL},
-        {NULL},
+        {Char_GF_New,   FIXED_DEC(-120,1),  FIXED_DEC(100,1)},
 		
 		//Stage background
 		Back_Week5_New,
