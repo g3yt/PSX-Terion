@@ -24,9 +24,11 @@ all: \
 	iso/senpaim/main.arc \
 	iso/spirit/main.arc \
 	iso/gf/main.arc \
+	iso/gf/xmas.arc \
 	iso/gf/tut.arc \
 	iso/gf/weeb.arc \
 	iso/gf/speaker.tim \
+	iso/gf/speakerx.tim \
 	iso/week1/back.arc \
 	iso/week2/back.arc \
 	iso/week3/back.arc \
@@ -82,6 +84,7 @@ iso/spirit/main.arc: iso/spirit/spirit0.tim iso/spirit/spirit1.tim
 
 # GF
 iso/gf/main.arc: iso/gf/gf0.tim iso/gf/gf1.tim iso/gf/gf2.tim
+iso/gf/xmas.arc: iso/gf/xmasgf0.tim iso/gf/xmasgf1.tim iso/gf/xmasgf2.tim
 iso/gf/tut.arc: iso/gf/tut0.tim iso/gf/tut1.tim
 iso/gf/weeb.arc: iso/gf/weeb0.tim iso/gf/weeb1.tim
 

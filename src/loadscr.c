@@ -12,6 +12,7 @@
 #include "audio.h"
 #include "trans.h"
 #include "network.h"
+#include "stage.h"
 
 //Loading screen functions
 void LoadScr_Start(void)

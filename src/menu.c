@@ -235,6 +235,7 @@ static void Menu_DrawWeek(const char *week, s32 x, s32 y)
 //Menu functions
 void Menu_Load(MenuPage page)
 {
+	stage.stage_id = StageId_1_1;
 	//Load menu assets
 	IO_Data menu_arc = IO_Read("\\MENU\\MENU.ARC;1");
 	Gfx_LoadTex(&menu.tex_back,  Archive_Find(menu_arc, "back.tim"),  0);

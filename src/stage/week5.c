@@ -53,7 +53,6 @@ static void drawparticle(Gfx_Tex *tex)
 	};
 
 	Stage_DrawTex(tex, &bit_src, &bit_dst, stage.camera.bzoom);
-	FntPrint("%d %d", particx, particy[0]);
 	bit_dst.y = FIXED_DEC(MUtil_Sin(particy[1]) / 8 + -30,1) - stage.camera.y;
 	Stage_DrawTex(tex, &bit_src, &bit_dst, stage.camera.bzoom);
 }

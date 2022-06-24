@@ -155,7 +155,10 @@ void Char_GF_Tick(Character *character)
 	Character_DrawParallax(character, &this->tex, &char_gf_frame[this->frame], parallax);
 	
 	//Tick speakers
-	Speaker_Tick(&this->speaker, character->x, character->y, parallax);
+	if (stage.stage_id >= StageId_5_1 && stage.stage_id <= StageId_5_3)
+		Speaker_Tick(&this->speaker, character->x - FIXED_DEC(13,1), character->y, parallax);
+	else
+		Speaker_Tick(&this->speaker, character->x, character->y, parallax);
 }
 
 void Char_GF_SetAnim(Character *character, u8 anim)
@@ -203,18 +206,36 @@ Character *Char_GF_New(fixed_t x, fixed_t y)
 	this->character.focus_y = FIXED_DEC(-40,1);
 	this->character.focus_zoom = FIXED_DEC(2,1);
 	
-	//Load art
-	this->arc_main = IO_Read("\\CHAR\\GF.ARC;1");
-	
-	const char **pathp = (const char *[]){
-		"gf0.tim", //GF_ArcMain_GF0
-		"gf1.tim", //GF_ArcMain_GF1
-		"gf2.tim", //GF_ArcMain_GF2
-		NULL
-	};
-	IO_Data *arc_ptr = this->arc_ptr;
-	for (; *pathp != NULL; pathp++)
-		*arc_ptr++ = Archive_Find(this->arc_main, *pathp);
+	if (stage.stage_id >= StageId_5_1 && stage.stage_id <= StageId_5_3)
+	{
+		//Load art
+		this->arc_main = IO_Read("\\CHAR\\GFX.ARC;1");
+		
+		const char **pathp = (const char *[]){
+			"xmasgf0.tim", //GF_ArcMain_GF0
+			"xmasgf1.tim", //GF_ArcMain_GF1
+			"xmasgf2.tim", //GF_ArcMain_GF2
+			NULL
+		};
+		IO_Data *arc_ptr = this->arc_ptr;
+		for (; *pathp != NULL; pathp++)
+			*arc_ptr++ = Archive_Find(this->arc_main, *pathp);
+	}
+	else
+	{
+		//Load art
+		this->arc_main = IO_Read("\\CHAR\\GF.ARC;1");
+		
+		const char **pathp = (const char *[]){
+			"gf0.tim", //GF_ArcMain_GF0
+			"gf1.tim", //GF_ArcMain_GF1
+			"gf2.tim", //GF_ArcMain_GF2
+			NULL
+		};
+		IO_Data *arc_ptr = this->arc_ptr;
+		for (; *pathp != NULL; pathp++)
+			*arc_ptr++ = Archive_Find(this->arc_main, *pathp);
+	}
 	
 	//Load scene specific art
 	switch (stage.stage_id)

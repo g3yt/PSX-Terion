@@ -245,7 +245,7 @@
 		{Char_XmasBF_New,  FIXED_DEC(90,1),   FIXED_DEC(85,1)},
 		{Char_XmasP_New, FIXED_DEC(-190,1),   FIXED_DEC(90,1)},
 		{NULL},
-        {NULL},
+        {Char_GF_New,   FIXED_DEC(-13,1),  FIXED_DEC(-13,1)},
 		
 		//Stage background
 		Back_Week5_New,
@@ -262,7 +262,7 @@
 		{Char_XmasBF_New,  FIXED_DEC(90,1),   FIXED_DEC(85,1)},
 		{Char_XmasP_New, FIXED_DEC(-190,1),   FIXED_DEC(90,1)},
         {NULL},
-		{NULL},
+		{Char_GF_New,   FIXED_DEC(-13,1),  FIXED_DEC(-13,1)},
 		
 		//Stage background
 		Back_Week5_New,
@@ -272,14 +272,14 @@
 		5, 2,
 		XA_Eggnog, 2,
 		
-		StageId_5_3, STAGE_LOAD_FLAG | STAGE_LOAD_OPPONENT
+		StageId_5_3, STAGE_LOAD_FLAG | STAGE_LOAD_OPPONENT | STAGE_LOAD_STAGE
 	},
 	{ //StageId_5_3 (Winter Horrorland)
 		//Characters
 		{Char_XmasBF_New, FIXED_DEC(105,1),  FIXED_DEC(100,1)},
 		{Char_Monster_New,   FIXED_DEC(-120,1),  FIXED_DEC(100,1)},
 		{NULL},
-        {Char_GF_New,   FIXED_DEC(-120,1),  FIXED_DEC(100,1)},
+        {Char_GF_New,   FIXED_DEC(-14,1),  FIXED_DEC(2,1)},
 		
 		//Stage background
 		Back_Week5_New,
