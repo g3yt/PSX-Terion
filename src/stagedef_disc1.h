@@ -272,7 +272,7 @@
 		5, 2,
 		XA_Eggnog, 2,
 		
-		StageId_5_3, STAGE_LOAD_FLAG
+		StageId_5_3, STAGE_LOAD_FLAG | STAGE_LOAD_OPPONENT
 	},
 	{ //StageId_5_3 (Winter Horrorland)
 		//Characters
@@ -282,7 +282,7 @@
         {NULL},
 		
 		//Stage background
-		Back_Dummy_New,
+		Back_Week5_New,
 		
 		//Song info
 		{FIXED_DEC(1,1),FIXED_DEC(11,10),FIXED_DEC(13,10)},

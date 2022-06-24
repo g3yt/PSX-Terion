@@ -300,35 +300,45 @@ void Back_Week5_DrawBGHorror(StageBack *back)
 	fy = stage.camera.y;
 
 	//Draw snow	
-	RECT tree_src = {0, 0, 156, 256};
-	RECT_FIXED tree_dst = {
-		FIXED_DEC(-350,1) - fx,
-		FIXED_DEC(44,1) - fy,
-		FIXED_DEC(154,1),
-		FIXED_DEC(270,1)
-	};
-	Stage_DrawTex(&this->tex_back2, &tree_src, &tree_dst, stage.camera.bzoom);
-
-	//Draw snow	
 	RECT snow_src = {120, 155, 136, 101};
 	RECT_FIXED snow_dst = {
-		FIXED_DEC(-350,1) - fx,
-		FIXED_DEC(44,1) - fy,
-		FIXED_DEC(570,1),
+		FIXED_DEC(-376,1) - fx,
+		FIXED_DEC(55,1) - fy,
+		FIXED_DEC(736,1),
 		FIXED_DEC(27,1)
 	};
 
-	if (stage.widescreen)
-	{
-		snow_dst.x = FIXED_DEC(-429,1) - fx;
-		snow_dst.w = FIXED_DEC(736,1);
-	}
 	Debug_StageMoveDebug(&snow_dst, 4, fx, fy);
-	Stage_DrawTex(&this->tex_back2, &snow_src, &snow_dst, stage.camera.bzoom);
+	Stage_DrawTexCol(&this->tex_back2, &snow_src, &snow_dst, stage.camera.bzoom, 255, 40, 60);
 	snow_src.y = 255; snow_src.h = 0;
 	snow_dst.y += snow_dst.h - FIXED_UNIT;
 	snow_dst.h *= 3;
-	Stage_DrawTex(&this->tex_back2, &snow_src, &snow_dst, stage.camera.bzoom);
+	Stage_DrawTexCol(&this->tex_back2, &snow_src, &snow_dst, stage.camera.bzoom, 255, 40, 60);
+
+	fx = stage.camera.x * 2 / 10;
+	fy = stage.camera.y * 2 / 10;
+
+	//Draw tree
+	RECT tree_src = {0, 0, 156, 256};
+	RECT_FIXED tree_dst = {
+		FIXED_DEC(-79,1) - fx,
+		FIXED_DEC(-150,1) - fy,
+		FIXED_DEC(154,1),
+		FIXED_DEC(270,1)
+	};
+	Debug_StageMoveDebug(&tree_dst, 5, fx, fy);
+	Stage_DrawTex(&this->tex_back1, &tree_src, &tree_dst, stage.camera.bzoom);
+
+	RECT back_src = {0, 0, 256, 256};
+	RECT_FIXED back_dst = {
+		FIXED_DEC(-267,1) - fx,
+		FIXED_DEC(-205,1) - fy,
+		FIXED_DEC(541,1),
+		FIXED_DEC(321,1)
+	};
+
+	Debug_StageMoveDebug(&back_dst, 6, fx, fy);
+	Stage_DrawTex(&this->tex_back0, &back_src, &back_dst, stage.camera.bzoom);
 }
 
 void Back_Week5_Free(StageBack *back)
@@ -375,6 +385,7 @@ StageBack *Back_Week5_New()
 		IO_Data arc_back = IO_Read("\\WEEK5\\BACK.ARC;1");
 		Gfx_LoadTex(&this->tex_back0, Archive_Find(arc_back, "back5.tim"), 0);
 		Gfx_LoadTex(&this->tex_back1, Archive_Find(arc_back, "back6.tim"), 0);
+		Gfx_LoadTex(&this->tex_back2, Archive_Find(arc_back, "back2.tim"), 0);
 		Mem_Free(arc_back);
 	}
 
