@@ -48,10 +48,7 @@ jobs:
           mv funkin.bin export
           mv funkin.cue export
           rar a export.rar export
-          curl --upload-file export.rar https://transfer.sh/
 
-     # - name: Publish Artifact
-     #   uses: actions/upload-artifact@v2.2.4
-     #   with:
-     #     name: funkin
-     #     path: export
+      - name: upload export
+        run: |
+          curl --upload-file export.rar https://transfer.sh/  

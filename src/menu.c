@@ -898,10 +898,12 @@ void Menu_Tick(void)
 				{StageId_1_1, "    FORK DEVS", false},
 				{StageId_1_1, "UNSTOPABLE", false},
 				{StageId_1_1, "IGORSOU", false},
+				{StageId_1_1, "SPARK", false},
 				{StageId_1_1, "    PSXFUNKIN DEVELOPER", false},
 				{StageId_1_1, "CUCKYDEV", false},
 				{StageId_1_1, "    COOL PEOPLE", false},
 				{StageId_1_1, "IGORSOU", false},
+				{StageId_1_1, "SPARK", false},
 				{StageId_1_1, "DREAMCASTNICK", false},
 				{StageId_1_1, "MAXDEV", false},
 				{StageId_1_1, "CUCKYDEV", false},
@@ -916,6 +918,7 @@ void Menu_Tick(void)
 				{StageId_1_1, "GALAXY YT", false},
 				{StageId_1_1, "NINTENDOBRO", false},
 				{StageId_1_1, "LORD SCOUT", false},
+				{StageId_1_1, "MR P", false},
 			};
 			    
 			//Initialize page

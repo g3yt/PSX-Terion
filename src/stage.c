@@ -59,7 +59,6 @@ int drawshit;
 #include "character/spook.h"
 #include "character/pico.h"
 #include "character/mom.h"
-#include "character/xmasbf.h"
 #include "character/xmasp.h"
 #include "character/monster.h"
 #include "character/senpai.h"
@@ -343,14 +342,6 @@ static void Stage_NoteCheck(PlayerState *this, u8 type)
 			
 			//Hit the note
 			note->type |= NOTE_FLAG_HIT;
-			
-			if (stage.mode == StageMode_Swap && !(note->type & NOTE_FLAG_OPPONENT))
-			{
-			if (opponentsing)
-			    stage.player->set_anim(stage.player,  note_anims[type & 0x3][(note->type & NOTE_FLAG_ALT_ANIM) != 0]);
-			if (stage.opponent2 != NULL && opponent2sing)
-			    stage.opponent2->set_anim(stage.opponent2,  note_anims[type & 0x3][(note->type & NOTE_FLAG_ALT_ANIM) != 0]);
-			}
 
 			if (stage.mode == StageMode_2P && note->type & NOTE_FLAG_OPPONENT)
 			{

@@ -430,25 +430,48 @@ Character *Char_BF_New(fixed_t x, fixed_t y)
 	this->character.focus_zoom = FIXED_DEC(1,1);
 	
 	//Load art
-	this->arc_main = IO_Read("\\CHAR\\BF.ARC;1");
-	this->arc_dead = NULL;
-	IO_FindFile(&this->file_dead_arc, "\\CHAR\\BFDEAD.ARC;1");
-	
-	const char **pathp = (const char *[]){
-		"bf0.tim",   //BF_ArcMain_BF0
-		"bf1.tim",   //BF_ArcMain_BF1
-		"bf2.tim",   //BF_ArcMain_BF2
-		"bf3.tim",   //BF_ArcMain_BF3
-		"bf4.tim",   //BF_ArcMain_BF4
-		"bf5.tim",   //BF_ArcMain_BF5
-		"bf6.tim",   //BF_ArcMain_BF6
-		"dead0.tim", //BF_ArcMain_Dead0
-		NULL
-	};
-	IO_Data *arc_ptr = this->arc_ptr;
-	for (; *pathp != NULL; pathp++)
-		*arc_ptr++ = Archive_Find(this->arc_main, *pathp);
-	
+	if (stage.stage_id >= StageId_5_1 && stage.stage_id <= StageId_5_3)
+	{
+		this->arc_main = IO_Read("\\CHAR\\XMASBF.ARC;1");
+		this->arc_dead = NULL;
+		IO_FindFile(&this->file_dead_arc, "\\CHAR\\BFDEAD.ARC;1");
+		
+		const char **pathp = (const char *[]){
+			"xmasbf0.tim",   //BF_ArcMain_BF0
+			"xmasbf1.tim",   //BF_ArcMain_BF1
+			"xmasbf2.tim",   //BF_ArcMain_BF2
+			"xmasbf3.tim",   //BF_ArcMain_BF3
+			"xmasbf3.tim",   //BF_ArcMain_BF4
+			"xmasbf4.tim",   //BF_ArcMain_BF5
+			"xmasbf5.tim",   //BF_ArcMain_BF6
+			"dead0.tim", //BF_ArcMain_Dead0
+			NULL
+		};
+		IO_Data *arc_ptr = this->arc_ptr;
+		for (; *pathp != NULL; pathp++)
+			*arc_ptr++ = Archive_Find(this->arc_main, *pathp);
+	}
+	else
+	{
+		this->arc_main = IO_Read("\\CHAR\\BF.ARC;1");
+		this->arc_dead = NULL;
+		IO_FindFile(&this->file_dead_arc, "\\CHAR\\BFDEAD.ARC;1");
+		
+		const char **pathp = (const char *[]){
+			"bf0.tim",   //BF_ArcMain_BF0
+			"bf1.tim",   //BF_ArcMain_BF1
+			"bf2.tim",   //BF_ArcMain_BF2
+			"bf3.tim",   //BF_ArcMain_BF3
+			"bf4.tim",   //BF_ArcMain_BF4
+			"bf5.tim",   //BF_ArcMain_BF5
+			"bf6.tim",   //BF_ArcMain_BF6
+			"dead0.tim", //BF_ArcMain_Dead0
+			NULL
+		};
+		IO_Data *arc_ptr = this->arc_ptr;
+		for (; *pathp != NULL; pathp++)
+			*arc_ptr++ = Archive_Find(this->arc_main, *pathp);
+	}
 	//Initialize render state
 	this->tex_id = this->frame = 0xFF;
 	
