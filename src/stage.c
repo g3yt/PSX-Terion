@@ -1399,7 +1399,9 @@ static void Stage_LoadState(void)
 		stage.player_state[i].min_accuracy = 0;
 		stage.player_state[i].refresh_score = false;
 		stage.player_state[i].score = 0;
-		sprintf(stage.player_state[i].info_text, "Score: 0  |  Misses: ?  |  Rating: (?)");
+		strcpy(stage.player_state[i].accuracy_text, "Accuracy: ?");
+		strcpy(stage.player_state[i].miss_text, "Misses: 0");
+		strcpy(stage.player_state[i].score_text, "Score: 0");
 		
 		stage.player_state[i].pad_held = stage.player_state[i].pad_press = 0;
 	}
@@ -2015,32 +2017,84 @@ void Stage_Tick(void)
 					Stage_DrawTex(&stage.tex_hud1, &health_back, &health_dst, stage.bump);
 				}
 				
-				//Draw information
+				//Draw Score
 				for (int i = 0; i < ((stage.mode >= StageMode_2P) ? 2 : 1); i++)
 				{
 					PlayerState *this = &stage.player_state[i];
-
-					this->accuracy = (this->min_accuracy * 100) / (this->max_accuracy);
 					
-					//Get string representing number
 					if (this->refresh_score)
 					{
 						if (this->score != 0)
-							sprintf(this->info_text, "Score: %d0  |  Misses: %d  |  Rating: (%d%%)", this->score * stage.max_score / this->max_score, this->miss,  this->accuracy);
+							sprintf(this->score_text, "Score: %d0", this->score * stage.max_score / this->max_score);
 						else
-							sprintf(this->info_text, "Score: 0  |  Misses: ?  |  Rating: (?%%)");
+							strcpy(this->score_text, "Score: 0");
 						this->refresh_score = false;
 					}
 					
-					//Draw text
 					stage.font_cdr.draw(&stage.font_cdr,
-						this->info_text,
-						(stage.mode == StageMode_2P && i == 0) ? FIXED_DEC(10,1) : FIXED_DEC(-80,1), 
+						this->score_text,
+						(stage.mode == StageMode_2P && i == 0) ? FIXED_DEC(10,1) : FIXED_DEC(-150,1), 
 						(screen.SCREEN_HEIGHT2 - 22) << FIXED_SHIFT,
 						FontAlign_Left
 					);
 				}
+				
+				//Draw Combo Break
+				for (int i = 0; i < ((stage.mode >= StageMode_2P) ? 2 : 1); i++)
+				{
+					PlayerState *this = &stage.player_state[i];
 
+					if (this->refresh_miss)
+					{
+						if (this->miss != 0)
+							sprintf(this->miss_text, "Misses: %d", this->miss);
+						else
+							strcpy(this->miss_text, "Misses: 0");
+						this->refresh_miss = false;
+					}
+
+					stage.font_cdr.draw(&stage.font_cdr,
+						this->miss_text,
+						(stage.mode == StageMode_2P && i == 0) ? FIXED_DEC(100,1) : FIXED_DEC(-60,1), 
+						(screen.SCREEN_HEIGHT2 - 22) << FIXED_SHIFT,
+						FontAlign_Left
+					);
+				}
+				
+				//Draw Accuracy
+				for (int i = 0; i < ((stage.mode >= StageMode_2P) ? 2 : 1); i++)
+				{
+					PlayerState *this = &stage.player_state[i];
+					
+					this->accuracy = (this->min_accuracy * 100) / (this->max_accuracy);
+
+					//Rank
+					if (this->accuracy == 100 && this->miss == 0)
+						strcpy(this->rank, "[SFC]");
+					else if (this->accuracy >= 80 && this->miss == 0)
+						strcpy(this->rank, "[GFC]");
+					else if (this->miss == 0)
+						strcpy(this->rank, "[FC]");
+					else
+						strcpy(this->rank, "");
+					
+					if (this->refresh_accuracy)
+					{
+						if (this->accuracy != 0)
+							sprintf(this->accuracy_text, "Accuracy: %d%% %s", this->accuracy, this->rank);
+						else
+							strcpy(this->accuracy_text, "Accuracy: ?");	
+						this->refresh_accuracy = false;
+					}
+					//sorry for this shit lmao
+					stage.font_cdr.draw(&stage.font_cdr,
+						this->accuracy_text,
+						(stage.mode == StageMode_2P && i == 0) ? FIXED_DEC(50,1) : (stage.mode == StageMode_2P && i == 1) ? FIXED_DEC(-110,1) : FIXED_DEC(39,1), 
+						(stage.mode == StageMode_2P) ? FIXED_DEC(85,1) : (screen.SCREEN_HEIGHT2 - 22) << FIXED_SHIFT,
+						FontAlign_Left
+					);
+				}
+				
 				//Tick note splashes
 				ObjectList_Tick(&stage.objlist_splash);
 				

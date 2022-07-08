@@ -158,21 +158,25 @@ typedef struct
 	Character *character;
 	
 	fixed_t arrow_hitan[4]; //Arrow hit animation for presses
-	
+
 	s16 health;
 	u16 combo;
 	
 	boolean refresh_score;
 	s32 score, max_score;
-	char info_text[200];
+	char score_text[13];
 
 	boolean refresh_miss;
 	s32 miss;
+	char miss_text[13];
 	
 	boolean refresh_accuracy;
 	s32 min_accuracy;
 	s32 accuracy;
 	s32 max_accuracy;
+	char accuracy_text[21];
+
+	char rank[13];
 	
 	u16 pad_held, pad_press;
 } PlayerState;
