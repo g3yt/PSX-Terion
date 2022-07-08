@@ -49,7 +49,7 @@ boolean has2opponents;
 boolean opponent2sing;
 boolean opponentsing;
 
-static u32 Sounds[4];
+static u32 Sounds[7];
 int soundcooldown;
 int drawshit;
 
@@ -305,6 +305,7 @@ static void Stage_MissNote(PlayerState *this)
 	this->refresh_accuracy = true;
 	this->miss += 1;
 	this->refresh_miss = true;
+
 	if (this->combo)
 	{
 		//Kill combo
@@ -390,7 +391,11 @@ static void Stage_NoteCheck(PlayerState *this, u8 type)
 	if (!stage.ghost)
 	{
 		if (this->character->spec & CHAR_SPEC_MISSANIM)
+		{
 			this->character->set_anim(this->character, note_anims[type & 0x3][2]);
+			if (stage.sfxmiss) 
+				Audio_PlaySound(Sounds[RandomRange(4,6)]); //Randomly plays a miss sound
+		}
 		else
 			this->character->set_anim(this->character, note_anims[type & 0x3][0]);
 		Stage_MissNote(this);
@@ -1291,9 +1296,9 @@ static void Stage_LoadChart(void)
 
 static void Stage_LoadSFX(void)
 {
+	//Load SFX
 	if (stage.stage_id >= StageId_6_1 && stage.stage_id <= StageId_6_3)
 	{
-		//Load SFX
 	 	CdlFILE file;
 	  	IO_FindFile(&file, "\\SOUNDS\\INTRO1P.VAG;1");
 	    u32 *data = IO_ReadFile(&file);
@@ -1317,7 +1322,6 @@ static void Stage_LoadSFX(void)
 	}
 	else
 	{
-		//Load SFX
 	 	CdlFILE file;
 	  	IO_FindFile(&file, "\\SOUNDS\\INTRO1.VAG;1");
 	    u32 *data = IO_ReadFile(&file);
@@ -1337,6 +1341,25 @@ static void Stage_LoadSFX(void)
 	   	IO_FindFile(&file, "\\SOUNDS\\INTROGO.VAG;1");
 	    data = IO_ReadFile(&file);
 	    Sounds[3] = Audio_LoadVAGData(data, file.size);
+	    Mem_Free(data);
+	}
+
+	if (stage.sfxmiss)
+	{
+	 	CdlFILE file;
+	  	IO_FindFile(&file, "\\SOUNDS\\MISS1.VAG;1");
+	    u32 *data = IO_ReadFile(&file);
+	    Sounds[4] = Audio_LoadVAGData(data, file.size);
+	    Mem_Free(data);
+
+		IO_FindFile(&file, "\\SOUNDS\\MISS2.VAG;1");
+	    data = IO_ReadFile(&file);
+	    Sounds[5] = Audio_LoadVAGData(data, file.size);
+	    Mem_Free(data);
+
+		IO_FindFile(&file, "\\SOUNDS\\MISS3.VAG;1");
+	    data = IO_ReadFile(&file);
+	    Sounds[6] = Audio_LoadVAGData(data, file.size);
 	    Mem_Free(data);
 	}
 }
@@ -2094,7 +2117,7 @@ void Stage_Tick(void)
 						FontAlign_Left
 					);
 				}
-				
+
 				//Tick note splashes
 				ObjectList_Tick(&stage.objlist_splash);
 				

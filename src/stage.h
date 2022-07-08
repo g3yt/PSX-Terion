@@ -187,7 +187,7 @@ typedef struct
 	DRAWENV draw[2];
 
 	//Stage settings
-	boolean ghost, downscroll, middlescroll, expsync, practice, debug, palmode, widescreen;
+	boolean ghost, downscroll, middlescroll, expsync, practice, debug, palmode, widescreen, sfxmiss;
 	boolean dascreen;
 	int screencooldown;
 	s32 mode;
