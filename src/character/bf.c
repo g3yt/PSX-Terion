@@ -189,7 +189,7 @@ void Char_BF_Tick(Character *character)
 	
 	//Secret icon
 	if (secret)
-		this->character.health_i = 9;
+		this->character.health_i = 3;
 	else
 		this->character.health_i = 0;
 

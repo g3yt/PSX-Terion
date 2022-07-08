@@ -156,8 +156,8 @@ Character *Char_XmasP_New(fixed_t x, fixed_t y)
 	//Set character information
 	this->character.spec = 0;
 	
-	this->character.health_i = 7;
-		if (stage.widescreen)
+	this->character.health_i = 1;
+	if (stage.widescreen)
 		this->character.focus_x = FIXED_DEC(25,1);
 	else 
 		this->character.focus_x = FIXED_DEC(-213 - -190,1);

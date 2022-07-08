@@ -5,9 +5,13 @@ all: \
 	iso/font/arial.tim \
 	iso/font/cdr.tim \
 	iso/stage/hud0.tim \
-	iso/stage/hud1.tim \
+	iso/stage/hud1-1.tim \
+	iso/stage/hud1-2.tim \
+	iso/stage/hud1-3.tim \
+	iso/stage/hud1-4.tim \
+	iso/stage/hud1-5.tim \
+	iso/stage/hud1-6.tim \
 	iso/stage/hud0weeb.tim \
-	iso/stage/hud1weeb.tim \
 	iso/stage/pause.tim \
 	iso/bf/main.arc \
 	iso/bf/dead.arc \
