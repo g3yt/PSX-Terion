@@ -24,6 +24,7 @@ extern Debug debug;
 
 void Debug_StageDebug();
 void Debug_StageMoveDebug(RECT_FIXED *dst, int dacase, fixed_t fx, fixed_t fy);
+void Debug_GfxMoveDebug(RECT *dst, int dacase);
 void Debug_ScrollCamera(void);
 
 #endif

@@ -1043,7 +1043,7 @@ void Menu_Tick(void)
 				{OptType_Boolean, "DEBUG MODE", &stage.debug, {.spec_boolean = {0}}},
 			};
 			
-			if (menu.select == 7 && pad_state.press & (PAD_CROSS | PAD_LEFT | PAD_RIGHT))
+			if (menu.select == 8 && pad_state.press & (PAD_CROSS | PAD_LEFT | PAD_RIGHT))
 			{
 				stage.dascreen ++;
 				stage.screencooldown = 0;

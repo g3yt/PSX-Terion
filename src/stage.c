@@ -18,6 +18,7 @@
 #include "debug.h"
 
 #include "menu.h"
+#include "pause.h"
 #include "trans.h"
 #include "loadscr.h"
 
@@ -39,7 +40,6 @@ static const u8 note_anims[4][3] = {
 	{CharAnim_Up,    CharAnim_UpAlt,    PlayerAnim_UpMiss},
 	{CharAnim_Right, CharAnim_RightAlt, PlayerAnim_RightMiss},
 };
-
 
 
 //Stage definitions
@@ -79,9 +79,10 @@ static const StageDef stage_defs[StageId_Max] = {
 	#include "stagedef_disc1.h"
 };
 
-//Stage state
+//Stage states
 Stage stage;
 Debug debug;
+Pause pause;
 
 //Stage music functions
 static void Stage_StartVocal(void)
@@ -392,6 +393,7 @@ static void Stage_NoteCheck(PlayerState *this, u8 type)
 	{
 		if (stage.sfxmiss) 
 			Audio_PlaySound(Sounds[RandomRange(4,6)]); //Randomly plays a miss sound
+		
 		if (this->character->spec & CHAR_SPEC_MISSANIM)
 		{
 			this->character->set_anim(this->character, note_anims[type & 0x3][2]);
@@ -1162,19 +1164,19 @@ static void Stage_CountDown(void)
 	RECT_FIXED go_dst = {FIXED_DEC(10,1), FIXED_DEC(30,1), FIXED_DEC(48 * 2,1), FIXED_DEC(95 * 2,1)};	
 
 	if (drawshit == 3 && stage.song_step >= -15 && stage.song_step <= -12)
-		Stage_DrawTexRotate(&stage.tex_hud1, &ready_src, &ready_dst, stage.bump, -65);
+		Stage_DrawTexRotate(&stage.tex_hud1, &ready_src, &ready_dst, stage.bump, -64);
 	else if (drawshit == 3 && stage.song_step >= -12 && stage.song_step <= -11)
-		Stage_BlendTexRotate(&stage.tex_hud1, &ready_src, &ready_dst, stage.bump, -65, 1);
+		Stage_BlendTexRotate(&stage.tex_hud1, &ready_src, &ready_dst, stage.bump, -64, 1);
 
 	if (drawshit == 2 && stage.song_step >= -10 && stage.song_step <= -7)
-		Stage_DrawTexRotate(&stage.tex_hud0, &set_src, &set_dst, stage.bump, -65);
+		Stage_DrawTexRotate(&stage.tex_hud0, &set_src, &set_dst, stage.bump, -64);
 	else if (drawshit == 2 && stage.song_step >= -7 && stage.song_step <= -6)
-		Stage_BlendTexRotate(&stage.tex_hud0, &set_src, &set_dst, stage.bump, -65, 1);
+		Stage_BlendTexRotate(&stage.tex_hud0, &set_src, &set_dst, stage.bump, -64, 1);
 
 	if (drawshit == 1 && stage.song_step >= -5 && stage.song_step <= -2)
-		Stage_DrawTexRotate(&stage.tex_hud1, &go_src, &go_dst, stage.bump, -65);
+		Stage_DrawTexRotate(&stage.tex_hud1, &go_src, &go_dst, stage.bump, -64);
 	else if (drawshit == 1 && stage.song_step >= -2 && stage.song_step <= -1)
-		Stage_BlendTexRotate(&stage.tex_hud1, &go_src, &go_dst, stage.bump, -65, 1);
+		Stage_BlendTexRotate(&stage.tex_hud1, &go_src, &go_dst, stage.bump, -64, 1);
 }
 
 //Stage loads
@@ -1629,7 +1631,7 @@ void Stage_Tick(void)
 		//Return to menu when start is pressed
 		if (pad_state.press & PAD_START && stage.state == StageState_Play)
 		{
-			stage.trans = StageTrans_Menu;
+			stage.trans = StageTrans_Pause;
 			Trans_Start();
 		}
 		else if (pad_state.press & (PAD_START | PAD_CROSS) && stage.state != StageState_Play)
@@ -1687,7 +1689,10 @@ void Stage_Tick(void)
 				Stage_Load(stage.stage_id, stage.stage_diff, stage.story);
 				LoadScr_End();
 				break;
-			case StageTrans_Disconnect:
+			case StageTrans_Pause:
+				Stage_Unload();
+				Pause_load();
+				gameloop = GameLoop_Pause;
 				return;
 		}
 	}

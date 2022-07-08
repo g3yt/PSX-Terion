@@ -44,6 +44,7 @@ SRCS = src/main.c \
        src/object.c \
        src/object/combo.c \
        src/object/splash.c \
+       src/pause.c \
        mips/common/crt0/crt0.s
 
 CPPFLAGS += -Wall -Wextra -pedantic -mno-check-zero-division

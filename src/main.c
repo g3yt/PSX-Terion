@@ -13,6 +13,7 @@
 #include "pad.h"
 #include "network.h"
 
+#include "pause.h"
 #include "menu.h"
 #include "stage.h"
 
@@ -53,6 +54,7 @@ int main(int argc, char **argv)
 {
 	//botplay
 	stage.botplay = 1;
+	stage.sfxmiss = 1;
 	//Remember arguments
 	my_argc = argc;
 	my_argv = argv;
@@ -159,6 +161,9 @@ int main(int argc, char **argv)
 				break;
 			case GameLoop_Stage:
 				Stage_Tick();
+				break;
+			case GameLoop_Pause:
+				PausedState();
 				break;
 		}
 		

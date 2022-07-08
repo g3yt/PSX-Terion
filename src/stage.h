@@ -94,7 +94,7 @@ typedef enum
 	StageTrans_Menu,
 	StageTrans_NextSong,
 	StageTrans_Reload,
-	StageTrans_Disconnect,
+	StageTrans_Pause,
 } StageTrans;
 
 //Stage background

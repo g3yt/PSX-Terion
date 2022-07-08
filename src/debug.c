@@ -204,6 +204,28 @@ void Debug_StageMoveDebug(RECT_FIXED *dst, int dacase, fixed_t fx, fixed_t fy)
 	}
 }
 
+void Debug_GfxMoveDebug(RECT *dst, int dacase)
+{
+	if (debug.mode == 0 && stage.debug)
+	{
+		if (debug.selection == dacase)
+		{
+			if (debug.switchcooldown == 0)
+			{
+				debug.debugx = dst->x; 
+				debug.debugy = dst->y; 
+				debug.debugw = dst->w; 
+				debug.debugh = dst->h; 
+			}
+			debug.switchcooldown ++;
+			dst->x = debug.debugx;
+			dst->y = debug.debugy;
+			dst->w = debug.debugw;
+			dst->h = debug.debugh;
+		}
+	}
+}
+
 void Debug_ScrollCamera(void)
 {
 	if (stage.freecam)

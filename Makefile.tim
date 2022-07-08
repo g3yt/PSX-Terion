@@ -8,6 +8,7 @@ all: \
 	iso/stage/hud1.tim \
 	iso/stage/hud0weeb.tim \
 	iso/stage/hud1weeb.tim \
+	iso/stage/pause.tim \
 	iso/bf/main.arc \
 	iso/bf/dead.arc \
 	iso/bf/weeb.arc \
