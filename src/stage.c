@@ -390,11 +390,11 @@ static void Stage_NoteCheck(PlayerState *this, u8 type)
 	
 	if (!stage.ghost)
 	{
+		if (stage.sfxmiss) 
+			Audio_PlaySound(Sounds[RandomRange(4,6)]); //Randomly plays a miss sound
 		if (this->character->spec & CHAR_SPEC_MISSANIM)
 		{
 			this->character->set_anim(this->character, note_anims[type & 0x3][2]);
-			if (stage.sfxmiss) 
-				Audio_PlaySound(Sounds[RandomRange(4,6)]); //Randomly plays a miss sound
 		}
 		else
 			this->character->set_anim(this->character, note_anims[type & 0x3][0]);
