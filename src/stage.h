@@ -273,7 +273,15 @@ typedef struct
 	ObjectList objlist_splash, objlist_fg, objlist_bg;
 } Stage;
 
+typedef struct
+{
+	u32 cursonglength;
+	int secondtimer;
+	int timer;
+} Timer;
+
 extern Stage stage;
+extern Timer timer;
 
 //Stage drawing functions
 void Stage_DrawTexCol(Gfx_Tex *tex, const RECT *src, const RECT_FIXED *dst, fixed_t zoom, u8 r, u8 g, u8 b);

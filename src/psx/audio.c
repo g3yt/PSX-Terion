@@ -56,6 +56,13 @@ static CdlFILE xa_files[XA_Max];
 
 #include "../audio_def.h"
 
+XA_Track lengthtrack;
+
+u32 Audio_GetLength()
+{
+	return (xa_tracks[lengthtrack].length / 75) / IO_SECT_SIZE;
+}
+
 //Internal XA functions
 static u8 XA_BCD(u8 x)
 {
@@ -209,6 +216,8 @@ void Audio_PlayXA_Track(XA_Track track, u8 volume, u8 channel, boolean loop)
 	CdlFILE file;
 	Audio_GetXAFile(&file, track);
 	
+	lengthtrack = track;
+
 	//Play track
 	Audio_PlayXA_File(&file, volume, channel, loop);
 }

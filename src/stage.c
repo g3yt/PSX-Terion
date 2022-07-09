@@ -28,9 +28,7 @@
 //Stage constants
 //#define STAGE_NOHUD //Disable the HUD
 
-//normal note x
 int note_x[8];
-
 int note_y[8];
 
 static const u16 note_key[] = {INPUT_LEFT, INPUT_DOWN, INPUT_UP, INPUT_RIGHT};
@@ -83,6 +81,7 @@ static const StageDef stage_defs[StageId_Max] = {
 Stage stage;
 Debug debug;
 Pause pause;
+Timer timer;
 
 //Stage music functions
 static void Stage_StartVocal(void)
@@ -1431,6 +1430,9 @@ static void Stage_LoadState(void)
 		stage.player_state[i].min_accuracy = 0;
 		stage.player_state[i].refresh_score = false;
 		stage.player_state[i].score = 0;
+		timer.cursonglength = 0;
+		timer.secondtimer = 0;
+		timer.timer = 0;
 		strcpy(stage.player_state[i].accuracy_text, "Accuracy: ?");
 		strcpy(stage.player_state[i].miss_text, "Misses: 0");
 		strcpy(stage.player_state[i].score_text, "Score: 0");
@@ -1468,7 +1470,7 @@ void Stage_Load(StageId id, StageDiff difficulty, boolean story)
 	else
 		Gfx_LoadTex(&stage.tex_hud0, IO_Read("\\STAGE\\HUD0.TIM;1"), GFX_LOADTEX_FREE);
 	
-	if (id >= StageId_1_1 && id <= StageId_1_3)
+	if (id >= StageId_1_1 && id <= StageId_1_4)
 		Gfx_LoadTex(&stage.tex_hud1, IO_Read("\\STAGE\\HUD1-1.TIM;1"), GFX_LOADTEX_FREE);
 	else if	(id >= StageId_2_1 && id <= StageId_2_3)
 		Gfx_LoadTex(&stage.tex_hud1, IO_Read("\\STAGE\\HUD1-2.TIM;1"), GFX_LOADTEX_FREE);
@@ -1715,9 +1717,29 @@ void Stage_Tick(void)
 	{
 		case StageState_Play:
 		{   
+			if (stage.song_step > 0 && stage.song_step < 2)
+			{
+				timer.cursonglength = Audio_GetLength();	
+				timer.timer = timer.cursonglength;
+			}	
+			
+			if (stage.song_step > 0)
+			{
+				timer.secondtimer ++;
+
+				if (timer.secondtimer >= 60)
+				{
+					timer.timer --;
+					timer.secondtimer = 0;
+				}
+				if (timer.timer < 0)
+					timer.timer = 0;
+			}
+			FntPrint("%d, sec%d", timer.timer, timer.secondtimer);
+
 			if (stage.debug)
 				Debug_StageDebug();
-
+			
             //check if the stage has 2 opponents
 			if (has2opponents == 0)
 			{
