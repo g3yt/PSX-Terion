@@ -187,7 +187,7 @@ typedef struct
 	DRAWENV draw[2];
 
 	//Stage settings
-	boolean ghost, downscroll, middlescroll, expsync, practice, debug, palmode, widescreen, sfxmiss;
+	boolean ghost, downscroll, middlescroll, expsync, practice, debug, palmode, widescreen, sfxmiss, songtimer;
 	boolean dascreen;
 	int screencooldown;
 	s32 mode;
@@ -273,16 +273,7 @@ typedef struct
 	ObjectList objlist_splash, objlist_fg, objlist_bg;
 } Stage;
 
-typedef struct
-{
-	u32 cursonglength;
-	int secondtimer;
-	int timer;
-	int timermin;
-} Timer;
-
 extern Stage stage;
-extern Timer timer;
 
 //Stage drawing functions
 void Stage_DrawTexCol(Gfx_Tex *tex, const RECT *src, const RECT_FIXED *dst, fixed_t zoom, u8 r, u8 g, u8 b);

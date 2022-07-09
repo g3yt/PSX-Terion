@@ -55,6 +55,7 @@ int main(int argc, char **argv)
 	//botplay
 	stage.botplay = 1;
 	stage.sfxmiss = 1;
+	stage.songtimer = 1;
 	//Remember arguments
 	my_argc = argc;
 	my_argv = argv;

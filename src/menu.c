@@ -1031,19 +1031,20 @@ void Menu_Tick(void)
 				} spec;
 			} menu_options[] = {
 				{OptType_Enum,    "GAMEMODE", &stage.mode, {.spec_enum = {COUNT_OF(gamemode_strs), gamemode_strs}}},
-				//{OptType_Boolean, "INTERPOLATION", &stage.expsync},
+				{OptType_Boolean, "INTERPOLATION", &stage.expsync, {.spec_boolean = {0}}},
 				{OptType_Boolean, "PAL REFRESH RATE", &stage.palmode, {.spec_boolean = {0}}},
 				{OptType_Boolean, "GHOST TAP", &stage.ghost, {.spec_boolean = {0}}},
 				{OptType_Boolean, "MISS SOUNDS", &stage.sfxmiss, {.spec_boolean = {0}}},
 				{OptType_Boolean, "DOWNSCROLL", &stage.downscroll, {.spec_boolean = {0}}},
 				{OptType_Boolean, "MIDDLESCROLL", &stage.middlescroll, {.spec_boolean = {0}}},
 				{OptType_Boolean, "BOTPLAY", &stage.botplay, {.spec_boolean = {0}}},
+				{OptType_Boolean, "SHOW SONG TIME", &stage.songtimer, {.spec_boolean = {0}}},
 				{OptType_Boolean, "PRACTICE MODE", &stage.practice, {.spec_boolean = {0}}},
 				{OptType_Boolean, "WIDESCREEN", &stage.widescreen, {.spec_boolean = {0}}},
 				{OptType_Boolean, "DEBUG MODE", &stage.debug, {.spec_boolean = {0}}},
 			};
 			
-			if (menu.select == 8 && pad_state.press & (PAD_CROSS | PAD_LEFT | PAD_RIGHT))
+			if (menu.select == 10 && pad_state.press & (PAD_CROSS | PAD_LEFT | PAD_RIGHT))
 			{
 				stage.dascreen ++;
 				stage.screencooldown = 0;

@@ -8,19 +8,19 @@ typedef struct
 
 static const XA_TrackDef xa_tracks[] = {
 	//MENU.XA
-	{XA_Menu, XA_LENGTH(11295)}, //XA_GettinFreaky
-	{XA_Menu, XA_LENGTH(3840)},  //XA_GameOver
+	{XA_Menu, XA_LENGTH(11300)}, //XA_GettinFreaky
+	{XA_Menu, XA_LENGTH(3800)},  //XA_GameOver
 	//WEEK1A.XA
-	{XA_Week1A, XA_LENGTH(7685)}, //XA_Bopeebo
+	{XA_Week1A, XA_LENGTH(7700)}, //XA_Bopeebo
 	{XA_Week1A, XA_LENGTH(8000)}, //XA_Fresh
 	//WEEK1B.XA
-	{XA_Week1B, XA_LENGTH(8667)}, //XA_Dadbattle
+	{XA_Week1B, XA_LENGTH(8700)}, //XA_Dadbattle
 	{XA_Week1B, XA_LENGTH(6800)}, //XA_Tutorial
 	//WEEK2A.XA
-	{XA_Week2A, XA_LENGTH(9923)}, //XA_Spookeez
-	{XA_Week2A, XA_LENGTH(8880)}, //XA_South
+	{XA_Week2A, XA_LENGTH(9900)}, //XA_Spookeez
+	{XA_Week2A, XA_LENGTH(8900)}, //XA_South
 	//WEEK2B.XA
-	{XA_Week2B, XA_LENGTH(17778)}, //XA_Monster
+	{XA_Week2B, XA_LENGTH(17800)}, //XA_Monster
 	//WEEK3A.XA
 	{XA_Week3A, XA_LENGTH(8400)},  //XA_Pico
 	{XA_Week3A, XA_LENGTH(10000)}, //XA_Philly
@@ -33,15 +33,15 @@ static const XA_TrackDef xa_tracks[] = {
 	{XA_Week4B, XA_LENGTH(12300)}, //XA_MILF
 	{XA_Week4B, XA_LENGTH(10300)}, //XA_Test
 	//WEEK5A.XA
-	{XA_Week5A, XA_LENGTH(11520)}, //XA_Cocoa
-	{XA_Week5A, XA_LENGTH(9401)},  //XA_Eggnog
+	{XA_Week5A, XA_LENGTH(11500)}, //XA_Cocoa
+	{XA_Week5A, XA_LENGTH(9400)},  //XA_Eggnog
 	//WEEK5B.XA
-	{XA_Week5B, XA_LENGTH(13223)}, //XA_WinterHorrorland
+	{XA_Week5B, XA_LENGTH(13200)}, //XA_WinterHorrorland
 	//WEEK6A.XA
 	{XA_Week6A, XA_LENGTH(9800)}, //XA_Senpai
-	{XA_Week6A, XA_LENGTH(8928)}, //XA_Roses
+	{XA_Week6A, XA_LENGTH(8900)}, //XA_Roses
 	//WEEK6B.XA
-	{XA_Week6B, XA_LENGTH(10298)}, //XA_Thorns
+	{XA_Week6B, XA_LENGTH(10300)}, //XA_Thorns
 };
 
 static const char *xa_paths[] = {

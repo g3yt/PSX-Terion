@@ -81,7 +81,6 @@ static const StageDef stage_defs[StageId_Max] = {
 Stage stage;
 Debug debug;
 Pause pause;
-Timer timer;
 
 //Stage music functions
 static void Stage_StartVocal(void)
@@ -1430,9 +1429,9 @@ static void Stage_LoadState(void)
 		stage.player_state[i].min_accuracy = 0;
 		stage.player_state[i].refresh_score = false;
 		stage.player_state[i].score = 0;
-		timer.cursonglength = Audio_GetLength(stage.stage_def->music_track);	
 		timer.secondtimer = 0;
-		timer.timer = 0;
+		timer.timer = Audio_GetLength(stage.stage_def->music_track) - 1;
+		timer.timermin = 0;
 		strcpy(stage.player_state[i].accuracy_text, "Accuracy: ?");
 		strcpy(stage.player_state[i].miss_text, "Misses: 0");
 		strcpy(stage.player_state[i].score_text, "Score: 0");
@@ -1441,15 +1440,43 @@ static void Stage_LoadState(void)
 	}
 	
 	//BF
-	note_y[0] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
-	note_y[1] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);//+34
-	note_y[2] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
-	note_y[3] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
+	note_y[0] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2 + 5, 1);
+	note_y[1] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2 + 5, 1);//+34
+	note_y[2] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2 + 5, 1);
+	note_y[3] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2 + 5, 1);
 	//Opponent
-	note_y[4] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
-	note_y[5] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);//+34
-	note_y[6] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
-	note_y[7] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2, 1);
+	note_y[4] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2 + 5, 1);
+	note_y[5] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2 + 5, 1);//+34
+	note_y[6] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2 + 5, 1);
+	note_y[7] = FIXED_DEC(32 - screen.SCREEN_HEIGHT2 + 5, 1);
+
+	//middle note x
+	if(stage.middlescroll)
+	{
+		//bf
+		note_x[0] = FIXED_DEC(26 - 78,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
+		note_x[1] = FIXED_DEC(60 - 78,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4); //+34
+		note_x[2] = FIXED_DEC(94 - 78,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
+		note_x[3] = FIXED_DEC(128 - 78,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
+		//opponent
+	    note_x[4] = FIXED_DEC(-50 - 78,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
+		note_x[5] = FIXED_DEC(-16 - 78,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4); //+34
+		note_x[6] = FIXED_DEC(170 - 78,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
+		note_x[7] = FIXED_DEC(204 - 78,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
+	}
+	else
+	{
+		//bf
+		note_x[0] = FIXED_DEC(26,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
+		note_x[1] = FIXED_DEC(60,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4); //+34
+		note_x[2] = FIXED_DEC(94,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
+		note_x[3] = FIXED_DEC(128,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
+		//opponent
+		note_x[4] = FIXED_DEC(-128,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
+		note_x[5] = FIXED_DEC(-94,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4); //+34
+		note_x[6] = FIXED_DEC(-60,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
+		note_x[7] = FIXED_DEC(-26,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
+	}
 
 	ObjectList_Free(&stage.objlist_splash);
 	ObjectList_Free(&stage.objlist_fg);
@@ -1644,25 +1671,23 @@ void Stage_Tick(void)
 	
 	//Tick transition
 	
-		//Return to menu when start is pressed
-		if (pad_state.press & PAD_START && stage.state == StageState_Play)
-		{
-			stage.trans = StageTrans_Pause;
-			Trans_Start();
-		}
-		else if (pad_state.press & (PAD_START | PAD_CROSS) && stage.state != StageState_Play)
-		{
-			stage.trans = StageTrans_Reload;
-			Trans_Start();
-		}
-		else if (pad_state.press & PAD_CIRCLE && stage.state != StageState_Play)
-		{
-			stage.trans = StageTrans_Menu;
-			Trans_Start();
-		}
-	
-	
-	
+	//Return to menu when start is pressed
+	if (pad_state.press & PAD_START && stage.state == StageState_Play)
+	{
+		stage.trans = StageTrans_Pause;
+		Trans_Start();
+	}
+	else if (pad_state.press & (PAD_START | PAD_CROSS) && stage.state != StageState_Play)
+	{
+		stage.trans = StageTrans_Reload;
+		Trans_Start();
+	}
+	else if (pad_state.press & PAD_CIRCLE && stage.state != StageState_Play)
+	{
+		stage.trans = StageTrans_Menu;
+		Trans_Start();
+	}
+
 	if (Trans_Tick())
 	{
 		switch (stage.trans)
@@ -1717,37 +1742,8 @@ void Stage_Tick(void)
 	{
 		case StageState_Play:
 		{   
-			//if (stage.song_step > 0 && stage.song_step < 2)
-		//	{
-		//		timer.timer = timer.cursonglength;
-		///	}	
-			/*
-			if (stage.song_step > 0)
-			{
-				timer.secondtimer ++;
-
-				if (timer.secondtimer >= 60)
-				{
-					timer.timer --;
-					timer.secondtimer = 0;
-				}
-				if (timer.timer < 0)
-				{
-					if (timer.timermin > 0)
-						timer.timermin --;
-					else
-						timer.timermin = 0;
-						
-					timer.timer = 60;
-				}
-			}
-			if (timer.timer >= 60 && stage.song_step > 2) {
-				timer.timermin ++;
-				timer.timer -= 60;
-			}	
-			*/
-			FntPrint("%d:%d, sec%d, %d", timer.timermin, timer.timer, timer.secondtimer, timer.cursonglength);
-
+			if (stage.songtimer)
+				StageTimer_Draw();
 			if (stage.debug)
 				Debug_StageDebug();
 			
@@ -1758,50 +1754,19 @@ void Stage_Tick(void)
 				opponent2sing = 1;
 			}
 
-			//middle note x
-			if(stage.middlescroll)
-			{
-				//bf
-				note_x[0] = FIXED_DEC(26 - 78,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
-				note_x[1] = FIXED_DEC(60 - 78,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4); //+34
-				note_x[2] = FIXED_DEC(94 - 78,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
-				note_x[3] = FIXED_DEC(128 - 78,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
-				//opponent
-				note_x[4] = FIXED_DEC(-50 - 78,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
-				note_x[5] = FIXED_DEC(-16 - 78,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4); //+34
-				note_x[6] = FIXED_DEC(170 - 78,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
-				note_x[7] = FIXED_DEC(204 - 78,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
-			}
-			else
-			{
-				//bf
-				note_x[0] = FIXED_DEC(26,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
-				note_x[1] = FIXED_DEC(60,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4); //+34
-				note_x[2] = FIXED_DEC(94,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
-				note_x[3] = FIXED_DEC(128,1) + FIXED_DEC(screen.SCREEN_WIDEADD,4);
-				//opponent
-				note_x[4] = FIXED_DEC(-128,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
-				note_x[5] = FIXED_DEC(-94,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4); //+34
-				note_x[6] = FIXED_DEC(-60,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
-				note_x[7] = FIXED_DEC(-26,1) - FIXED_DEC(screen.SCREEN_WIDEADD,4);
-			}
-
-
 			Stage_CountDown();
 
 			if (stage.botplay)
 			{
 				//Draw botplay
-				RECT bot_fill = {174, 225, 67, 16};
+				RECT bot_src = {174, 225, 67, 16};
 				RECT_FIXED bot_dst = {FIXED_DEC(-33,1), FIXED_DEC(-60,1), FIXED_DEC(67,1), FIXED_DEC(16,1)};
-				
-				bot_dst.w = bot_fill.w << FIXED_SHIFT;
 
 				bot_dst.y += stage.noteshakey;
 				bot_dst.x += stage.noteshakex;
 				
 				if (!stage.debug)
-				Stage_DrawTex(&stage.tex_hud0, &bot_fill, &bot_dst, stage.bump);
+					Stage_DrawTex(&stage.tex_hud0, &bot_src, &bot_dst, stage.bump);
 			}
 
 			if (noteshake) 
@@ -1822,109 +1787,107 @@ void Stage_Tick(void)
 			boolean playing;
 			fixed_t next_scroll;
 			
-			
-				const fixed_t interp_int = FIXED_UNIT * 8 / 75;
-				if (stage.note_scroll < 0)
+			const fixed_t interp_int = FIXED_UNIT * 8 / 75;
+			if (stage.note_scroll < 0)
+			{
+				//Play countdown sequence
+				stage.song_time += timer_dt;
+					
+				//Update song
+				if (stage.song_time >= 0)
 				{
-					//Play countdown sequence
-					stage.song_time += timer_dt;
-					
-					//Update song
-					if (stage.song_time >= 0)
-					{
-						//Song has started
-						playing = true;
-						Audio_PlayXA_Track(stage.stage_def->music_track, 0x40, stage.stage_def->music_channel, 0);
-						
-						//Update song time
-						fixed_t audio_time = (fixed_t)Audio_TellXA_Milli() - stage.offset;
-						if (audio_time < 0)
-							audio_time = 0;
-						stage.interp_ms = (audio_time << FIXED_SHIFT) / 1000;
-						stage.interp_time = 0;
-						stage.song_time = stage.interp_ms;
-					}
-					else
-					{
-						//Still scrolling
-						playing = false;
-					}
-					
-					//Update scroll
-					next_scroll = FIXED_MUL(stage.song_time, stage.step_crochet);
-				}
-				else if (Audio_PlayingXA())
-				{
-					fixed_t audio_time_pof = (fixed_t)Audio_TellXA_Milli();
-					fixed_t audio_time = (audio_time_pof > 0) ? (audio_time_pof - stage.offset) : 0;
-					
-					if (stage.expsync)
-					{
-						//Get playing song position
-						if (audio_time_pof > 0)
-						{
-							stage.song_time += timer_dt;
-							stage.interp_time += timer_dt;
-						}
-						
-						if (stage.interp_time >= interp_int)
-						{
-							//Update interp state
-							while (stage.interp_time >= interp_int)
-								stage.interp_time -= interp_int;
-							stage.interp_ms = (audio_time << FIXED_SHIFT) / 1000;
-						}
-						
-						//Resync
-						fixed_t next_time = stage.interp_ms + stage.interp_time;
-						if (stage.song_time >= next_time + FIXED_DEC(25,1000) || stage.song_time <= next_time - FIXED_DEC(25,1000))
-						{
-							stage.song_time = next_time;
-						}
-						else
-						{
-							if (stage.song_time < next_time - FIXED_DEC(1,1000))
-								stage.song_time += FIXED_DEC(1,1000);
-							if (stage.song_time > next_time + FIXED_DEC(1,1000))
-								stage.song_time -= FIXED_DEC(1,1000);
-						}
-					}
-					else
-					{
-						//Old sync
-						stage.interp_ms = (audio_time << FIXED_SHIFT) / 1000;
-						stage.interp_time = 0;
-						stage.song_time = stage.interp_ms;
-					}
-					
+					//Song has started
 					playing = true;
-					
-					//Update scroll
-					next_scroll = ((fixed_t)stage.step_base << FIXED_SHIFT) + FIXED_MUL(stage.song_time - stage.time_base, stage.step_crochet);
+
+					Audio_PlayXA_Track(stage.stage_def->music_track, 0x40, stage.stage_def->music_channel, 0);
+						
+					//Update song time
+					fixed_t audio_time = (fixed_t)Audio_TellXA_Milli() - stage.offset;
+					if (audio_time < 0)
+						audio_time = 0;
+					stage.interp_ms = (audio_time << FIXED_SHIFT) / 1000;
+					stage.interp_time = 0;
+					stage.song_time = stage.interp_ms;
 				}
 				else
 				{
-					//Song has ended
+					//Still scrolling
 					playing = false;
-					stage.song_time += timer_dt;
-					
-					//Update scroll
-					next_scroll = ((fixed_t)stage.step_base << FIXED_SHIFT) + FIXED_MUL(stage.song_time - stage.time_base, stage.step_crochet);
-					
-					//Transition to menu or next song
-					if (stage.story && stage.stage_def->next_stage != stage.stage_id)
+				}
+				
+				//Update scroll
+				next_scroll = FIXED_MUL(stage.song_time, stage.step_crochet);
+			}
+			else if (Audio_PlayingXA())
+			{
+				fixed_t audio_time_pof = (fixed_t)Audio_TellXA_Milli();
+				fixed_t audio_time = (audio_time_pof > 0) ? (audio_time_pof - stage.offset) : 0;
+				
+				if (stage.expsync)
+				{
+					//Get playing song position
+					if (audio_time_pof > 0)
 					{
-						if (Stage_NextLoad())
-							goto SeamLoad;
+						stage.song_time += timer_dt;
+						stage.interp_time += timer_dt;
+					}
+					
+					if (stage.interp_time >= interp_int)
+					{
+						//Update interp state
+						while (stage.interp_time >= interp_int)
+							stage.interp_time -= interp_int;
+						stage.interp_ms = (audio_time << FIXED_SHIFT) / 1000;
+					}
+					
+					//Resync
+					fixed_t next_time = stage.interp_ms + stage.interp_time;
+					if (stage.song_time >= next_time + FIXED_DEC(25,1000) || stage.song_time <= next_time - FIXED_DEC(25,1000))
+					{
+						stage.song_time = next_time;
 					}
 					else
 					{
-						stage.trans = StageTrans_Menu;
-						Trans_Start();
+						if (stage.song_time < next_time - FIXED_DEC(1,1000))
+							stage.song_time += FIXED_DEC(1,1000);
+						if (stage.song_time > next_time + FIXED_DEC(1,1000))
+							stage.song_time -= FIXED_DEC(1,1000);
 					}
 				}
-			
-			
+				else
+				{
+					//Old sync
+					stage.interp_ms = (audio_time << FIXED_SHIFT) / 1000;
+					stage.interp_time = 0;
+					stage.song_time = stage.interp_ms;
+				}
+				
+				playing = true;
+				
+				//Update scroll
+				next_scroll = ((fixed_t)stage.step_base << FIXED_SHIFT) + FIXED_MUL(stage.song_time - stage.time_base, stage.step_crochet);
+			}
+			else
+			{
+				//Song has ended
+				playing = false;
+				stage.song_time += timer_dt;
+					
+				//Update scroll
+				next_scroll = ((fixed_t)stage.step_base << FIXED_SHIFT) + FIXED_MUL(stage.song_time - stage.time_base, stage.step_crochet);
+				
+				//Transition to menu or next song
+				if (stage.story && stage.stage_def->next_stage != stage.stage_id)
+				{
+					if (Stage_NextLoad())
+						goto SeamLoad;
+				}
+				else
+				{
+					stage.trans = StageTrans_Menu;
+					Trans_Start();
+				}
+			}	
 			RecalcScroll:;
 			//Update song scroll and step
 			if (next_scroll > stage.note_scroll)
@@ -2266,6 +2229,12 @@ void Stage_Tick(void)
 			//Draw stage background
 			if (stage.back->draw_bg != NULL)
 				stage.back->draw_bg(stage.back);
+			
+			if (stage.song_step > 0)
+				StageTimer_Tick();
+			else
+				StageTimer_Calculate();
+
 			break;
 		}
 		case StageState_Dead: //Start BREAK animation and reading extra data from CD
