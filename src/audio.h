@@ -71,7 +71,7 @@ typedef enum
 } XA_Track;
 
 //Audio functions
-u32 Audio_GetLength();
+u32 Audio_GetLength(XA_Track lengthtrack);
 void Audio_Init(void);
 void Audio_Quit(void);
 void Audio_PlayXA_Track(XA_Track track, u8 volume, u8 channel, boolean loop);

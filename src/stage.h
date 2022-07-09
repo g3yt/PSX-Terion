@@ -278,6 +278,7 @@ typedef struct
 	u32 cursonglength;
 	int secondtimer;
 	int timer;
+	int timermin;
 } Timer;
 
 extern Stage stage;

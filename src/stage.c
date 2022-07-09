@@ -1430,7 +1430,7 @@ static void Stage_LoadState(void)
 		stage.player_state[i].min_accuracy = 0;
 		stage.player_state[i].refresh_score = false;
 		stage.player_state[i].score = 0;
-		timer.cursonglength = 0;
+		timer.cursonglength = Audio_GetLength(stage.stage_def->music_track);	
 		timer.secondtimer = 0;
 		timer.timer = 0;
 		strcpy(stage.player_state[i].accuracy_text, "Accuracy: ?");
@@ -1717,12 +1717,11 @@ void Stage_Tick(void)
 	{
 		case StageState_Play:
 		{   
-			if (stage.song_step > 0 && stage.song_step < 2)
-			{
-				timer.cursonglength = Audio_GetLength();	
-				timer.timer = timer.cursonglength;
-			}	
-			
+			//if (stage.song_step > 0 && stage.song_step < 2)
+		//	{
+		//		timer.timer = timer.cursonglength;
+		///	}	
+			/*
 			if (stage.song_step > 0)
 			{
 				timer.secondtimer ++;
@@ -1733,9 +1732,21 @@ void Stage_Tick(void)
 					timer.secondtimer = 0;
 				}
 				if (timer.timer < 0)
-					timer.timer = 0;
+				{
+					if (timer.timermin > 0)
+						timer.timermin --;
+					else
+						timer.timermin = 0;
+						
+					timer.timer = 60;
+				}
 			}
-			FntPrint("%d, sec%d", timer.timer, timer.secondtimer);
+			if (timer.timer >= 60 && stage.song_step > 2) {
+				timer.timermin ++;
+				timer.timer -= 60;
+			}	
+			*/
+			FntPrint("%d:%d, sec%d, %d", timer.timermin, timer.timer, timer.secondtimer, timer.cursonglength);
 
 			if (stage.debug)
 				Debug_StageDebug();
