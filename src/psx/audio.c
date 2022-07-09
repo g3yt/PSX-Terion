@@ -406,11 +406,11 @@ u32 Audio_LoadVAGData(u32 *sound, u32 sound_size) {
 	return addr;
 }
 
-void Audio_PlaySoundOnChannel(u32 addr, u32 channel) {
+void Audio_PlaySoundOnChannel(u32 addr, u32 channel, int volume) {
 	SPU_KEY_OFF |= (1 << channel);
 
-	SPU_CHANNELS[channel].vol_left   = 0x3fff;
-	SPU_CHANNELS[channel].vol_right  = 0x3fff;
+	SPU_CHANNELS[channel].vol_left   = volume;
+	SPU_CHANNELS[channel].vol_right  = volume;
 	SPU_CHANNELS[channel].addr       = SPU_RAM_ADDR(addr);
 	SPU_CHANNELS[channel].loop_addr  = SPU_RAM_ADDR(DUMMY_ADDR);
 	SPU_CHANNELS[channel].freq       = 0x1000; // 44100 Hz
@@ -419,13 +419,13 @@ void Audio_PlaySoundOnChannel(u32 addr, u32 channel) {
 	SPU_KEY_ON |= (1 << channel);
 }
 
-void Audio_PlaySound(u32 addr) {
+void Audio_PlaySound(u32 addr, int volume) {
     for (u32 ch = 0; ch < 24; ch++) { // channels 0-3 are reserved for streaming
         if (SPU_CHANNELS[ch]._reserved)
             continue;
 
-        //printf("Playing sound on channel %d (addr=%08x)\n", ch, addr);
-        Audio_PlaySoundOnChannel(addr, ch);
+        printf("Playing sound on channel %d (addr=%08x)\n", ch, addr);
+        Audio_PlaySoundOnChannel(addr, ch, volume);
         return;
     }
 
