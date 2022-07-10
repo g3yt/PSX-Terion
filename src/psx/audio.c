@@ -377,7 +377,7 @@ static int lastChannelUsed = 0;
 static int getFreeChannel(void) {
     int channel = lastChannelUsed;
     lastChannelUsed = (channel + 1) % 24;
-    FntPrint("le channel is %d", channel);
+    printf("le channel is %d", channel);
     return channel;
 }
 
