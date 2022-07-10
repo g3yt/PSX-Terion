@@ -371,8 +371,15 @@ void Audio_ProcessXA(void)
 }
 
 /* .VAG file loader */
-
 #define VAG_HEADER_SIZE 48
+static int lastChannelUsed = 0;
+
+static int getFreeChannel(void) {
+    int channel = lastChannelUsed;
+    lastChannelUsed = (channel + 1) % 24;
+    FntPrint("le channel is %d", channel);
+    return channel;
+}
 
 void Audio_ClearAlloc(void) {
 	audio_alloc_ptr = ALLOC_START_ADDR;
@@ -420,15 +427,7 @@ void Audio_PlaySoundOnChannel(u32 addr, u32 channel, int volume) {
 }
 
 void Audio_PlaySound(u32 addr, int volume) {
-    for (u32 ch = 0; ch < 24; ch++) { // channels 0-3 are reserved for streaming
-        if (SPU_CHANNELS[ch]._reserved)
-            continue;
-
-        printf("Playing sound on channel %d (addr=%08x)\n", ch, addr);
-        Audio_PlaySoundOnChannel(addr, ch, volume);
-        return;
-    }
-
-    printf("Could not find free channel to play sound (addr=%08x)\n", addr);
+    Audio_PlaySoundOnChannel(addr, getFreeChannel(), volume);
+   // printf("Could not find free channel to play sound (addr=%08x)\n", addr);
 }
 
