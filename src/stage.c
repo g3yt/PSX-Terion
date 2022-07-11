@@ -1429,6 +1429,7 @@ static void Stage_LoadState(void)
 		stage.player_state[i].min_accuracy = 0;
 		stage.player_state[i].refresh_score = false;
 		stage.player_state[i].score = 0;
+		stage.song_beat = 0;
 		timer.secondtimer = 0;
 		timer.timer = Audio_GetLength(stage.stage_def->music_track) - 1;
 		timer.timermin = 0;
@@ -1747,6 +1748,7 @@ void Stage_Tick(void)
 			if (stage.debug)
 				Debug_StageDebug();
 			
+			FntPrint("step %d, beat %d", stage.song_step, stage.song_beat);
             //check if the stage has 2 opponents
 			if (has2opponents == 0)
 			{
@@ -2231,7 +2233,11 @@ void Stage_Tick(void)
 				stage.back->draw_bg(stage.back);
 			
 			if (stage.song_step > 0)
+			{
+				stage.song_beat = stage.song_step / 4;
+				
 				StageTimer_Tick();
+			}
 			else
 				StageTimer_Calculate();
 

@@ -249,6 +249,7 @@ typedef struct
 	s16 noteshakey;
 
 	int song_step;
+	int song_beat;
 
 	boolean botplay, freecam;
 	
