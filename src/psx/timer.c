@@ -136,7 +136,7 @@ void StageTimer_Tick()
 
 void StageTimer_Draw()
 {
-	RECT bar_fill = {155, 240, 1, 1};
+	RECT bar_fill = {252, 252, 1, 1};
 	RECT_FIXED bar_dst = {FIXED_DEC(-70,1), FIXED_DEC(-110,1), FIXED_DEC(140,1), FIXED_DEC(11,1)};
 	//Draw timer
 	sprintf(timer.timer_display, "%d", timer.timermin);
