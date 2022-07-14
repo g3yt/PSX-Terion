@@ -36,6 +36,9 @@ if (pad_state.held & PAD_R2)
 	
 Stage_DrawTexRotate(&this->tex_back1, &tex_src, &tex_dst, stage.camera.bzoom, sprite_angle);
 ```
+
+To use the sprite sheet calculating tool do ```./tools/funkincalc/funkincalc``` in the source code folder
+
 ## Compilation
 Refer to [COMPILE.md](/COMPILE.md) here
 
