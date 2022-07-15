@@ -1517,13 +1517,7 @@ void Stage_Load(StageId id, StageDiff difficulty, boolean story)
 	
 	//Initialize camera
 	if (stage.cur_section->flag & SECTION_FLAG_OPPFOCUS)
-	{
-		if (stage.opponent2 != NULL && strcmp(stage.oppo2sing, "single") == 0)
-		Stage_FocusCharacter(stage.opponent2, FIXED_UNIT);
-
-		else
 		Stage_FocusCharacter(stage.opponent, FIXED_UNIT);
-	}
 	else
 		Stage_FocusCharacter(stage.player, FIXED_UNIT);
 	stage.camera.x = stage.camera.tx;
@@ -1925,13 +1919,7 @@ void Stage_Tick(void)
 			
 			//Scroll camera
 			if (stage.cur_section->flag & SECTION_FLAG_OPPFOCUS)
-			{
-				if (stage.opponent2 != NULL && strcmp(stage.oppo2sing, "single") == 0)
-				Stage_FocusCharacter(stage.opponent2, FIXED_UNIT/ 24);
-
-				else
 				Stage_FocusCharacter(stage.opponent, FIXED_UNIT / 24);
-			}
 			else
 				Stage_FocusCharacter(stage.player, FIXED_UNIT / 24);
 			Stage_ScrollCamera();
