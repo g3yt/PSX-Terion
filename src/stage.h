@@ -248,8 +248,10 @@ typedef struct
 	s16 noteshakex;
 	s16 noteshakey;
 
-	int song_step;
-	int song_beat;
+	s32 song_step;
+	s16 song_beat;
+
+	char* oppo2sing;
 
 	boolean botplay, freecam;
 	

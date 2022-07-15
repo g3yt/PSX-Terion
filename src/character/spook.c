@@ -161,6 +161,9 @@ Character *Char_Spook_New(fixed_t x, fixed_t y)
 	this->character.spec = 0;
 	
 	this->character.health_i = 1;
+
+	//health bar color
+	this->character.health_bar = 0xFFD67B00;
 	
 	this->character.focus_x =  FIXED_DEC(65,1);
 	this->character.focus_y = FIXED_DEC(-80,1);

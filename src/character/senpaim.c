@@ -150,6 +150,9 @@ Character *Char_SenpaiM_New(fixed_t x, fixed_t y)
 	this->character.spec = 0;
 	
 	this->character.health_i = 1;
+
+	//health bar color
+	this->character.health_bar = 0xFFFFAA70;
 	
 	this->character.focus_x = FIXED_DEC(24,1);
 	this->character.focus_y = FIXED_DEC(-66,1);
