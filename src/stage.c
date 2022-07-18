@@ -46,6 +46,7 @@ boolean noteshake;
 static u32 Sounds[7];
 int soundcooldown;
 int drawshit;
+char iconpath[30];
 
 #include "character/bf.h"
 #include "character/bfweeb.h"
@@ -1480,18 +1481,9 @@ void Stage_Load(StageId id, StageDiff difficulty, boolean story)
 	else
 		Gfx_LoadTex(&stage.tex_hud0, IO_Read("\\STAGE\\HUD0.TIM;1"), GFX_LOADTEX_FREE);
 	
-	if (id >= StageId_1_1 && id <= StageId_1_4)
-		Gfx_LoadTex(&stage.tex_hud1, IO_Read("\\STAGE\\HUD1-1.TIM;1"), GFX_LOADTEX_FREE);
-	else if	(id >= StageId_2_1 && id <= StageId_2_3)
-		Gfx_LoadTex(&stage.tex_hud1, IO_Read("\\STAGE\\HUD1-2.TIM;1"), GFX_LOADTEX_FREE);
-	else if	(id >= StageId_3_1 && id <= StageId_3_3)
-		Gfx_LoadTex(&stage.tex_hud1, IO_Read("\\STAGE\\HUD1-3.TIM;1"), GFX_LOADTEX_FREE);
-	else if	(id >= StageId_4_1 && id <= StageId_4_3)
-		Gfx_LoadTex(&stage.tex_hud1, IO_Read("\\STAGE\\HUD1-4.TIM;1"), GFX_LOADTEX_FREE);
-	else if	(id >= StageId_5_1 && id <= StageId_5_3)
-		Gfx_LoadTex(&stage.tex_hud1, IO_Read("\\STAGE\\HUD1-5.TIM;1"), GFX_LOADTEX_FREE);
-	else if	(id >= StageId_6_1 && id <= StageId_6_3)
-		Gfx_LoadTex(&stage.tex_hud1, IO_Read("\\STAGE\\HUD1-6.TIM;1"), GFX_LOADTEX_FREE);
+	sprintf(iconpath, "\\STAGE\\HUD1-%d.TIM;1", stage.stage_def->week);
+	Gfx_LoadTex(&stage.tex_hud1, IO_Read(iconpath), GFX_LOADTEX_FREE);
+
 	//Load stage background
 	Stage_LoadStage();
 
