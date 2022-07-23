@@ -25,8 +25,8 @@ typedef struct
 
 extern Timer timer;
 
-//Timer interface
-void Timer_Init(void);
+//Timer interface 
+void Timer_Init(boolean pal_console, boolean pal_video);
 void Timer_Tick(void);
 void Timer_Reset(void);
 void StageTimer_Calculate();

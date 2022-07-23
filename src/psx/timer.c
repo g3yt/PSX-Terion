@@ -27,13 +27,8 @@ void Timer_Callback(void) {
 	timer_count++;
 }
 
-void Timer_Init(void)
+void Timer_Init(boolean pal_console, boolean pal_video)
 {
-	//Check if system is PAL
-	u32 status = *((volatile const u32*)0x1f801814);
-	boolean pal_console = *((volatile const char*)0xbfc7ff52) == 'E';
-	boolean pal_video = (status & 0x00100000) != 0;
-	
 	//Initialize counters
 	frame_count = animf_count = timer_count = timer_lcount = timer_countbase = 0;
 	timer_sec = timer_dt = timer_secbase = 0;
@@ -117,8 +112,8 @@ void StageTimer_Calculate()
 
 void StageTimer_Tick()
 {
-	timer.secondtimer ++;
-	if (timer.secondtimer >= 60)
+	timer.secondtimer += timer_dt / 12;
+	if (stage.palmode ? timer.secondtimer >= 50 : timer.secondtimer >= 60)
 	{
 		timer.secondtimer = 0;
 		if (timer.timer <= 0)
@@ -162,6 +157,6 @@ void StageTimer_Draw()
 	);
 	if (stage.downscroll)
 		bar_dst.y = FIXED_DEC(99,1); 
-	
+
 	Stage_BlendTex(&stage.tex_hud0, &bar_fill, &bar_dst, stage.bump, 1);
 }

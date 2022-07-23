@@ -1043,7 +1043,8 @@ void Menu_Tick(void)
 				{OptType_Boolean, "WIDESCREEN", &stage.widescreen, {.spec_boolean = {0}}},
 				{OptType_Boolean, "DEBUG MODE", &stage.debug, {.spec_boolean = {0}}},
 			};
-			
+			if (menu.select == 2 && pad_state.press & (PAD_CROSS | PAD_LEFT | PAD_RIGHT))
+				stage.palcooldown = 0;
 			if (menu.select == 10 && pad_state.press & (PAD_CROSS | PAD_LEFT | PAD_RIGHT))
 			{
 				stage.dascreen ++;
