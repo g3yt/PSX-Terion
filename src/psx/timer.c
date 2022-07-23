@@ -160,5 +160,8 @@ void StageTimer_Draw()
 		FIXED_DEC(-109,1) + stage.noteshakey,
 		FontAlign_Left
 	);
+	if (stage.downscroll)
+		bar_dst.y = FIXED_DEC(99,1); 
+	
 	Stage_BlendTex(&stage.tex_hud0, &bar_fill, &bar_dst, stage.bump, 1);
 }

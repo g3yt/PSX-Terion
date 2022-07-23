@@ -1280,8 +1280,8 @@ static void Stage_LoadChart(void)
 	u8 *chart_byte = (u8*)stage.chart_data;
 
 		//Directly use section and notes pointers
-		stage.sections = (Section*)(chart_byte + 2);
-		stage.notes = (Note*)(chart_byte + *((u16*)stage.chart_data));
+		stage.sections = (Section*)(chart_byte + 6);
+		stage.notes = (Note*)(chart_byte + ((u16*)stage.chart_data)[2]);
 		
 		for (Note *note = stage.notes; note->pos != 0xFFFF; note++)
 			stage.num_notes++;
@@ -1306,7 +1306,7 @@ static void Stage_LoadChart(void)
 	stage.cur_section = stage.sections;
 	stage.cur_note = stage.notes;
 	
-	stage.speed = stage.stage_def->speed[stage.stage_diff];
+	stage.speed = *((fixed_t*)stage.chart_data);
 	
 	stage.step_crochet = 0;
 	stage.time_base = 0;
