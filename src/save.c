@@ -4,6 +4,8 @@
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
+//thanks to spicyjpeg for helping me understand this code
+
 #include "save.h"
 
 #include <libmcrd.h>

@@ -78,6 +78,7 @@ int main(int argc, char **argv)
 
 	if (readSaveFile() == false)
 		defaultSettings();
+	stage.dascreen = stage.prefs.widescreen;
 
 	//Start game
 	gameloop = GameLoop_Menu;

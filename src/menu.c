@@ -1060,6 +1060,10 @@ void Menu_Tick(void)
 			if (menu.page_swap)
 				menu.scroll = COUNT_OF(menu_options) * FIXED_DEC(24 + screen.SCREEN_HEIGHT2,1);
 			
+			RECT save_src = {0, 121, 55, 7};
+			RECT save_dst = {screen.SCREEN_WIDTH / 2 + 30 - (121 / 2), screen.SCREEN_HEIGHT - 30, 53 * 2, 7 * 2};
+			Gfx_DrawTex(&menu.tex_story, &save_src, &save_dst);
+
 			//Draw page label
 			menu.font_bold.draw(&menu.font_bold,
 				"OPTIONS",
@@ -1108,12 +1112,14 @@ void Menu_Tick(void)
 						break;
 				}
 				
+				if (pad_state.press & PAD_SELECT)
+					writeSaveFile();
+
 				//Return to main menu if circle is pressed
 				if (pad_state.press & PAD_CIRCLE)
 				{
 					//play cancel sound
 					Audio_PlaySound(Sounds[2], 0x3fff);
-					writeSaveFile();
 					menu.next_page = MenuPage_Main;
 					menu.next_select = 3; //Options
 					Trans_Start();
