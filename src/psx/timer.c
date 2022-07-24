@@ -113,7 +113,7 @@ void StageTimer_Calculate()
 void StageTimer_Tick()
 {
 	timer.secondtimer += timer_dt / 12;
-	if (stage.palmode ? timer.secondtimer >= 50 : timer.secondtimer >= 60)
+	if (stage.prefs.palmode ? timer.secondtimer >= 50 : timer.secondtimer >= 60)
 	{
 		timer.secondtimer = 0;
 		if (timer.timer <= 0)
@@ -155,7 +155,7 @@ void StageTimer_Draw()
 		FIXED_DEC(-109,1) + stage.noteshakey,
 		FontAlign_Left
 	);
-	if (stage.downscroll)
+	if (stage.prefs.downscroll)
 		bar_dst.y = FIXED_DEC(99,1); 
 
 	Stage_BlendTex(&stage.tex_hud0, &bar_fill, &bar_dst, stage.bump, 1);

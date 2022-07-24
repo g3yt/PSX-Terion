@@ -27,7 +27,7 @@ void PausedState()
 	RECT cancel_dst = {192, 183, 51, 10};	
 	RECT replay_dst = { 92, 183, 55, 11};
 	RECT bf_dst = {161,  49, 69, 46};
-	if (stage.widescreen)
+	if (stage.prefs.widescreen)
 	{
 		blue_dst.x += 98;
 		yellow_dst.x += 98;
@@ -64,7 +64,7 @@ void PausedState()
 	}
 	else if (selection == 1)	
 	{
-		if (stage.widescreen)
+		if (stage.prefs.widescreen)
 			yellow_dst.x = 195 + 98;
 		else
 			yellow_dst.x = 195;
@@ -78,7 +78,7 @@ void PausedState()
 	Gfx_DrawTex(&pause.tex_pause, &replay_src, &replay_dst); //Replay
 	//Draw Blue buttons
 	Gfx_DrawTex(&pause.tex_pause, &blue_src, &blue_dst);
-	if (stage.widescreen)
+	if (stage.prefs.widescreen)
 		blue_dst.x = 195 + 98;
 	else
 		blue_dst.x = 195;

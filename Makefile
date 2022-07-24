@@ -11,13 +11,13 @@ SRCS = src/main.c \
        src/menu.c \
        src/stage.c \
        src/debug.c \
+       src/save.c \
        src/psx/psx.c \
        src/psx/io.c \
        src/psx/gfx.c \
        src/psx/audio.c \
        src/psx/pad.c \
        src/psx/timer.c \
-       src/psx/movie.c \
        src/stage/dummy.c \
        src/stage/week1.c \
        src/stage/week2.c \
@@ -53,7 +53,7 @@ LDFLAGS += -Wl,--start-group
 LDFLAGS += -lapi
 #LDFLAGS += -lc
 LDFLAGS += -lc2
-#LDFLAGS += -lcard
+LDFLAGS += -lcard
 LDFLAGS += -lcd
 #LDFLAGS += -lcomb
 LDFLAGS += -lds
@@ -64,7 +64,7 @@ LDFLAGS += -lgpu
 #LDFLAGS += -lgun
 #LDFLAGS += -lhmd
 #LDFLAGS += -lmath
-#LDFLAGS += -lmcrd
+LDFLAGS += -lmcrd
 #LDFLAGS += -lmcx
 LDFLAGS += -lpad
 LDFLAGS += -lpress

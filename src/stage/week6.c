@@ -117,7 +117,7 @@ void Back_Week6_DrawBG(StageBack *back)
 		{{101, 0,  99, 80},    FIXED_DEC(0,1), FIXED_DEC(-84,1), {FIXED_DEC(31,10), FIXED_DEC(30,10), FIXED_DEC(29,10), FIXED_DEC(32,10)}},
 	};
 
-	if (stage.widescreen)
+	if (stage.prefs.widescreen)
 	{
 		fg_tree[0].x -= FIXED_DEC(35,1);
 		fg_tree[1].x += FIXED_DEC(40,1);
@@ -161,7 +161,7 @@ void Back_Week6_DrawBG(StageBack *back)
 	
 	Debug_StageMoveDebug(&bg_tree_l_dst, 5, fx, fy);
 	Debug_StageMoveDebug(&bg_tree_r_dst, 6, fx, fy);
-	if (stage.widescreen)
+	if (stage.prefs.widescreen)
 	{
 		bg_tree_l_dst.x -= FIXED_DEC(35,1);
 		bg_tree_r_dst.x += FIXED_DEC(40,1);
@@ -203,7 +203,7 @@ void Back_Week6_DrawBG(StageBack *back)
 		FIXED_DEC(19,1) + FIXED_DEC(58,1) - fy,
 	};
 
-	if (stage.widescreen)
+	if (stage.prefs.widescreen)
 	{
 		school_dst.x = FIXED_DEC(-157,1);
 		school_dst.w = FIXED_DEC(316,1);
@@ -275,7 +275,7 @@ void Back_Week6_DrawBG3(StageBack *back)
 			back_dst[y][x].y = Back_Week6_GetY(x, y);
 		}
 	}
-	if (stage.widescreen)
+	if (stage.prefs.widescreen)
 	{
 		back_dst[5][8].x += FIXED_DEC(30,1);
 		back_dst[4][8].x += FIXED_DEC(30,1);

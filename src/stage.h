@@ -185,8 +185,12 @@ typedef struct
 	DRAWENV draw[2];
 
 	//Stage settings
-	boolean ghost, downscroll, middlescroll, expsync, practice, debug, palmode, widescreen, sfxmiss, songtimer;
 	int screencooldown, palcooldown;
+	struct
+	{
+		boolean ghost, downscroll, middlescroll, expsync, practice, debug, palmode, widescreen, sfxmiss, songtimer, botplay;
+	} prefs;
+
 	boolean dascreen;
 	s32 mode;
 	
@@ -251,7 +255,7 @@ typedef struct
 
 	char* oppo2sing;
 
-	boolean botplay, freecam;
+	boolean freecam;
 	
 	u8 gf_speed; //Typically 4 steps, changes in Fresh
 	

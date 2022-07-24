@@ -22,6 +22,7 @@
 #include "loadscr.h"
 
 #include "stage.h"
+#include "save.h"
 #include "character/gf.h"
 
 #include "stdlib.h"
@@ -895,30 +896,31 @@ void Menu_Tick(void)
 				const char *text;
 				boolean difficulty;
 			} menu_options[] = {
-				{StageId_1_1, "    FORK DEVS", false},
-				{StageId_1_1, "UNSTOPABLE", false},
-				{StageId_1_1, "IGORSOU", false},
-				{StageId_1_1, "SPARK", false},
-				{StageId_1_1, "    PSXFUNKIN DEVELOPER", false},
-				{StageId_1_1, "CUCKYDEV", false},
-				{StageId_1_1, "    COOL PEOPLE", false},
-				{StageId_1_1, "IGORSOU", false},
-				{StageId_1_1, "SPARK", false},
-				{StageId_1_1, "DREAMCASTNICK", false},
-				{StageId_1_1, "MAXDEV", false},
-				{StageId_1_1, "CUCKYDEV", false},
-				{StageId_1_1, "LUCKY", false},
-				{StageId_1_1, "MRRUMBLEROSES", false},
-				{StageId_1_1, "JOHN PAUL", false},
-				{StageId_1_1, "VICTOR", false},
-				{StageId_1_1, "GOOMBAKUNGFU", false},
-				{StageId_1_1, "GTHREEYT", false},
-				{StageId_1_1, "BILIOUS", false},
-				{StageId_1_1, "ZERIBEN", false},
-				{StageId_1_1, "GALAXY YT", false},
-				{StageId_1_1, "NINTENDOBRO", false},
-				{StageId_1_1, "LORD SCOUT", false},
-				{StageId_1_1, "MR P", false},
+				{StageId_1_1, "FORK DEVS", false},
+				{StageId_1_1, "    UNSTOPABLE", false},
+				{StageId_1_1, "    IGORSOU", false},
+				{StageId_1_1, "    SPICYJPEG", false},
+				{StageId_1_1, "    SPARK", false},
+				{StageId_1_1, "PSXFUNKIN DEVELOPER", false},
+				{StageId_1_1, "    CUCKYDEV", false},
+				{StageId_1_1, "COOL PEOPLE", false},
+				{StageId_1_1, "    IGORSOU", false},
+				{StageId_1_1, "    SPARK", false},
+				{StageId_1_1, "    DREAMCASTNICK", false},
+				{StageId_1_1, "    MAXDEV", false},
+				{StageId_1_1, "    CUCKYDEV", false},
+				{StageId_1_1, "    LUCKY", false},
+				{StageId_1_1, "    MRRUMBLEROSES", false},
+				{StageId_1_1, "    JOHN PAUL", false},
+				{StageId_1_1, "    VICTOR", false},
+				{StageId_1_1, "    GOOMBAKUNGFU", false},
+				{StageId_1_1, "    GTHREEYT", false},
+				{StageId_1_1, "    BILIOUS", false},
+				{StageId_1_1, "    ZERIBEN", false},
+				{StageId_1_1, "    GALAXY YT", false},
+				{StageId_1_1, "    NINTENDOBRO", false},
+				{StageId_1_1, "    LORD SCOUT", false},
+				{StageId_1_1, "    MR P", false},
 			};
 			    
 			//Initialize page
@@ -1031,17 +1033,17 @@ void Menu_Tick(void)
 				} spec;
 			} menu_options[] = {
 				{OptType_Enum,    "GAMEMODE", &stage.mode, {.spec_enum = {COUNT_OF(gamemode_strs), gamemode_strs}}},
-				{OptType_Boolean, "INTERPOLATION", &stage.expsync, {.spec_boolean = {0}}},
-				{OptType_Boolean, "PAL REFRESH RATE", &stage.palmode, {.spec_boolean = {0}}},
-				{OptType_Boolean, "GHOST TAP", &stage.ghost, {.spec_boolean = {0}}},
-				{OptType_Boolean, "MISS SOUNDS", &stage.sfxmiss, {.spec_boolean = {0}}},
-				{OptType_Boolean, "DOWNSCROLL", &stage.downscroll, {.spec_boolean = {0}}},
-				{OptType_Boolean, "MIDDLESCROLL", &stage.middlescroll, {.spec_boolean = {0}}},
-				{OptType_Boolean, "BOTPLAY", &stage.botplay, {.spec_boolean = {0}}},
-				{OptType_Boolean, "SHOW SONG TIME", &stage.songtimer, {.spec_boolean = {0}}},
-				{OptType_Boolean, "PRACTICE MODE", &stage.practice, {.spec_boolean = {0}}},
-				{OptType_Boolean, "WIDESCREEN", &stage.widescreen, {.spec_boolean = {0}}},
-				{OptType_Boolean, "DEBUG MODE", &stage.debug, {.spec_boolean = {0}}},
+				{OptType_Boolean, "INTERPOLATION", &stage.prefs.expsync, {.spec_boolean = {0}}},
+				{OptType_Boolean, "PAL REFRESH RATE", &stage.prefs.palmode, {.spec_boolean = {0}}},
+				{OptType_Boolean, "GHOST TAP", &stage.prefs.ghost, {.spec_boolean = {0}}},
+				{OptType_Boolean, "MISS SOUNDS", &stage.prefs.sfxmiss, {.spec_boolean = {0}}},
+				{OptType_Boolean, "DOWNSCROLL", &stage.prefs.downscroll, {.spec_boolean = {0}}},
+				{OptType_Boolean, "MIDDLESCROLL", &stage.prefs.middlescroll, {.spec_boolean = {0}}},
+				{OptType_Boolean, "BOTPLAY", &stage.prefs.botplay, {.spec_boolean = {0}}},
+				{OptType_Boolean, "SHOW SONG TIME", &stage.prefs.songtimer, {.spec_boolean = {0}}},
+				{OptType_Boolean, "PRACTICE MODE", &stage.prefs.practice, {.spec_boolean = {0}}},
+				{OptType_Boolean, "WIDESCREEN", &stage.prefs.widescreen, {.spec_boolean = {0}}},
+				{OptType_Boolean, "DEBUG MODE", &stage.prefs.debug, {.spec_boolean = {0}}},
 			};
 			if (menu.select == 2 && pad_state.press & (PAD_CROSS | PAD_LEFT | PAD_RIGHT))
 				stage.palcooldown = 0;
@@ -1052,7 +1054,7 @@ void Menu_Tick(void)
 			}
 
 			if (stage.mode == StageMode_2P)
-				stage.middlescroll = false;
+				stage.prefs.middlescroll = false;
 			
 			//Initialize page
 			if (menu.page_swap)
@@ -1111,6 +1113,7 @@ void Menu_Tick(void)
 				{
 					//play cancel sound
 					Audio_PlaySound(Sounds[2], 0x3fff);
+					writeSaveFile();
 					menu.next_page = MenuPage_Main;
 					menu.next_select = 3; //Options
 					Trans_Start();

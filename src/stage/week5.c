@@ -117,7 +117,7 @@ void Back_Week5_DrawBG(StageBack *back)
 		FIXED_DEC(27,1)
 	};
 
-	if (stage.widescreen)
+	if (stage.prefs.widescreen)
 	{
 		snow_dst.x = FIXED_DEC(-429,1) - fx;
 		snow_dst.w = FIXED_DEC(736,1);
@@ -189,7 +189,7 @@ void Back_Week5_DrawBG(StageBack *back)
 		0,
 		FIXED_DEC(180,1)
 	};
-	if (stage.widescreen)
+	if (stage.prefs.widescreen)
 	{
 		floor_dst.x = FIXED_DEC(-299,1) - fx;
 		floor_piece[0].scale += FIXED_DEC(1,1);
@@ -216,7 +216,7 @@ void Back_Week5_DrawBG(StageBack *back)
 		{{0, 0, 256, 76}, {FIXED_DEC(-200,1), FIXED_DEC(-132,1), FIXED_DEC(256,1)*6/7, FIXED_DEC(76,1)*6/7}},
 		{{0, 76, 256, 76}, {FIXED_DEC(50,1), FIXED_DEC(-132,1), FIXED_DEC(256,1)*6/7, FIXED_DEC(76,1)*6/7}}
 	};
-	if (stage.widescreen)
+	if (stage.prefs.widescreen)
 	{
 		ubop_piece[1].dst.x += FIXED_DEC(70,1);
 		ubop_piece[1].dst.y += FIXED_DEC(2,1);
@@ -249,7 +249,7 @@ void Back_Week5_DrawBG(StageBack *back)
 		{{119, 0, 137, 256}, FIXED_DEC(1,1)},
 	};
 	
-	if (stage.widescreen) {
+	if (stage.prefs.widescreen) {
 		wall_piece[0].scale += FIXED_DEC(1,1);
 		wall_piece[1].scale += FIXED_DEC(1,1);
 		wall_piece[2].scale += FIXED_DEC(1,1);
@@ -268,7 +268,7 @@ void Back_Week5_DrawBG(StageBack *back)
 	wall_fill.y = wall_dst.y + wall_dst.h - FIXED_UNIT;
 	wall_fill.w = FIXED_DEC(600,1);
 	wall_fill.h = FIXED_DEC(100,1);
-	if (stage.widescreen)
+	if (stage.prefs.widescreen)
 	{
 		wall_dst.x = FIXED_DEC(-284,1) - fx;
 		wall_fill.x = FIXED_DEC(-284,1) - fx;

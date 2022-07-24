@@ -63,7 +63,7 @@ void Back_Week2_DrawBG(StageBack *back)
 		FIXED_DEC(267,1)
 	};
 	
-	if (stage.widescreen)
+	if (stage.prefs.widescreen)
 	{
 		back_dst.x = FIXED_DEC(-287,1) - fx;
 		back_dst.w = FIXED_DEC(556,1);

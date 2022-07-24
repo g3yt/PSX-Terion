@@ -16,6 +16,7 @@
 #include "pause.h"
 #include "menu.h"
 #include "stage.h"
+#include "save.h"
 
 //Game loop
 GameLoop gameloop;
@@ -49,37 +50,43 @@ void ErrorLock(void)
 static u8 malloc_heap[0x1A0000];
 #endif
 
-//Entry point
-int main(int argc, char **argv)
+//Entry point                                                                             
+int main(int argc, char **argv)                                                                                                                                                        
 {
-	//botplay
-	stage.botplay = 1;
-	stage.songtimer = 1;
 	//Remember arguments
 	my_argc = argc;
 	my_argv = argv;
-	
+
 	//Initialize system
 	PSX_Init();
 	
 	Mem_Init((void*)malloc_heap, sizeof(malloc_heap));
 	
+	ResetGraph(0);
+	Pad_Init();
+	InitCARD(1);
+	StartPAD();
+	StartCARD();
+	_bu_init();	
+	ChangeClearPAD(0);
+
 	IO_Init();
 	Audio_Init();
 	Gfx_Init();
-	Pad_Init();
 	Network_Init();
-	
 	Timer_Init(false, false);
-	
+
+	if (readSaveFile() == false)
+		defaultSettings();
+
 	//Start game
 	gameloop = GameLoop_Menu;
 	Menu_Load(MenuPage_Opening);
-	
+
 	//Game loop
 	while (PSX_Running())
 	{
-		if (stage.widescreen) {
+		if (stage.prefs.widescreen) {
 			screen.SCREEN_WIDTH   = 512;
 			screen.SCREEN_HEIGHT  = 240;
 			screen.SCREEN_WIDTH2  = (screen.SCREEN_WIDTH >> 1);
@@ -138,7 +145,7 @@ int main(int argc, char **argv)
 		#endif
 
 		//Set video mode
-		switch (stage.palmode)
+		switch (stage.prefs.palmode)
 		{
 			case 1:
 				SetVideoMode(MODE_PAL);

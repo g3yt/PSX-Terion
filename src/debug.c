@@ -77,9 +77,9 @@ static void Drawdebugtxt()
 
 void Debug_StageDebug()
 {
-	if (stage.debug)
+	if (stage.prefs.debug)
 	{
-		stage.botplay = 1; 
+		stage.prefs.botplay = 1; 
 		
 		if (debug.selection < 1)
 			debug.selection = 0;
@@ -184,7 +184,7 @@ void Debug_StageDebug()
 
 void Debug_StageMoveDebug(RECT_FIXED *dst, int dacase, fixed_t fx, fixed_t fy)
 {
-	if (debug.mode == 0 && stage.debug)
+	if (debug.mode == 0 && stage.prefs.debug)
 	{
 		if (debug.selection == dacase)
 		{
@@ -206,7 +206,7 @@ void Debug_StageMoveDebug(RECT_FIXED *dst, int dacase, fixed_t fx, fixed_t fy)
 
 void Debug_GfxMoveDebug(RECT *dst, int dacase)
 {
-	if (debug.mode == 0 && stage.debug)
+	if (debug.mode == 0 && stage.prefs.debug)
 	{
 		if (debug.selection == dacase)
 		{

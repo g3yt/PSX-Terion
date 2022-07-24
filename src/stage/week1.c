@@ -47,7 +47,7 @@ void Back_Week1_DrawBG(StageBack *back)
 		FIXED_DEC(256,1)
 	};
 
-	if (stage.widescreen)
+	if (stage.prefs.widescreen)
 	{
 		curtainl_dst.x = FIXED_DEC(-326,1) - fx;
 		curtainr_dst.x = FIXED_DEC(146,1) - fx;
@@ -85,7 +85,7 @@ void Back_Week1_DrawBG(StageBack *back)
 	
 	RECT stage_src = {0, 0, 255, 59};
 	
-	if (stage.widescreen)
+	if (stage.prefs.widescreen)
 	{
 		stage_d2.x -= FIXED_DEC(120,1);
 		stage_d3.x += FIXED_DEC(120,1);

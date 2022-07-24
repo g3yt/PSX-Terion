@@ -23,11 +23,8 @@ static u8 *nextpri;          //Next primitive pointer
 
 //Gfx functions
 void Gfx_Init(void)
-{
-	//Reset GPU
-	ResetGraph(0);
-	
-	if (stage.widescreen)
+{	
+	if (stage.prefs.widescreen)
 	{
 		//Initialize display environment
 		SetDefDispEnv(&stage.disp[0], 0, 0, 512, 240);
@@ -54,7 +51,7 @@ void Gfx_Init(void)
 		
 	//Load font
 	FntLoad(960, 0);
-	if (stage.widescreen)
+	if (stage.prefs.widescreen)
 		FntOpen(0, 8, 512, 224, 0, 100);
 	else
 		FntOpen(0, 8, 320, 224, 0, 100);

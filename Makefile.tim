@@ -1,6 +1,7 @@
 all: \
 	iso/menu/menu.arc \
 	iso/menu/loading.tim \
+	iso/icon16.tim \
 	iso/font/boldfont.tim \
 	iso/font/arial.tim \
 	iso/font/cdr.tim \

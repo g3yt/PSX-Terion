@@ -143,7 +143,7 @@ void Back_Week4_DrawMD(StageBack *back)
 		FIXED_DEC(128,1)
 	};
 		
-	if (stage.widescreen)
+	if (stage.prefs.widescreen)
 	{
 		fglimo_dst.x = FIXED_DEC(-254,1) - fx;
 		fglimo_dst.w = FIXED_DEC(303,1);
@@ -211,7 +211,7 @@ void Back_Week4_DrawBG(StageBack *back)
 		FIXED_DEC(340 + screen.SCREEN_WIDEOADD,1),
 		FIXED_DEC(265,1)
 	};
-	if (stage.widescreen)
+	if (stage.prefs.widescreen)
 	{
 		sunset_dst.x = FIXED_DEC(-265,1) - fx;
 		sunset_dst.w = FIXED_DEC(537,1);

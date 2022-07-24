@@ -161,7 +161,7 @@ Character *Char_XmasP_New(fixed_t x, fixed_t y)
 	//health bar color
 	this->character.health_bar = 0xFFFF76B7;
 	
-	if (stage.widescreen)
+	if (stage.prefs.widescreen)
 		this->character.focus_x = FIXED_DEC(25,1);
 	else 
 		this->character.focus_x = FIXED_DEC(-213 - -190,1);

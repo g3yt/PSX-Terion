@@ -237,7 +237,7 @@ void Back_Week3_DrawBG(StageBack *back)
 		FIXED_DEC(110,1) + FIXED_DEC(screen.SCREEN_WIDEOADD,2)
 	};
 	Debug_StageMoveDebug(&sky_dst, 11, fx, fy);
-	if (stage.widescreen)
+	if (stage.prefs.widescreen)
 	{
 		sky_dst.x = FIXED_DEC(-264,1) - fx;
 		sky_dst.w = FIXED_DEC(262,1);

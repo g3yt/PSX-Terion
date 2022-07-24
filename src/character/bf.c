@@ -193,7 +193,7 @@ void Char_BF_Tick(Character *character)
 	else
 		this->character.health_i = 0;
 
-	if (pad_state.press & PAD_SELECT && stage.debug == 0)
+	if (pad_state.press & PAD_SELECT && stage.prefs.debug == 0)
 		secret ++;
 	
 	if (secret == 2)
