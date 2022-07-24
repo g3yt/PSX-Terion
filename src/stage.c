@@ -15,6 +15,7 @@
 #include "network.h"
 #include "mutil.h"
 #include "debug.h"
+#include "save.h"
 
 #include "menu.h"
 #include "pause.h"
@@ -1376,6 +1377,8 @@ static void Stage_LoadMusic(void)
 
 static void Stage_LoadState(void)
 {
+
+	writeSaveFile();
 	//Initialize stage state
 	stage.flag = STAGE_FLAG_VOCAL_ACTIVE;
 	
@@ -1562,6 +1565,14 @@ void Stage_Unload(void)
 
 static boolean Stage_NextLoad(void)
 {
+
+	if (stage.stage_id == StageId_4_4)
+		stage.prefs.specialscore[1] = stage.player_state[0].score;
+	else if (stage.stage_id == StageId_1_4)
+		stage.prefs.specialscore[0] = stage.player_state[0].score;
+	else
+		stage.prefs.savescore[stage.stage_def->week - 1][stage.stage_def->week_song - 1] = stage.player_state[0].score;
+				
 	u8 load = stage.stage_def->next_load;
 	if (load == 0)
 	{
@@ -1659,6 +1670,12 @@ void Stage_Tick(void)
 		switch (stage.trans)
 		{
 			case StageTrans_Menu:
+				if (stage.stage_id == StageId_4_4)
+					stage.prefs.specialscore[1] = stage.player_state[0].score;
+				else if (stage.stage_id == StageId_1_4)
+					stage.prefs.specialscore[0] = stage.player_state[0].score;
+				else
+					stage.prefs.savescore[stage.stage_def->week - 1][stage.stage_def->week_song - 1] = stage.player_state[0].score;
 				//Load appropriate menu
 				Stage_Unload();
 				
@@ -1707,7 +1724,16 @@ void Stage_Tick(void)
 	switch (stage.state)
 	{
 		case StageState_Play:
-		{   
+		{ 
+			FntPrint("tut%d\n", stage.prefs.specialscore[0]);
+			FntPrint("test%d\n", stage.prefs.specialscore[1]);
+
+			FntPrint("1%d\n", stage.prefs.savescore[stage.stage_def->week - 1][0]);
+			FntPrint("2%d\n", stage.prefs.savescore[stage.stage_def->week - 1][1]);
+			FntPrint("3%d\n", stage.prefs.savescore[stage.stage_def->week - 1][2]);
+
+			FntPrint("at %d_%d\n", stage.stage_def->week - 1, stage.stage_def->week_song - 1);
+
 			if (stage.prefs.songtimer)
 				StageTimer_Draw();
 			if (stage.prefs.debug)

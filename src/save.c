@@ -10,6 +10,9 @@
 
 #include <libmcrd.h>
 #include "stage.h"
+				  
+	        //HAS to be BASCUS-scusid,somename
+#define savetitle "bu00:BASCUS-00000funkin"
 
 static const u8 saveIconPalette[32] = 
 {
@@ -85,10 +88,10 @@ boolean readSaveFile()
 
 void writeSaveFile()
 {	
-	int fd = open("bu00:BASCUS-00000funkin", 0x0002);
+	int fd = open(savetitle, 0x0002);
 
 	if (fd < 0) // if save doesnt exist make one
-		fd =  open("bu00:BASCUS-00000funkin", 0x0202 | (1 << 16));
+		fd =  open(savetitle, 0x0202 | (1 << 16));
 
 	SaveFile file;
 	initSaveFile(&file, "PSXFunkin");

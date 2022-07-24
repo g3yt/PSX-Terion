@@ -189,6 +189,8 @@ typedef struct
 	struct
 	{
 		boolean ghost, downscroll, middlescroll, expsync, practice, debug, palmode, widescreen, sfxmiss, songtimer, botplay;
+		int savescore[6][3];
+		int specialscore[2]; // for tutorial and test song
 	} prefs;
 
 	boolean dascreen;
