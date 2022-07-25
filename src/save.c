@@ -66,6 +66,15 @@ void defaultSettings()
 	stage.prefs.sfxmiss = 1;
 	stage.prefs.botplay = 1;	
 	stage.prefs.songtimer = 1;
+
+	for (int i = 0; i <= 5; i++)
+	{
+		stage.prefs.savescore[i][0] = 0;
+		stage.prefs.savescore[i][1] = 0;
+		stage.prefs.savescore[i][2] = 0;
+	}
+	stage.prefs.specialscore[0] = 0;
+	stage.prefs.specialscore[1] = 0;
 }
 
 boolean readSaveFile()
