@@ -420,6 +420,21 @@ static void Stage_SustainCheck(PlayerState *this, u8 type)
 	}
 }
 
+static void CheckNewScore()
+{
+	if (stage.mode == StageMode_Normal)
+	{
+		if (stage.stage_id == StageId_4_4 && stage.player_state[0].score >= stage.prefs.specialscore[1])
+			stage.prefs.specialscore[1] = stage.player_state[0].score;
+
+		else if (stage.stage_id == StageId_1_4 && stage.player_state[0].score >= stage.prefs.specialscore[0])
+			stage.prefs.specialscore[0] = stage.player_state[0].score;
+		
+		else if (stage.player_state[0].score >= stage.prefs.savescore[stage.stage_def->week - 1][stage.stage_def->week_song - 1])
+			stage.prefs.savescore[stage.stage_def->week - 1][stage.stage_def->week_song - 1] = stage.player_state[0].score;			
+	}
+}
+
 static void Stage_ProcessPlayer(PlayerState *this, Pad *pad, boolean playing)
 {
 	//Handle player note presses
@@ -1565,14 +1580,7 @@ void Stage_Unload(void)
 
 static boolean Stage_NextLoad(void)
 {
-
-	if (stage.stage_id == StageId_4_4)
-		stage.prefs.specialscore[1] = stage.player_state[0].score;
-	else if (stage.stage_id == StageId_1_4)
-		stage.prefs.specialscore[0] = stage.player_state[0].score;
-	else
-		stage.prefs.savescore[stage.stage_def->week - 1][stage.stage_def->week_song - 1] = stage.player_state[0].score;
-				
+	CheckNewScore();
 	u8 load = stage.stage_def->next_load;
 	if (load == 0)
 	{
@@ -1670,12 +1678,7 @@ void Stage_Tick(void)
 		switch (stage.trans)
 		{
 			case StageTrans_Menu:
-				if (stage.stage_id == StageId_4_4)
-					stage.prefs.specialscore[1] = stage.player_state[0].score;
-				else if (stage.stage_id == StageId_1_4)
-					stage.prefs.specialscore[0] = stage.player_state[0].score;
-				else
-					stage.prefs.savescore[stage.stage_def->week - 1][stage.stage_def->week_song - 1] = stage.player_state[0].score;
+				CheckNewScore();
 				//Load appropriate menu
 				Stage_Unload();
 				
@@ -1725,12 +1728,12 @@ void Stage_Tick(void)
 	{
 		case StageState_Play:
 		{ 
-			FntPrint("tut%d\n", stage.prefs.specialscore[0]);
-			FntPrint("test%d\n", stage.prefs.specialscore[1]);
+			FntPrint("tut %d0\n", stage.prefs.specialscore[0]);
+			FntPrint("test %d0\n", stage.prefs.specialscore[1]);
 
-			FntPrint("1%d\n", stage.prefs.savescore[stage.stage_def->week - 1][0]);
-			FntPrint("2%d\n", stage.prefs.savescore[stage.stage_def->week - 1][1]);
-			FntPrint("3%d\n", stage.prefs.savescore[stage.stage_def->week - 1][2]);
+			FntPrint("1 %d0\n", stage.prefs.savescore[stage.stage_def->week - 1][0]);
+			FntPrint("2 %d0\n", stage.prefs.savescore[stage.stage_def->week - 1][1]);
+			FntPrint("3 %d0\n", stage.prefs.savescore[stage.stage_def->week - 1][2]);
 
 			FntPrint("at %d_%d\n", stage.stage_def->week - 1, stage.stage_def->week_song - 1);
 
