@@ -185,7 +185,7 @@ typedef struct
 	DRAWENV draw[2];
 
 	//Stage settings
-	int screencooldown, palcooldown;
+	int pal_i, wide_i;
 	struct
 	{
 		boolean ghost, downscroll, middlescroll, expsync, practice, debug, palmode, widescreen, sfxmiss, songtimer, botplay;
@@ -193,7 +193,6 @@ typedef struct
 		int specialscore[2]; // for tutorial and test song
 	} prefs;
 
-	boolean dascreen;
 	s32 mode;
 	
 	u32 offset;

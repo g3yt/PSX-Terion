@@ -62,7 +62,10 @@ int main(int argc, char **argv)
 	
 	Mem_Init((void*)malloc_heap, sizeof(malloc_heap));
 	
+	stage.pal_i = 1;
+	stage.wide_i = 1;	
 	ResetGraph(0);
+	Gfx_Init();
 	Pad_Init();
 	InitCARD(1);
 	StartPAD();
@@ -72,13 +75,11 @@ int main(int argc, char **argv)
 
 	IO_Init();
 	Audio_Init();
-	Gfx_Init();
 	Network_Init();
 	Timer_Init(false, false);
 
 	if (readSaveFile() == false)
 		defaultSettings();
-	stage.dascreen = stage.prefs.widescreen;
 
 	//Start game
 	gameloop = GameLoop_Menu;
@@ -87,48 +88,53 @@ int main(int argc, char **argv)
 	//Game loop
 	while (PSX_Running())
 	{
+		FntPrint("pal %d wide %d", stage.pal_i, stage.wide_i);
 		if (stage.prefs.widescreen) {
-			screen.SCREEN_WIDTH   = 512;
-			screen.SCREEN_HEIGHT  = 240;
-			screen.SCREEN_WIDTH2  = (screen.SCREEN_WIDTH >> 1);
-			screen.SCREEN_HEIGHT2 = (screen.SCREEN_HEIGHT >> 1);
 
-			screen.SCREEN_WIDEADD = (screen.SCREEN_WIDTH - 512);
-			screen.SCREEN_TALLADD = (screen.SCREEN_HEIGHT - 240);
-			screen.SCREEN_WIDEADD2 = (screen.SCREEN_WIDEADD >> 1);
-			screen.SCREEN_TALLADD2 = (screen.SCREEN_TALLADD >> 1);
+			if (stage.wide_i == 1)
+			{		
+				screen.SCREEN_WIDTH   = 512;
+				screen.SCREEN_HEIGHT  = 240;
+				screen.SCREEN_WIDTH2  = (screen.SCREEN_WIDTH >> 1);
+				screen.SCREEN_HEIGHT2 = (screen.SCREEN_HEIGHT >> 1);
 
-			screen.SCREEN_WIDEOADD = (screen.SCREEN_WIDEADD > 0 ? screen.SCREEN_WIDEADD : 0);
-			screen.SCREEN_TALLOADD = (screen.SCREEN_TALLADD > 0 ? screen.SCREEN_TALLADD : 0);
-			screen.SCREEN_WIDEOADD2 = (screen.SCREEN_WIDEOADD >> 1);
-			screen.SCREEN_TALLOADD2 = (screen.SCREEN_TALLOADD >> 1);	
+				screen.SCREEN_WIDEADD = (screen.SCREEN_WIDTH - 512);
+				screen.SCREEN_TALLADD = (screen.SCREEN_HEIGHT - 240);
+				screen.SCREEN_WIDEADD2 = (screen.SCREEN_WIDEADD >> 1);
+				screen.SCREEN_TALLADD2 = (screen.SCREEN_TALLADD >> 1);
 
-			if (stage.dascreen == 1 && stage.screencooldown == 0) {
+				screen.SCREEN_WIDEOADD = (screen.SCREEN_WIDEADD > 0 ? screen.SCREEN_WIDEADD : 0);
+				screen.SCREEN_TALLOADD = (screen.SCREEN_TALLADD > 0 ? screen.SCREEN_TALLADD : 0);
+				screen.SCREEN_WIDEOADD2 = (screen.SCREEN_WIDEOADD >> 1);
+				screen.SCREEN_TALLOADD2 = (screen.SCREEN_TALLOADD >> 1);	
+
 				Gfx_Init();
+				stage.wide_i = 2;
+				stage.pal_i = 1; //check for pal mode again
 			}
-			stage.screencooldown ++;
 		}
 		else {
-			stage.dascreen = 0;
-			screen.SCREEN_WIDTH   = 320;
-			screen.SCREEN_HEIGHT  = 240;
-			screen.SCREEN_WIDTH2  = (screen.SCREEN_WIDTH >> 1);
-			screen.SCREEN_HEIGHT2 = (screen.SCREEN_HEIGHT >> 1);
-			screen.SCREEN_WIDEADD = (screen.SCREEN_WIDTH - 320);
+			if (stage.wide_i == 1)
+			{
+				screen.SCREEN_WIDTH   = 320;
+				screen.SCREEN_HEIGHT  = 240;
+				screen.SCREEN_WIDTH2  = (screen.SCREEN_WIDTH >> 1);
+				screen.SCREEN_HEIGHT2 = (screen.SCREEN_HEIGHT >> 1);
+				screen.SCREEN_WIDEADD = (screen.SCREEN_WIDTH - 320);
 
-			screen.SCREEN_TALLADD = (screen.SCREEN_HEIGHT - 240);
-			screen.SCREEN_WIDEADD2 = (screen.SCREEN_WIDEADD >> 1);
-			screen.SCREEN_TALLADD2 = (screen.SCREEN_TALLADD >> 1);
-			screen.SCREEN_WIDEOADD = (screen.SCREEN_WIDEADD > 0 ? screen.SCREEN_WIDEADD : 0);
+				screen.SCREEN_TALLADD = (screen.SCREEN_HEIGHT - 240);
+				screen.SCREEN_WIDEADD2 = (screen.SCREEN_WIDEADD >> 1);
+				screen.SCREEN_TALLADD2 = (screen.SCREEN_TALLADD >> 1);
+				screen.SCREEN_WIDEOADD = (screen.SCREEN_WIDEADD > 0 ? screen.SCREEN_WIDEADD : 0);
 
-			screen.SCREEN_TALLOADD = (screen.SCREEN_TALLADD > 0 ? screen.SCREEN_TALLADD : 0);
-			screen.SCREEN_WIDEOADD2 = (screen.SCREEN_WIDEOADD >> 1);
-			screen.SCREEN_TALLOADD2 = (screen.SCREEN_TALLOADD >> 1);	
-			
-			if (stage.dascreen == 0 && stage.screencooldown == 0) {
+				screen.SCREEN_TALLOADD = (screen.SCREEN_TALLADD > 0 ? screen.SCREEN_TALLADD : 0);
+				screen.SCREEN_WIDEOADD2 = (screen.SCREEN_WIDEOADD >> 1);
+				screen.SCREEN_TALLOADD2 = (screen.SCREEN_TALLOADD >> 1);	
+
 				Gfx_Init();
+				stage.wide_i = 2;
+				stage.pal_i = 1; //check for pal mode again
 			}
-			stage.screencooldown ++;
 		}
 
 		//Prepare frame
@@ -146,25 +152,29 @@ int main(int argc, char **argv)
 		#endif
 
 		//Set video mode
-		switch (stage.prefs.palmode)
+		if (stage.prefs.palmode)
 		{
-			case 1:
+			if (stage.pal_i == 1)
+			{
 				SetVideoMode(MODE_PAL);
 				SsSetTickMode(SS_TICK50);
 				stage.disp[0].screen.y = stage.disp[1].screen.y = 24;
-
-				if (stage.palcooldown == 1)
-					Timer_Init(true, true);
-				stage.palcooldown ++;
-				break;
-			default:
+				Timer_Init(true, true);
+				//	printf("palIndex %d\n", stage.pal_i);
+				stage.pal_i = 2;
+			}
+		}
+		else
+		{
+			if (stage.pal_i == 1)
+			{
 				SetVideoMode(MODE_NTSC);
 				SsSetTickMode(SS_TICK60);
 				stage.disp[0].screen.y = stage.disp[1].screen.y = 0;
-				if (stage.palcooldown == 1)
-					Timer_Init(false, false);
-				stage.palcooldown ++;
-				break;
+				Timer_Init(false, false);
+			//	printf("palIndex %d\n", stage.pal_i);
+				stage.pal_i = 2;
+			}
 		}
 
 		//Tick and draw game

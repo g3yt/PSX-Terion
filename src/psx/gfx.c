@@ -23,13 +23,12 @@ static u8 *nextpri;          //Next primitive pointer
 
 //Gfx functions
 void Gfx_Init(void)
-{	
+{
 	if (stage.prefs.widescreen)
 	{
 		//Initialize display environment
 		SetDefDispEnv(&stage.disp[0], 0, 0, 512, 240);
-		SetDefDispEnv(&stage.disp[1], 0, 240, 512, 240);
-				
+		SetDefDispEnv(&stage.disp[1], 0, 240, 512, 240);					
 		//Initialize draw environment
 		SetDefDrawEnv(&stage.draw[0], 0, 240, 512, 240);
 		SetDefDrawEnv(&stage.draw[1], 0, 0, 512, 240);
@@ -39,22 +38,20 @@ void Gfx_Init(void)
 		//Initialize display environment
 		SetDefDispEnv(&stage.disp[0], 0, 0, 320, 240);
 		SetDefDispEnv(&stage.disp[1], 0, 240, 320, 240);
-				
 		//Initialize draw environment
 		SetDefDrawEnv(&stage.draw[0], 0, 240, 320, 240);
 		SetDefDrawEnv(&stage.draw[1], 0, 0, 320, 240);
 	}
+
 	//Set draw background
 	stage.draw[0].isbg = stage.draw[1].isbg = 1;
 	setRGB0(&stage.draw[0], 0, 0, 0);
 	setRGB0(&stage.draw[1], 0, 0, 0);
-		
+	
 	//Load font
 	FntLoad(960, 0);
-	if (stage.prefs.widescreen)
-		FntOpen(0, 8, 512, 224, 0, 100);
-	else
-		FntOpen(0, 8, 320, 224, 0, 100);
+	FntOpen(0, 8, 320, 224, 0, 100);
+	
 	//Initialize drawing state
 	nextpri = pribuff[0];
 	db = 0;
