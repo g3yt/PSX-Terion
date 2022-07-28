@@ -88,9 +88,7 @@ int main(int argc, char **argv)
 	//Game loop
 	while (PSX_Running())
 	{
-		FntPrint("pal %d wide %d", stage.pal_i, stage.wide_i);
 		if (stage.prefs.widescreen) {
-
 			if (stage.wide_i == 1)
 			{		
 				screen.SCREEN_WIDTH   = 512;
@@ -160,7 +158,6 @@ int main(int argc, char **argv)
 				SsSetTickMode(SS_TICK50);
 				stage.disp[0].screen.y = stage.disp[1].screen.y = 24;
 				Timer_Init(true, true);
-				//	printf("palIndex %d\n", stage.pal_i);
 				stage.pal_i = 2;
 			}
 		}
@@ -172,7 +169,6 @@ int main(int argc, char **argv)
 				SsSetTickMode(SS_TICK60);
 				stage.disp[0].screen.y = stage.disp[1].screen.y = 0;
 				Timer_Init(false, false);
-			//	printf("palIndex %d\n", stage.pal_i);
 				stage.pal_i = 2;
 			}
 		}
