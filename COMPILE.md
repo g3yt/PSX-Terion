@@ -26,7 +26,6 @@ Once you have it downloaded, make sure MSYS2 is closed, then open the zip up and
 - mkdir
 - touch
 - rm
-- touch
 
 Next, open up `MSYS2 MinGW 64-bit` from the Start Menu, and you'll need to install some libraries, so run the following command and accept the prompts that follow `pacman -S mingw-w64-x86_64-cmake mingw-w64-x86_64-tinyxml2 mingw-w64-x86_64-ffmpeg `
 
@@ -70,7 +69,7 @@ First, go to the [mips](/mips/) folder of the repo, and create a new folder name
 Then, download the converted PsyQ library from http://psx.arthus.net/sdk/Psy-Q/psyq-4_7-converted-light.zip. Just extract the contents of this into the new `psyq` folder.
 
 ## Compiling PSXFunkin
-First, make sure to `cd` to the repo directory where all the makefiles are. You're gonna want to run a few commands from here, You'll need to either get a PSX license file and save it as licensea.dat in the same directory as funkin.xml (you can get them at http://www.psxdev.net/downloads.html's `PsyQ SDK`), or remove the referencing line `<license file="licensea.dat"/>` from funkin.xml. Without the license file, the game may fail on a bunch of emulators due to bios checks (unless you use fast boot, I believe?)
+First, make sure to `cd` to the repo directory where all the makefiles are. You're gonna want to run a few commands from here, You'll need to either get a PSX license file and save it as licensea.dat in the same directory as funkin.xml (you can get them at http://www.psxdev.net/downloads.html 's `PsyQ SDK`), or remove the referencing line `<license file="licensea.dat"/>` from funkin.xml. Without the license file, the game may fail on a bunch of emulators due to bios checks (unless you use fast boot, I believe?)
 
 TIP: For any make, try appending `-jX` to the end of it, where X is the number of CPU cores you have times two. This will try to put as much of your CPU as it can to doing whatever it needs to do and makes it go way quicker.
 
