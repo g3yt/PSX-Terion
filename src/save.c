@@ -13,6 +13,7 @@
 				  
 	        //HAS to be BASCUS-scusid,somename
 #define savetitle "bu00:BASCUS-00000funkin"
+#define savename  "PSXFunkin"
 
 static const u8 saveIconPalette[32] = 
 {
@@ -79,7 +80,7 @@ void defaultSettings()
 
 boolean readSaveFile()
 {
-	int fd = open("bu00:BASCUS-00000funkin", 0x0001);
+	int fd = open(savetitle, 0x0001);
 	if (fd < 0) // file doesnt exist 
 		return false;
 
@@ -103,7 +104,7 @@ void writeSaveFile()
 		fd =  open(savetitle, 0x0202 | (1 << 16));
 
 	SaveFile file;
-	initSaveFile(&file, "PSXFunkin");
+	initSaveFile(&file, savename);
   	memcpy((void *) file.saveData, (const void *) &stage.prefs, sizeof(stage.prefs));
 	
 	if (fd >= 0) {
