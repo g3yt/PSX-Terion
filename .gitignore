@@ -36,7 +36,9 @@ build/
 iso/*/*.tim
 iso/*/*.arc
 iso/*/*.xa
+iso/*/*/*.xa
 iso/*/*.cht
 
 # Big Chungus
 .DS_Store
+
