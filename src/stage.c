@@ -422,7 +422,7 @@ static void Stage_SustainCheck(PlayerState *this, u8 type)
 
 static void CheckNewScore()
 {
-	if (stage.mode == StageMode_Normal)
+	if (stage.mode == StageMode_Normal && !stage.prefs.botplay)
 	{
 		if (stage.stage_id == StageId_4_4 && stage.player_state[0].score >= stage.prefs.specialscore[1])
 			stage.prefs.specialscore[1] = stage.player_state[0].score;
