@@ -1679,6 +1679,7 @@ void Stage_Tick(void)
 		{
 			case StageTrans_Menu:
 				CheckNewScore();
+				writeSaveFile();
 				//Load appropriate menu
 				Stage_Unload();
 				
@@ -1728,15 +1729,6 @@ void Stage_Tick(void)
 	{
 		case StageState_Play:
 		{ 
-			FntPrint("tut %d0\n", stage.prefs.specialscore[0]);
-			FntPrint("test %d0\n", stage.prefs.specialscore[1]);
-
-			FntPrint("1 %d0\n", stage.prefs.savescore[stage.stage_def->week - 1][0]);
-			FntPrint("2 %d0\n", stage.prefs.savescore[stage.stage_def->week - 1][1]);
-			FntPrint("3 %d0\n", stage.prefs.savescore[stage.stage_def->week - 1][2]);
-
-			FntPrint("at %d_%d\n", stage.stage_def->week - 1, stage.stage_def->week_song - 1);
-
 			if (stage.prefs.songtimer)
 				StageTimer_Draw();
 			if (stage.prefs.debug)
