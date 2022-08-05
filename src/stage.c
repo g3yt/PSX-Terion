@@ -1718,6 +1718,8 @@ void Stage_Tick(void)
 				LoadScr_End();
 				break;
 			case StageTrans_Pause:
+				CheckNewScore();
+				writeSaveFile();
 				Stage_Unload();
 				Pause_load();
 				gameloop = GameLoop_Pause;
