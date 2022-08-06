@@ -172,8 +172,6 @@ static int increase_Story(int length, int thesong)
 	{
 		testresult = stage.prefs.savescore[thesong + i][menu.page_param.stage.diff];
 
-		FntPrint("%d\n", i);
-
 		if (testresult == 0)
 			return 0;
 
@@ -819,14 +817,8 @@ void Menu_Tick(void)
 				FontAlign_Left
 			);
 
-			//if (menu_options[menu.select].week == 4 && menu_options[menu.select].song == 4) //test
-			//	sprintf(scoredisp, "PERSONAL BEST: %d", (stage.prefs.specialscore[1] > 0) ? stage.prefs.specialscore[1] * 10 : 0);
-			//else if (menu_options[menu.select].week == 1 && menu_options[menu.select].song == 4) //tutorial
-			//	sprintf(scoredisp, "PERSONAL BEST: %d", (stage.prefs.specialscore[0] > 0) ? stage.prefs.specialscore[0] * 10 : 0);
-			//else
-				sprintf(scoredisp, "PERSONAL BEST: %d", (stage.prefs.savescore[menu_options[menu.select].stage][menu.page_param.stage.diff] > 0) ? stage.prefs.savescore[menu_options[menu.select].stage][menu.page_param.stage.diff] * 10 : 0);
+			sprintf(scoredisp, "PERSONAL BEST: %d", (stage.prefs.savescore[menu_options[menu.select].stage][menu.page_param.stage.diff] > 0) ? stage.prefs.savescore[menu_options[menu.select].stage][menu.page_param.stage.diff] * 10 : 0);
 
-			FntPrint("%d %d", stage.prefs.savescore[menu_options[menu.select].stage][menu.page_param.stage.diff], menu.page_param.stage.diff);
 			//Initialize page
 			if (menu.page_swap)
 			{

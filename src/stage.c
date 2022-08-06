@@ -1728,10 +1728,7 @@ void Stage_Tick(void)
 			if (stage.prefs.debug)
 				Debug_StageDebug();
 
-
-
-			FntPrint("diff %d id %d ", stage.stage_diff, stage.stage_id);
-			FntPrint("step %d, beat %d", stage.song_step, stage.song_beat);
+			//FntPrint("step %d, beat %d", stage.song_step, stage.song_beat);
 
 			Stage_CountDown();
 
