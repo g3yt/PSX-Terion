@@ -422,16 +422,10 @@ static void Stage_SustainCheck(PlayerState *this, u8 type)
 
 static void CheckNewScore()
 {
-	if (stage.mode == StageMode_Normal && !stage.prefs.botplay)
+	if (stage.mode == StageMode_Normal && !stage.prefs.botplay && timer.timermin == 0 && timer.timer <= 5)
 	{
-		if (stage.stage_id == StageId_4_4 && stage.player_state[0].score >= stage.prefs.specialscore[1])
-			stage.prefs.specialscore[1] = stage.player_state[0].score;
-
-		else if (stage.stage_id == StageId_1_4 && stage.player_state[0].score >= stage.prefs.specialscore[0])
-			stage.prefs.specialscore[0] = stage.player_state[0].score;
-		
-		else if (stage.player_state[0].score >= stage.prefs.savescore[stage.stage_def->week - 1][stage.stage_def->week_song - 1])
-			stage.prefs.savescore[stage.stage_def->week - 1][stage.stage_def->week_song - 1] = stage.player_state[0].score;			
+		if (stage.player_state[0].score >= stage.prefs.savescore[stage.stage_id][stage.stage_diff])
+			stage.prefs.savescore[stage.stage_id][stage.stage_diff] = stage.player_state[0].score;			
 	}
 }
 
@@ -1336,10 +1330,10 @@ static void Stage_LoadSFX(void)
 	CdlFILE file;
 
 	//intro sound
-		for (u8 i = 0; i < 4;i++)
-		{
+	for (u8 i = 0; i < 4;i++)
+	{
 		char text[0x80];
-		sprintf(text, "\\SOUNDS\\INTRO%d%s.VAG;1", i, (stage.stage_id >= StageId_6_1 && stage.stage_id <= StageId_6_3) ?"P" :"");
+		sprintf(text, "\\SOUNDS\\INTRO%d%s.VAG;1", i, (stage.stage_id >= StageId_6_1 && stage.stage_id <= StageId_6_3) ? "P" : "");
 	  	IO_FindFile(&file, text);
 	    u32 *data = IO_ReadFile(&file);
 	    Sounds[i] = Audio_LoadVAGData(data, file.size);
@@ -1351,14 +1345,14 @@ static void Stage_LoadSFX(void)
 	{
 		for (u8 i = 0; i < 3;i++)
 		{
-		char text[0x80];
-		sprintf(text, "\\SOUNDS\\MISS%d.VAG;1", i + 1);
-	  	IO_FindFile(&file, text);
-	    u32 *data = IO_ReadFile(&file);
-	    Sounds[i + 4] = Audio_LoadVAGData(data, file.size);
-	    Mem_Free(data);
-	}
-  }
+			char text[0x80];
+			sprintf(text, "\\SOUNDS\\MISS%d.VAG;1", i + 1);
+		  	IO_FindFile(&file, text);
+		    u32 *data = IO_ReadFile(&file);
+		    Sounds[i + 4] = Audio_LoadVAGData(data, file.size);
+		    Mem_Free(data);
+		}
+    }
 }
 
 static void Stage_LoadMusic(void)
@@ -1392,8 +1386,6 @@ static void Stage_LoadMusic(void)
 
 static void Stage_LoadState(void)
 {
-
-	writeSaveFile();
 	//Initialize stage state
 	stage.flag = STAGE_FLAG_VOCAL_ACTIVE;
 	
@@ -1581,6 +1573,8 @@ void Stage_Unload(void)
 static boolean Stage_NextLoad(void)
 {
 	CheckNewScore();
+	writeSaveFile();
+
 	u8 load = stage.stage_def->next_load;
 	if (load == 0)
 	{
@@ -1718,8 +1712,6 @@ void Stage_Tick(void)
 				LoadScr_End();
 				break;
 			case StageTrans_Pause:
-				CheckNewScore();
-				writeSaveFile();
 				Stage_Unload();
 				Pause_load();
 				gameloop = GameLoop_Pause;
@@ -1735,7 +1727,10 @@ void Stage_Tick(void)
 				StageTimer_Draw();
 			if (stage.prefs.debug)
 				Debug_StageDebug();
-			
+
+
+
+			FntPrint("diff %d id %d ", stage.stage_diff, stage.stage_id);
 			FntPrint("step %d, beat %d", stage.song_step, stage.song_beat);
 
 			Stage_CountDown();

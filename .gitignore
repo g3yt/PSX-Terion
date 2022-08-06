@@ -42,3 +42,5 @@ iso/*/*.cht
 # Big Chungus
 .DS_Store
 
+tools/funkinchrpak/funkinchrpak
+tools/funkinmultitool/funkinmultitool

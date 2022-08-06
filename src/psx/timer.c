@@ -148,7 +148,7 @@ void StageTimer_Draw()
 		FIXED_DEC(-109,1) + stage.noteshakey,
 		FontAlign_Left
 	);
-	if (time.timer > 10)
+	if (timer.timer > 10)
 		sprintf(timer.timer_display, "%d", timer.timer);
 	else
 		sprintf(timer.timer_display, "0%d", timer.timer);

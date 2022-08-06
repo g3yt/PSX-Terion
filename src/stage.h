@@ -189,8 +189,7 @@ typedef struct
 	struct
 	{
 		boolean ghost, downscroll, middlescroll, expsync, practice, debug, palmode, widescreen, sfxmiss, songtimer, botplay;
-		int savescore[6][3];
-		int specialscore[2]; // for tutorial and test song
+		int savescore[StageId_Max][3];
 	} prefs;
 
 	s32 mode;
