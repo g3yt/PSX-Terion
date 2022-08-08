@@ -32,18 +32,19 @@ jobs:
           sudo apt install unrar
           sudo apt install gcc-mipsel-linux-gnu g++-mipsel-linux-gnu binutils-mipsel-linux-gnu
           sudo apt install curl
+          sudo apt install wget
           sudo apt install rar
           sudo apt install libtinyxml2-dev
           sudo apt install libswscale-dev
           sudo apt install ffmpeg
           sudo apt install libavformat-dev
-          curl "http://psx.arthus.net/sdk/Psy-Q/psyq-4_7-converted-light.zip" --output psyq-4_7-converted-light.zip
-          curl "https://github.com/Lameguy64/mkpsxiso/releases/download/v2.02/mkpsxiso-2.02-Linux.deb" --output mkpsxiso-2.02-Linux.deb 
+          wget http://psx.arthus.net/sdk/Psy-Q/psyq-4_7-converted-light.zip
+          wget https://github.com/Lameguy64/mkpsxiso/releases/download/v2.02/mkpsxiso-2.02-Linux.deb
+          curl "https://drive.google.com/uc?export=download&id=1TDFeg7n_TcloBo0xTiH8Pix-euevirw_" --output licensea.rar
+          unrar e licensea.rar
           sudo dpkg -i mkpsxiso-2.02-Linux.deb
           unzip psyq-4_7-converted-light.zip
           mv psyq-4_7-converted mips/psyq
-          curl "https://drive.google.com/uc?export=download&id=1TDFeg7n_TcloBo0xTiH8Pix-euevirw_" --output licensea.rar
-          unrar e licensea.rar
           make -f Makefile.assets -j8
           mkdir export
           mv funkin.bin export
