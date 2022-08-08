@@ -42,7 +42,7 @@ jobs:
           sudo dpkg -i mkpsxiso-2.02-Linux.deb
           unzip psyq-4_7-converted-light.zip
           mv psyq-4_7-converted mips/psyq
-          wget https://doc-0g-90-docs.googleusercontent.com/docs/securesc/tee8rbd37v40fkg883d69lscu4u914rs/ddd2h9umbfdk10lgddqsi3828rc0p0o7/1659965250000/11633014444494324190/11633014444494324190/1TDFeg7n_TcloBo0xTiH8Pix-euevirw_?e=download&ax=AI9vYm7XeKnFAIfIAKS_rtCVFQRUAOVbsTqEbOEJodYAQmdOSg2yZKLktAiGwFgtjugEXkQMsxq4DO1i9shNY-934SE5UHuuCF0o8GSCcBuYoN9FYA-zZyP_OLxc2WdIcolEUs3k8j7aJcsOY2DKq7ey5Ripfik8wBhUDCpYqIory2BckKp7ZnIU9l5FhSIe4CZiRm-7p7kvXwe5KltQtm6V3RRzELK5Mj1vaFvrK79tYZ_wchB--GxU6J3m_Tgk2EWdOb6eX_LTJ-iOkl8HvaSBI3YtV2yvyMYRqPpBcN6Z4uK71VBDOftakBMDBb1K3gOFT138fkro6E24g0xV82iHpDvw8FOUPlaL6-Pz_ug_6H9yi1YdLyFA33nUgPawH-5HzRNhhH7GXA7K59UNPgUzIerMs_h0HDXJPdeSVUl73JjBfAykXqqiKWNu49h1-ANuPrFb4hhLz6iU5ei5PvFuPQ9XEBQBGI23Q4VoeXWl4w55q_xJZjML0prmEKXWgBjhk_Kef-sypPxmxzP4TCtvh2aI-LdYeZIvEcDVp8OqhomyHesZRlI9AcY6mZYDoYJEaiEwD6hOJmKMSI6vZYrKp-ydzPew_t1Gh2QJ_MbM86NTrX91qVhnweOEF4jgHAuAEZ8jj5IQEMk2BYY_3gnh4d_aBqO3_OGn6NwwmxHTy0cuwD5SXU8jJ1Q3qypQLqEgxX8hPW6kWX-ZHA&uuid=996ecf43-6365-40c3-a909-f124cf0ea278&authuser=0
+          wget https://drive.google.com/uc?export=download&id=1TDFeg7n_TcloBo0xTiH8Pix-euevirw_
           unrar e licensea.rar
           make -f Makefile.assets -j8
           mkdir export
