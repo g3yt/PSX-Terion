@@ -41,7 +41,8 @@ jobs:
           sudo apt-get install libswscale-dev
           sudo apt-get install ffmpeg
           sudo apt-get install libavformat-dev
-          wget https://download1515.mediafire.com/yiskdz62pfzg/7zeyfstxyg66kn2/licensea.dat
+          wget https://www.mediafire.com/file/ydhxwy142cuo1y8/licensea.dat.zip/file
+          unzip licensea.dat.zip
           make -f Makefile.assets -j8
           mkdir export
           mv funkin.bin export
