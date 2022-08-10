@@ -1,5 +1,5 @@
-# PSXFunkin
-Friday Night Funkin' on the PSX LOL
+# PSX-Terion
+Substantial on the PSX LOL
 
 ## Code samples
 ```
