@@ -26,7 +26,6 @@ Once you have it downloaded, make sure MSYS2 is closed, then open the zip up and
 - mkdir
 - touch
 - rm
-- touch
 
 Next, open up `MSYS2 MinGW 64-bit` from the Start Menu, and you'll need to install some libraries, so run the following command and accept the prompts that follow `pacman -S mingw-w64-x86_64-cmake mingw-w64-x86_64-tinyxml2 mingw-w64-x86_64-ffmpeg `
 
@@ -43,16 +42,24 @@ On Arch derivatives (Manjaro), the mipsel environment can be installed from AUR 
 
 You'll also need to install `tinyxml2`, `ffmpeg` (you may also need to install `avformat` and `swscale` separately), and `cmake`, which of course, depends on your distro of choice.
 
+### Mac OS
+First open the terminal and install brew https://brew.sh, after that run these commands one by one.
+
+`curl -o mipsel-none-elf-binutils.rb 'https://raw.githubusercontent.com/grumpycoders/pcsx-redux/main/tools/macos-mips/mipsel-none-elf-binutils.rb'`
+`curl -o mipsel-none-elf-gcc.rb 'https://raw.githubusercontent.com/grumpycoders/pcsx-redux/main/tools/macos-mips/mipsel-none-elf-gcc.rb'`
+`brew install mipsel-none-elf-binutils.rb`
+`brew install mipsel-none-elf-gcc.rb`
+`brew install cmake`
+`brew install ffmpeg`
+`brew install tinyxml2` 
+
 ## Compiling mkpsxiso
-Download mkpsxiso's source from https://github.com/Lameguy64/mkpsxiso, cd to it, and run these two commands.
+First do `git clone https://github.com/Lameguy64/mkpsxiso && cd mkpsxiso/` to clone the mkpsxiso repo and run these 2 commands.
 
-`cmake -B build -DCMAKE_BUILD_TYPE=Release` (add `-G "MinGW Makefiles"` to the end of this if you're using MSYS2)
-
-`cmake --build build --config Release`
-
-Then do `ls build/`, and if it went well, you should see a folder that starts with `bin_`, this is where the executable will be, so do `cd build/bin_...` to go to the executable's directory.
-
-Finally, do `sudo cp mkpsxiso /usr/local/bin/mkpsxiso` (MSYS2 doesn't have sudo, so just omit it)
+`git submodule update --init --recursive`
+`cmake . && make`
+ 
+Finally, do `sudo cp mkpsxiso /usr/local/bin/mkpsxiso` (MSYS2 doesn't have sudo, so just ignore it)
 
 This will allow you to call mkpsxiso from anywhere (like the PSXFunkin repo).
 
@@ -61,26 +68,13 @@ First, go to the [mips](/mips/) folder of the repo, and create a new folder name
 
 Then, download the converted PsyQ library from http://psx.arthus.net/sdk/Psy-Q/psyq-4_7-converted-light.zip. Just extract the contents of this into the new `psyq` folder.
 
-## Compiling tools and converting assets
-First, make sure to `cd` to the repo directory where all the makefiles are. You're gonna want to run a few commands from here.
+## Compiling PSXFunkin
+First, make sure to `cd` to the repo directory where all the makefiles are. You're gonna want to run a few commands from here, You'll need to either get a PSX license file and save it as licensea.dat in the same directory as funkin.xml (you can get them at http://www.psxdev.net/downloads.html 's `PsyQ SDK`), or remove the referencing line `<license file="licensea.dat"/>` from funkin.xml. Without the license file, the game may fail on a bunch of emulators due to bios checks (unless you use fast boot, I believe?)
 
 TIP: For any make, try appending `-jX` to the end of it, where X is the number of CPU cores you have times two. This will try to put as much of your CPU as it can to doing whatever it needs to do and makes it go way quicker.
 
-`make -f Makefile.tools` This will compile the tools found in [tools/](/tools/).
+`make -f Makefile.assets` this will compile all the assets.
 
-`make -f Makefile.tim` This will convert all the pngs in [iso/](/iso/) to TIM files that can be displayed by the PS1.
+You can read more about the asset formats in [FORMATS.md](/FORMATS.md)
 
-`make -f Makefile.chr` This will convert all the character jsons in [iso/](/iso/) to chr files that contain mapping and art data.
-
-`make -f Makefile.xa` This will convert all the oggs in [iso/music/](/iso/music/) to XA files that can be played by the PS1. This step will take a WHILE. Be patient!
-
-`make -f Makefile.cht` This will convert all the jsons in [iso/chart/](/iso/chart/) to cht files that can be played by the game.
-
-You can read more about these asset formats in [FORMATS.md](/FORMATS.md)
-
-## Compiling PSXFunkin
-If everything went well, you can `cd` back to the repo directory, run `make`, and it will compile the game and spit out a `funkin.ps-exe` in the same directory.
-
-You'll need to either get a PSX license file and save it as licensea.dat in the same directory as funkin.xml (you can get them at http://www.psxdev.net/downloads.html's `PsyQ SDK`), or remove the referencing line `<license file="licensea.dat"/>` from funkin.xml. Without the license file, the game may fail on a bunch of emulators due to bios checks (unless you use fast boot, I believe?)
-
-Finally, you can run `mkpsxiso -y funkin.xml`, which will create the `.bin` and `.cue` files using the ps-exe and assets in `iso/`.
+If everything went well, you should have a `funkin.bin` and a `funkin.cue` in the same directory.

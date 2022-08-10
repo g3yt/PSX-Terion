@@ -163,21 +163,22 @@ static void Menu_DrawBack(boolean flash, s32 scroll, u8 r0, u8 g0, u8 b0, u8 r1,
 		Gfx_DrawTexCol(&menu.tex_back, &back_src, &back_dst, r1, g1, b1);
 }
 
-static int increase_Story(int week, int length)
+static int increase_Story(int length, int thesong)
 {
-	if (stage.prefs.savescore[week - 1][0] == 0 || stage.prefs.savescore[week - 1][1] == 0 || stage.prefs.savescore[week - 1][2] == 0)
-		return 0;
-	else
+	int result = 0;
+	int testresult = 0;
+
+	for (int i = 0; i < length; i++)
 	{
-		int result = 0;
+		testresult = stage.prefs.savescore[thesong + i][menu.page_param.stage.diff];
 
-		for (int i = 0; i < length; i++)
-		{
-			result += stage.prefs.savescore[week - 1][i];
-		}
+		if (testresult == 0)
+			return 0;
 
-		return result * 10;
+		result += stage.prefs.savescore[thesong + i][menu.page_param.stage.diff];
 	}
+
+	return result * 10;
 }
 
 static void Menu_DifficultySelector(s32 x, s32 y)
@@ -638,14 +639,15 @@ void Menu_Tick(void)
 				StageId stage;
 				const char *name;
 				const char *tracks[3];
+				int length;
 			} menu_options[] = {
-				{NULL, StageId_1_4, "TUTORIAL", {"TUTORIAL", NULL, NULL}},
-				{"1", StageId_1_1, "DADDY DEAREST", {"BOPEEBO", "FRESH", "DADBATTLE"}},
-				{"2", StageId_2_1, "SPOOKY MONTH", {"SPOOKEEZ", "SOUTH", "MONSTER"}},
-				{"3", StageId_3_1, "PICO", {"PICO", "PHILLY NICE", "BLAMMED"}},
-				{"4", StageId_4_1, "MOMMY MUST MURDER", {"SATIN PANTIES", "HIGH", "MILF"}},
-				{"5", StageId_5_1, "RED SNOW", {"COCOA", "EGGNOG", "WINTER HORRORLAND"}},
-				{"6", StageId_6_1, "HATING SIMULATOR", {"SENPAI", "ROSES", "THORNS"}},
+				{NULL, StageId_1_4, "TUTORIAL", {"TUTORIAL", NULL, NULL}, 1},
+				{"1", StageId_1_1, "DADDY DEAREST", {"BOPEEBO", "FRESH", "DADBATTLE"}, 3},
+				{"2", StageId_2_1, "SPOOKY MONTH", {"SPOOKEEZ", "SOUTH", "MONSTER"}, 3},
+				{"3", StageId_3_1, "PICO", {"PICO", "PHILLY NICE", "BLAMMED"}, 3},
+				{"4", StageId_4_1, "MOMMY MUST MURDER", {"SATIN PANTIES", "HIGH", "MILF"}, 3},
+				{"5", StageId_5_1, "RED SNOW", {"COCOA", "EGGNOG", "WINTER HORRORLAND"}, 3},
+				{"6", StageId_6_1, "HATING SIMULATOR", {"SENPAI", "ROSES", "THORNS"}, 3},
 			};
 	
 			//Draw week name and tracks
@@ -655,10 +657,8 @@ void Menu_Tick(void)
 				7,
 				FontAlign_Left
 			);
-			if (menu_options[menu.select].week == NULL) //tutorial
-				sprintf(scoredisp, "PERSONAL BEST: %d", (stage.prefs.specialscore[0] > 0) ? stage.prefs.specialscore[0] * 10 : 0);
-			else
-				sprintf(scoredisp, "PERSONAL BEST: %d", increase_Story(menu.select, 3));
+
+			sprintf(scoredisp, "PERSONAL BEST: %d", increase_Story(menu_options[menu.select].length, menu_options[menu.select].stage));
 			
 			//Initialize page
 			if (menu.page_swap)
@@ -787,29 +787,27 @@ void Menu_Tick(void)
 				StageId stage;
 				u32 col;
 				const char *text;
-				int week;
-				int song;
 			} menu_options[] = {
-				//{StageId_4_4, 0xFFFC96D7, "TEST",              4, 4},
-				{StageId_1_4, 0xFF9271FD, "TUTORIAL",          1, 4},
-				{StageId_1_1, 0xFF9271FD, "BOPEEBO",           1, 1},
-				{StageId_1_2, 0xFF9271FD, "FRESH",             1, 2},
-				{StageId_1_3, 0xFF9271FD, "DADBATTLE",         1, 3},
-				{StageId_2_1, 0xFF223344, "SPOOKEEZ",          2, 1},
-				{StageId_2_2, 0xFF223344, "SOUTH",             2, 2},
-				{StageId_2_3, 0xFF223344, "MONSTER",           2, 3},
-				{StageId_3_1, 0xFF941653, "PICO",              3, 1},
-				{StageId_3_2, 0xFF941653, "PHILLY NICE",       3, 2},
-				{StageId_3_3, 0xFF941653, "BLAMMED",           3, 3},
-				{StageId_4_1, 0xFFFC96D7, "SATIN PANTIES",     4, 1},
-				{StageId_4_2, 0xFFFC96D7, "HIGH",              4, 2},
-				{StageId_4_3, 0xFFFC96D7, "MILF",              4, 3},
-				{StageId_5_1, 0xFFA0D1FF, "COCOA",             5, 1},
-				{StageId_5_2, 0xFFA0D1FF, "EGGNOG",            5, 2},
-				{StageId_5_3, 0xFFA0D1FF, "WINTER HORRORLAND", 5, 3},
-				{StageId_6_1, 0xFFFF78BF, "SENPAI",            6, 1},
-				{StageId_6_2, 0xFFFF78BF, "ROSES",             6, 2},
-				{StageId_6_3, 0xFFFF78BF, "THORNS",            6, 3},
+				//{StageId_4_4, 0xFFFC96D7, "TEST"},
+				{StageId_1_4, 0xFF9271FD, "TUTORIAL"},
+				{StageId_1_1, 0xFF9271FD, "BOPEEBO"},
+				{StageId_1_2, 0xFF9271FD, "FRESH"},
+				{StageId_1_3, 0xFF9271FD, "DADBATTLE"},
+				{StageId_2_1, 0xFF223344, "SPOOKEEZ"},
+				{StageId_2_2, 0xFF223344, "SOUTH"},
+				{StageId_2_3, 0xFF223344, "MONSTER"},
+				{StageId_3_1, 0xFF941653, "PICO"},
+				{StageId_3_2, 0xFF941653, "PHILLY NICE"},
+				{StageId_3_3, 0xFF941653, "BLAMMED"},
+				{StageId_4_1, 0xFFFC96D7, "SATIN PANTIES"},
+				{StageId_4_2, 0xFFFC96D7, "HIGH"},
+				{StageId_4_3, 0xFFFC96D7, "MILF"},
+				{StageId_5_1, 0xFFA0D1FF, "COCOA"},
+				{StageId_5_2, 0xFFA0D1FF, "EGGNOG"},
+				{StageId_5_3, 0xFFA0D1FF, "WINTER HORRORLAND"},
+				{StageId_6_1, 0xFFFF78BF, "SENPAI"},
+				{StageId_6_2, 0xFFFF78BF, "ROSES"},
+				{StageId_6_3, 0xFFFF78BF, "THORNS"},
 			};
 
 			menu.font_arial.draw(&menu.font_arial,
@@ -819,12 +817,7 @@ void Menu_Tick(void)
 				FontAlign_Left
 			);
 
-			if (menu_options[menu.select].week == 4 && menu_options[menu.select].song == 4) //test
-				sprintf(scoredisp, "PERSONAL BEST: %d", (stage.prefs.specialscore[1] > 0) ? stage.prefs.specialscore[1] * 10 : 0);
-			else if (menu_options[menu.select].week == 1 && menu_options[menu.select].song == 4) //tutorial
-				sprintf(scoredisp, "PERSONAL BEST: %d", (stage.prefs.specialscore[0] > 0) ? stage.prefs.specialscore[0] * 10 : 0);
-			else
-				sprintf(scoredisp, "PERSONAL BEST: %d", (stage.prefs.savescore[menu_options[menu.select].week - 1][menu_options[menu.select].song - 1] > 0) ? stage.prefs.savescore[menu_options[menu.select].week - 1][menu_options[menu.select].song - 1] * 10 : 0);
+			sprintf(scoredisp, "PERSONAL BEST: %d", (stage.prefs.savescore[menu_options[menu.select].stage][menu.page_param.stage.diff] > 0) ? stage.prefs.savescore[menu_options[menu.select].stage][menu.page_param.stage.diff] * 10 : 0);
 
 			//Initialize page
 			if (menu.page_swap)

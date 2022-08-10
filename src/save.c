@@ -13,6 +13,7 @@
 				  
 	        //HAS to be BASCUS-scusid,somename
 #define savetitle "bu00:BASCUS-00000funkin"
+#define savename  "PSXFunkin"
 
 static const u8 saveIconPalette[32] = 
 {
@@ -67,19 +68,17 @@ void defaultSettings()
 	stage.prefs.botplay = 1;	
 	stage.prefs.songtimer = 1;
 
-	for (int i = 0; i <= 5; i++)
+	for (int i = 0; i <= StageId_Max; i++)
 	{
 		stage.prefs.savescore[i][0] = 0;
 		stage.prefs.savescore[i][1] = 0;
 		stage.prefs.savescore[i][2] = 0;
 	}
-	stage.prefs.specialscore[0] = 0;
-	stage.prefs.specialscore[1] = 0;
 }
 
 boolean readSaveFile()
 {
-	int fd = open("bu00:BASCUS-00000funkin", 0x0001);
+	int fd = open(savetitle, 0x0001);
 	if (fd < 0) // file doesnt exist 
 		return false;
 
@@ -103,7 +102,7 @@ void writeSaveFile()
 		fd =  open(savetitle, 0x0202 | (1 << 16));
 
 	SaveFile file;
-	initSaveFile(&file, "PSXFunkin");
+	initSaveFile(&file, savename);
   	memcpy((void *) file.saveData, (const void *) &stage.prefs, sizeof(stage.prefs));
 	
 	if (fd >= 0) {
