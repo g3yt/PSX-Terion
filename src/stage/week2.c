@@ -57,10 +57,10 @@ void Back_Week2_DrawBG(StageBack *back)
 	//Draw background
 	RECT back_src = {0, 0, 256, 256};
 	RECT_FIXED back_dst = {
-		FIXED_DEC(-185,1) - fx,
-		FIXED_DEC(-125,1) - fy,
-		FIXED_DEC(353,1),
-		FIXED_DEC(267,1)
+		FIXED_DEC(-371.1,1) - fx,
+		FIXED_DEC(-196,1) - fy,
+		FIXED_DEC(723,1),
+		FIXED_DEC(447,1)
 	};
 	
 	if (stage.prefs.widescreen)
