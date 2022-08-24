@@ -4,4 +4,4 @@ all:
 	@ $(MAKE) -f Makefile.tim 
 	@ $(MAKE) -f Makefile.cht 
 	@ $(MAKE) -f Makefile.xa 
-	@ mkpsxiso -y funkin.xml
+	@ mkpsxiso -y PSX-Terion.xml
