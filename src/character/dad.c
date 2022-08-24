@@ -19,7 +19,7 @@ enum
 	Dad_ArcMain_Left,
 	Dad_ArcMain_Down,
 	Dad_ArcMain_Down1,
-	Dad_ArcMain_Up0,
+	Dad_ArcMain_Up,
 	Dad_ArcMain_Right,
 	
 	Dad_Arc_Max,
@@ -76,17 +76,17 @@ static const CharFrame char_dad_frame[] = {
 	{Dad_ArcMain_Down1, {78,   0, 78, 114}, { 43, 99+4}},
 	{Dad_ArcMain_Down1, {156,   142, 78, 114}, { 43, 99+4}},
 
-	{Dad_ArcMain_Up0, {  0,   0, 40, 99}, { 76, 126+4}}, //8 up 1
-	{Dad_ArcMain_Up0, {76,   0, 35, }, { 78, 117+4}}, //9 up 2
-	{Dad_ArcMain_Up0, {  0,   0, 102, 205}, { 77, 115+4}}, //8 up 1
-	{Dad_ArcMain_Up0, {103,   0, 103, 203}, { 78, 115+4}}, //9 up 2
-	{Dad_ArcMain_Up0, {  0,   0, 102, 205}, { 77, 116+4}}, //8 up 1
-	{Dad_ArcMain_Up0, {  0,   0, 102, 205}, { 76, 116+4}}, //8 up 1
-	{Dad_ArcMain_Up0, {103,   0, 103, 203}, { 40, 194+4}}, //9 up 2
-	{Dad_ArcMain_Up0, {103,   0, 103, 203}, { 40, 194+4}}, //9 up 2
-	{Dad_ArcMain_Up0, {  0,   0, 102, 205}, { 40, 196+4}}, //8 up 1
-	{Dad_ArcMain_Up0, {103,   0, 103, 203}, { 40, 194+4}}, //9 up 2
-	{Dad_ArcMain_Up0, {  0,   0, 102, 205}, { 40, 196+4}}, //8 up 1
+	{Dad_ArcMain_Up, {  0,   0, 102, 205}, { 40, 196+4}}, //8 up 1
+	{Dad_ArcMain_Up, {103,   0, 103, 203}, { 40, 194+4}}, //9 up 2
+	{Dad_ArcMain_Up, {  0,   0, 102, 205}, { 40, 196+4}}, //8 up 1
+	{Dad_ArcMain_Up, {103,   0, 103, 203}, { 40, 194+4}}, //9 up 2
+	{Dad_ArcMain_Up, {  0,   0, 102, 205}, { 40, 196+4}}, //8 up 1
+	{Dad_ArcMain_Up, {  0,   0, 102, 205}, { 40, 196+4}}, //8 up 1
+	{Dad_ArcMain_Up, {103,   0, 103, 203}, { 40, 194+4}}, //9 up 2
+	{Dad_ArcMain_Up, {103,   0, 103, 203}, { 40, 194+4}}, //9 up 2
+	{Dad_ArcMain_Up, {  0,   0, 102, 205}, { 40, 196+4}}, //8 up 1
+	{Dad_ArcMain_Up, {103,   0, 103, 203}, { 40, 194+4}}, //9 up 2
+	{Dad_ArcMain_Up, {  0,   0, 102, 205}, { 40, 196+4}}, //8 up 1
 
 	{Dad_ArcMain_Right, {  0,   0, 117, 199}, { 43, 189+4}}, //10 right 1
 	{Dad_ArcMain_Right, {118,   0, 114, 199}, { 42, 189+4}}, //11 right 2
