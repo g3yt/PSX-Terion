@@ -26,6 +26,7 @@ Once you have it downloaded, make sure MSYS2 is closed, then open the zip up and
 - mkdir
 - touch
 - rm
+- which
 
 Next, open up `MSYS2 MinGW 64-bit` from the Start Menu, and you'll need to install some libraries, so run the following command and accept the prompts that follow `pacman -S mingw-w64-x86_64-cmake mingw-w64-x86_64-tinyxml2 mingw-w64-x86_64-ffmpeg `
 

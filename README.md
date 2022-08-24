@@ -1,6 +1,7 @@
 # PSX-Terion
 Substantial on the PSX LOL
 
+# I'll enable github actions later
 ## Code samples
 ```
 // Note shake : 
