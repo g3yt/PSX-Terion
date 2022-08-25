@@ -76,7 +76,7 @@ static const CharFrame char_dad_frame[] = {
 	{Dad_ArcMain_Down, {155,   142, 78, 114}, { 43, 99+4}},
 	{Dad_ArcMain_Down1, {0,   0, 78, 114}, { 43, 99+4}},
 	{Dad_ArcMain_Down1, {78,   0, 78, 114}, { 43, 99+4}},
-	{Dad_ArcMain_Down1, {156,   142, 78, 114}, { 43, 99+4}},
+	{Dad_ArcMain_Down1, {156,   0, 78, 114}, { 43, 99+4}},
 
 	{Dad_ArcMain_Up, {  0,   0, 76, 126}, { 76, 126+4}}, //8 up 1
 	{Dad_ArcMain_Up, {76,   0, 78, 117}, { 78, 117+4}}, //9 up 2
@@ -84,11 +84,11 @@ static const CharFrame char_dad_frame[] = {
 	{Dad_ArcMain_Up, {155,  115, 76, 116}, { 78, 115+4}}, //9 up 2
 	{Dad_ArcMain_Up, { 78, 117, 77, 116}, { 77, 116+4}}, //8 up 1
 	{Dad_ArcMain_Up, {  155,  115, 76, 166}, { 75, 116+4}}, //8 up 1
-	{Dad_ArcMain_Up, {103,   0, 103, 203}, { 40, 194+4}}, //9 up 2
-	{Dad_ArcMain_Up, {103,   0, 103, 203}, { 40, 194+4}}, //9 up 2
-	{Dad_ArcMain_Up, {  0,   0, 102, 205}, { 40, 196+4}}, //8 up 1
-	{Dad_ArcMain_Up, {103,   0, 103, 203}, { 40, 194+4}}, //9 up 2
-	{Dad_ArcMain_Up, {  0,   0, 102, 205}, { 40, 196+4}}, //8 up 1
+	{Dad_ArcMain_Up1, {  0,   0, 86, 108}, { 40, 194+4}}, //9 up 2
+	{Dad_ArcMain_Up1, {86,   0, 91, 106}, { 40, 194+4}}, //9 up 2
+	{Dad_ArcMain_Up1, {  0,  108, 92, 106}, { 40, 196+4}}, //8 up 1
+	{Dad_ArcMain_Up1, {92,   108, 91, 107}, { 40, 194+4}}, //9 up 2
+	{Dad_ArcMain_Up2, {  0,   0, 102, 205}, { 40, 196+4}}, //8 up 1
 
 	{Dad_ArcMain_Right, {  0,   0, 117, 199}, { 43, 189+4}}, //10 right 1
 	{Dad_ArcMain_Right, {118,   0, 114, 199}, { 42, 189+4}}, //11 right 2
