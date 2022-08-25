@@ -88,7 +88,7 @@ static const CharFrame char_dad_frame[] = {
 	{Dad_ArcMain_Up1, {86,   0, 91, 106}, { 40, 194+4}}, //9 up 2
 	{Dad_ArcMain_Up1, {  0,  108, 92, 106}, { 40, 196+4}}, //8 up 1
 	{Dad_ArcMain_Up1, {92,   108, 91, 107}, { 40, 194+4}}, //9 up 2
-	{Dad_ArcMain_Up2, {  0,   0, 102, 205}, { 40, 196+4}}, //8 up 1
+	{Dad_ArcMain_Up2, {  0,   0, 90, 107}, { 40, 196+4}}, //8 up 1
 
 	{Dad_ArcMain_Right, {  0,   0, 117, 199}, { 43, 189+4}}, //10 right 1
 	{Dad_ArcMain_Right, {118,   0, 114, 199}, { 42, 189+4}}, //11 right 2
