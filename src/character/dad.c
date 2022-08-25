@@ -201,6 +201,7 @@ Character *Char_Dad_New(fixed_t x, fixed_t y)
 		"down1.tim",
 		"up0.tim",    //Dad_ArcMain_Up
 		"up1.tim",
+		"up2.tim",
 		"right.tim", //Dad_ArcMain_Right
 		NULL
 	};
