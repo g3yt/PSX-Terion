@@ -57,17 +57,17 @@ static const CharFrame char_dad_frame[] = {
 	{Dad_ArcMain_Idle1, {  83,   139, 81, 117}, { 31, 99+4}}, //2 idle 3
 	{Dad_ArcMain_Idle1, {164,   139, 82, 117}, { 31, 99+4}}, //3 idle 4
 
-	{Dad_ArcMain_Left, {  0,   0,  77, 111}, { 48, 88+4}}, //4 left 1
-	{Dad_ArcMain_Left, { 77,   0,  79, 110}, { 57, 88+4}}, //5 left 2
-	{Dad_ArcMain_Left, {156,   0,  75, 111}, { 50, 87+4}}, //4 left 1
-	{Dad_ArcMain_Left, {  0, 112,  76, 112}, { 50, 91+4}}, //5 left 2
-	{Dad_ArcMain_Left, { 76, 110,  77, 114}, { 49, 88+4}}, //4 left 1
-	{Dad_ArcMain_Left, {153, 111,  77, 113}, { 50, 92+4}}, //4 left 1
-	{Dad_ArcMain_Left1, {  0,   0,  76, 114}, { 40, 185+4}}, //5 left 2
-	{Dad_ArcMain_Left1, { 76,   0,  76, 114}, { 40, 185+4}}, //4 left 1
-	{Dad_ArcMain_Left1, {152,   0,  78, 113}, { 40, 185+4}}, //5 left 2
-	{Dad_ArcMain_Left1, {  0, 114,  76, 113}, { 40, 185+4}}, //4 left 1
-	{Dad_ArcMain_Left1, { 76, 114,  76, 113}, { 40, 185+4}}, //4 left 1
+	{Dad_ArcMain_Left, {  0,   0,  77, 111}, { 46, 57+4}}, //4 left 1
+	{Dad_ArcMain_Left, { 77,   0,  79, 110}, { 50, 57+4}}, //5 left 2
+	{Dad_ArcMain_Left, {156,   0,  75, 111}, { 45, 56+4}}, //4 left 1
+	{Dad_ArcMain_Left, {  0, 112,  76, 112}, { 46, 56+4}}, //5 left 2
+	{Dad_ArcMain_Left, { 76, 110,  77, 114}, { 46, 56+4}}, //4 left 1
+	{Dad_ArcMain_Left, {153, 111,  77, 113}, { 47, 57+4}}, //4 left 1
+	{Dad_ArcMain_Left1, {  0,   0,  76, 114}, { 47, 59+4}}, //5 left 2
+	{Dad_ArcMain_Left1, { 76,   0,  76, 114}, { 47, 59+4}}, //4 left 1
+	{Dad_ArcMain_Left1, {152,   0,  78, 113}, { 47, 58+4}}, //5 left 2
+	{Dad_ArcMain_Left1, {  0, 114,  76, 113}, { 46, 59+4}}, //4 left 1
+	{Dad_ArcMain_Left1, { 76, 114,  76, 113}, { 45, 58+4}}, //4 left 1
 	
 	{Dad_ArcMain_Down, {  0,   0, 85, 112}, { 43, 99+4}}, //6 down 1
 	{Dad_ArcMain_Down, {76,    0, 78, 117}, { 43, 99+4}}, //7 down 2
