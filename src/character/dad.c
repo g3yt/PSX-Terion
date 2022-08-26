@@ -66,7 +66,7 @@ static const CharFrame char_dad_frame[] = {
 	{Dad_ArcMain_Left, {  0,   0,  93, 195}, { 40, 185+4}}, //4 left 1
 	{Dad_ArcMain_Left, { 94,   0,  95, 195}, { 40, 185+4}}, //5 left 2
 	{Dad_ArcMain_Left, {  0,   0,  93, 195}, { 40, 185+4}}, //4 left 1
-
+	{Dad_ArcMain_Left, {  0,   0,  93, 195}, { 40, 185+4}}, //4 left 1
 	
 	{Dad_ArcMain_Down, {  0,   0, 85, 112}, { 43, 99+4}}, //6 down 1
 	{Dad_ArcMain_Down, {76,    0, 78, 117}, { 43, 99+4}}, //7 down 2
