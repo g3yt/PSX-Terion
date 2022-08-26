@@ -17,6 +17,7 @@ enum
 	Dad_ArcMain_Idle0,
 	Dad_ArcMain_Idle1,
 	Dad_ArcMain_Left,
+	Dad_ArcMain_Left1,
 	Dad_ArcMain_Down,
 	Dad_ArcMain_Down1,
 	Dad_ArcMain_Up,
