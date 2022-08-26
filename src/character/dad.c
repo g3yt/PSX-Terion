@@ -198,6 +198,7 @@ Character *Char_Dad_New(fixed_t x, fixed_t y)
 		"idle0.tim", //Dad_ArcMain_Idle0
 		"idle1.tim", //Dad_ArcMain_Idle1
 		"left0.tim",  //Dad_ArcMain_Left
+		"left1.tim",  //Dad_ArcMain_Left
 		"down.tim",  //Dad_ArcMain_Down
 		"down1.tim",
 		"up0.tim",    //Dad_ArcMain_Up
