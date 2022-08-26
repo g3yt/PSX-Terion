@@ -66,7 +66,6 @@ static const CharFrame char_dad_frame[] = {
 	{Dad_ArcMain_Left, {  0,   0,  93, 195}, { 40, 185+4}}, //4 left 1
 	{Dad_ArcMain_Left, { 94,   0,  95, 195}, { 40, 185+4}}, //5 left 2
 	{Dad_ArcMain_Left, {  0,   0,  93, 195}, { 40, 185+4}}, //4 left 1
-	{Dad_ArcMain_Left, { 94,   0,  95, 195}, { 40, 185+4}}, //5 left 2
 
 	
 	{Dad_ArcMain_Down, {  0,   0, 85, 112}, { 43, 99+4}}, //6 down 1
@@ -107,13 +106,13 @@ static const CharFrame char_dad_frame[] = {
 
 static const Animation char_dad_anim[CharAnim_Max] = {
 	{1, (const u8[]){ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ASCR_BACK, 1}}, //CharAnim_Idle
-	{2, (const u8[]){ 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,  ASCR_BACK, 1}},         //CharAnim_Left
+	{2, (const u8[]){ 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,  ASCR_BACK, 1}},         //CharAnim_Left
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_LeftAlt
-	{2, (const u8[]){ 23, 24, 25, 26, 27, 28, 29, 30, 31, ASCR_BACK, 1}},         //CharAnim_Down
+	{2, (const u8[]){ 22, 23, 24, 25, 26, 27, 28, 29, 30, ASCR_BACK, 1}},         //CharAnim_Down
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_DownAlt
-	{2, (const u8[]){ 32, 33, 34, 35, 36,   37, 38, 39, 40, 41,  42, ASCR_BACK, 1}},         //CharAnim_Up
+	{2, (const u8[]){ 31, 32, 33, 34, 35,   36, 37, 38, 39, 40,  41, ASCR_BACK, 1}},         //CharAnim_Up
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_UpAlt
-	{2, (const u8[]){43, 44, 45, 46, 47,  48, 49, 50, 51, 52, 53, ASCR_BACK, 1}},         //CharAnim_Right
+	{2, (const u8[]){42, 43, 44, 45, 46,  47, 48, 49, 50, 51, 52, ASCR_BACK, 1}},         //CharAnim_Right
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},   //CharAnim_RightAlt
 };
 
