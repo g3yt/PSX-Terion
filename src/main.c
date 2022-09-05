@@ -64,7 +64,6 @@ int main(int argc, char **argv)
 	
 	stage.pal_i = 1;
 	stage.wide_i = 1;	
-	ResetGraph(0);
 	Gfx_Init();
 	Pad_Init();
 	InitCARD(1);
