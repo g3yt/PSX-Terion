@@ -68,7 +68,7 @@ void defaultSettings()
 	stage.prefs.botplay = 1;	
 	stage.prefs.songtimer = 1;
 
-	for (int i = 0; i <= StageId_Max; i++)
+	for (int i = 0; i < StageId_Max; i++)
 	{
 		stage.prefs.savescore[i][0] = 0;
 		stage.prefs.savescore[i][1] = 0;

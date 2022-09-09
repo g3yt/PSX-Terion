@@ -24,6 +24,7 @@ static u8 *nextpri;          //Next primitive pointer
 //Gfx functions
 void Gfx_Init(void)
 {
+	ResetGraph(0);
 	if (stage.prefs.widescreen)
 	{
 		//Initialize display environment
