@@ -7,15 +7,4 @@
 #ifndef PSXF_GUARD_PAUSE_H
 #define PSXF_GUARD_PAUSE_H
 
-#include "gfx.h"
-
-typedef struct
-{
-	Gfx_Tex tex_pause;
-} Pause;
-
-extern Pause pause;
-
-void PausedState();
-void Pause_load();
 #endif

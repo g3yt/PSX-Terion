@@ -182,9 +182,6 @@ int main(int argc, char **argv)
 			case GameLoop_Stage:
 				Stage_Tick();
 				break;
-			case GameLoop_Pause:
-				PausedState();
-				break;
 		}
 		
 		//Flip gfx buffers

@@ -32,17 +32,19 @@ static void drawparticle(Gfx_Tex *tex)
 {
 	if (stage.song_step > 0)	
 	{
-		if (stage.stage_id == StageId_5_2)
-			particx += 4;
-		else
-			particx += 3;
-		particy[0] -= 5;
-		particy[1] += 1;
-		if(particy[0] > 250)
-			particy[0] -= 250;
-		if(particy[1] > 250)
-			particy[1] -= 250;
-
+		if (!stage.paused)
+		{
+			if (stage.stage_id == StageId_5_2)
+				particx += 4;
+			else
+				particx += 3;
+			particy[0] -= 5;
+			particy[1] += 1;
+			if(particy[0] > 250)
+				particy[0] -= 250;
+			if(particy[1] > 250)
+				particy[1] -= 250;
+		}
 	}
 	RECT bit_src = {4, 172, 4, 4};
 	RECT_FIXED bit_dst = {
@@ -53,7 +55,8 @@ static void drawparticle(Gfx_Tex *tex)
 	};
 
 	Stage_DrawTex(tex, &bit_src, &bit_dst, stage.camera.bzoom);
-	bit_dst.y = FIXED_DEC(MUtil_Sin(particy[1]) / 8 + -30,1) - stage.camera.y;
+	if (!stage.paused)
+		bit_dst.y = FIXED_DEC(MUtil_Sin(particy[1]) / 8 + -30,1) - stage.camera.y;
 	Stage_DrawTex(tex, &bit_src, &bit_dst, stage.camera.bzoom);
 }
 

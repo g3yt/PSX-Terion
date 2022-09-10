@@ -12,7 +12,6 @@ typedef enum
 {
 	GameLoop_Menu,
 	GameLoop_Stage,
-	GameLoop_Pause,
 } GameLoop;
 
 extern GameLoop gameloop;

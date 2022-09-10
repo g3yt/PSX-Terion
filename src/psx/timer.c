@@ -90,7 +90,8 @@ void Timer_Tick(void)
 	timer_dt = next_sec - timer_sec;
 	timer_sec = next_sec;
 	
-	animf_count = (timer_sec * 24) >> FIXED_SHIFT;
+	if (!stage.paused)
+		animf_count = (timer_sec * 24) >> FIXED_SHIFT;
 	
 	timer_lcount = timer_count;
 }
@@ -112,20 +113,23 @@ void StageTimer_Calculate()
 
 void StageTimer_Tick()
 {
-	timer.secondtimer += timer_dt / 12;
-	if (stage.prefs.palmode ? timer.secondtimer >= 50 : timer.secondtimer >= 60)
+	if (!stage.paused)
 	{
-		timer.secondtimer = 0;
-		if (timer.timer <= 0)
-		{		
-			if (timer.timermin > 0)
-				timer.timermin --;
-			else
-				timer.timermin = 0;
-			timer.timer = 59;
+		timer.secondtimer += timer_dt / 12;
+		if (stage.prefs.palmode ? timer.secondtimer >= 50 : timer.secondtimer >= 60)
+		{
+			timer.secondtimer = 0;
+			if (timer.timer <= 0)
+			{		
+				if (timer.timermin > 0)
+					timer.timermin --;
+				else
+					timer.timermin = 0;
+				timer.timer = 59;
+			}
+			else 
+				timer.timer --;
 		}
-		else 
-			timer.timer --;
 	}
 }
 
@@ -148,7 +152,7 @@ void StageTimer_Draw()
 		FIXED_DEC(-109,1) + stage.noteshakey,
 		FontAlign_Left
 	);
-	if (timer.timer > 10)
+	if (timer.timer >= 10)
 		sprintf(timer.timer_display, "%d", timer.timer);
 	else
 		sprintf(timer.timer_display, "0%d", timer.timer);

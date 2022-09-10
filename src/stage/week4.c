@@ -100,16 +100,20 @@ void Back_Week4_DrawFG(StageBack *back)
 	fixed_t fx, fy;
 	
 	//Move car
-	this->car_timer -= timer_dt;
-	if (this->car_timer <= 0)
+	if (!stage.paused)
 	{
-		this->car_timer = RandomRange(CAR_TIME_A, CAR_TIME_B);
-		this->car_x = CAR_START_X;
+		this->car_timer -= timer_dt;
+		
+		if (this->car_timer <= 0)
+		{
+			this->car_timer = RandomRange(CAR_TIME_A, CAR_TIME_B);
+			this->car_x = CAR_START_X;
+		}
+		
+		if (this->car_x < CAR_END_X)
+			this->car_x += timer_dt * 2700;
 	}
-	
-	if (this->car_x < CAR_END_X)
-		this->car_x += timer_dt * 2700;
-	
+
 	//Draw car
 	fx = stage.camera.x * 4 / 3;
 	fy = stage.camera.y * 4 / 3;

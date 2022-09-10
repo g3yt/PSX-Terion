@@ -13,7 +13,6 @@ all: \
 	iso/stage/hud1-5.tim \
 	iso/stage/hud1-6.tim \
 	iso/stage/hud0weeb.tim \
-	iso/stage/pause.tim \
 	iso/bf/main.arc \
 	iso/bf/dead.arc \
 	iso/bf/weeb.arc \

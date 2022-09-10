@@ -94,7 +94,6 @@ typedef enum
 	StageTrans_Menu,
 	StageTrans_NextSong,
 	StageTrans_Reload,
-	StageTrans_Pause,
 } StageTrans;
 
 //Stage background
@@ -191,7 +190,7 @@ typedef struct
 		boolean ghost, downscroll, middlescroll, expsync, practice, debug, palmode, widescreen, sfxmiss, songtimer, botplay;
 		int savescore[StageId_Max][3];
 	} prefs;
-
+	boolean paused;
 	s32 mode;
 	
 	u32 offset;

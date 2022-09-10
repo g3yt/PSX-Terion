@@ -232,6 +232,15 @@ void Audio_PauseXA(void)
 	XA_Pause();
 }
 
+void Audio_ResumeXA(void)
+{
+	if (xa_state & XA_STATE_PLAYING)
+		return;
+	xa_state |= XA_STATE_PLAYING;
+
+	XA_Play(xa_pos);
+}
+
 void Audio_StopXA(void)
 {
 	//Deinitialize XA system
