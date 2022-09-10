@@ -43,8 +43,8 @@ jobs:
           mv psyq-4_7-converted mips/psyq
           make -f Makefile.assets -j8
           mkdir export
-          mv funkin.bin export
-          mv funkin.cue export
+          mv PSX-Terion.bin export
+          mv PSX-Terion.cue export
           rar a export.rar export
 
       - name: upload export
