@@ -24,6 +24,7 @@ enum
 	Dad_ArcMain_Up1,
 	Dad_ArcMain_Up2,
 	Dad_ArcMain_Right,
+	Dad_ArcMain_Right1,
 
 	Dad_Arc_Max,
 };
@@ -56,17 +57,17 @@ static const CharFrame char_dad_frame[] = {
 	{Dad_ArcMain_Idle1, {  83,   139, 81, 117}, { 31, 99}}, //2 idle 3
 	{Dad_ArcMain_Idle1, {164,   139, 82, 117}, { 31, 99}}, //3 idle 4
 
-	{Dad_ArcMain_Left, {  0,   0,  77, 111}, { 46, 57}}, //4 left 1
-	{Dad_ArcMain_Left, { 77,   0,  79, 110}, { 50, 57}}, //5 left 2
-	{Dad_ArcMain_Left, {156,   0,  75, 111}, { 45, 56}}, //4 left 1
-	{Dad_ArcMain_Left, {  0, 112,  76, 112}, { 46, 56}}, //5 left 2
-	{Dad_ArcMain_Left, { 76, 110,  77, 114}, { 46, 56}}, //4 left 1
-	{Dad_ArcMain_Left, {153, 111,  77, 113}, { 47, 57}}, //4 left 1
-	{Dad_ArcMain_Left1, {  0,   0,  76, 114}, { 47, 59}}, //5 left 2
-	{Dad_ArcMain_Left1, { 76,   0,  76, 114}, { 47, 59}}, //4 left 1
-	{Dad_ArcMain_Left1, {152,   0,  78, 113}, { 47, 58}}, //5 left 2
-	{Dad_ArcMain_Left1, {  0, 114,  76, 113}, { 46, 59}}, //4 left 1
-	{Dad_ArcMain_Left1, { 76, 114,  76, 113}, { 45, 58}}, //4 left 1
+	{Dad_ArcMain_Left, {  0,   0,  77, 111}, { 46, 87}}, //4 left 1
+	{Dad_ArcMain_Left, { 77,   0,  79, 110}, { 50, 87}}, //5 left 2
+	{Dad_ArcMain_Left, {156,   0,  75, 111}, { 45, 86}}, //4 left 1
+	{Dad_ArcMain_Left, {  0, 112,  76, 112}, { 46, 86}}, //5 left 2
+	{Dad_ArcMain_Left, { 76, 110,  77, 114}, { 46, 86}}, //4 left 1
+	{Dad_ArcMain_Left, {153, 111,  77, 113}, { 47, 87}}, //4 left 1
+	{Dad_ArcMain_Left1, {  0,   0,  76, 114}, { 47, 89}}, //5 left 2
+	{Dad_ArcMain_Left1, { 76,   0,  76, 114}, { 47, 89}}, //4 left 1
+	{Dad_ArcMain_Left1, {152,   0,  78, 113}, { 47, 88}}, //5 left 2
+	{Dad_ArcMain_Left1, {  0, 114,  76, 113}, { 46, 89}}, //4 left 1
+	{Dad_ArcMain_Left1, { 76, 114,  76, 113}, { 45, 88}}, //4 left 1
 	
 	{Dad_ArcMain_Down, {  0,   0, 85, 112}, { 43, 99}}, //6 down 1
 	{Dad_ArcMain_Down, {76,    0, 78, 117}, { 43, 99}}, //7 down 2
