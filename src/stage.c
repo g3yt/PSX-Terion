@@ -860,43 +860,74 @@ static void Stage_DrawHealthBar(s16 x, s32 color)
 	Stage_DrawTexCol(&stage.tex_hud1, &src, &dst, stage.bump, red >> 1, blue >> 1, green >> 1);
 }
 
+static void Stage_Player2(void)
+{
+	//check which mode you choose
+	static char* checkoption;
+
+	//change mode to single(only opponent2 sing)
+	if (strcmp(stage.player2sing, "single") == 0 && checkoption != stage.player2sing)
+	{
+		if (stage.mode == StageMode_Swap)
+		{
+			stage.player_state[1].character = stage.player2;
+		}
+		else
+		{
+		 	stage.player_state[0].character = stage.player2;
+		}
+	}
+
+	//change mode to none (opponent2 don't sing)
+    else if (strcmp(stage.player2sing, "none") == 0 && checkoption != stage.player2sing)
+	{
+		if (stage.mode == StageMode_Swap)
+		{
+		 	stage.player_state[1].character = stage.player;
+		}
+		else
+		{
+			stage.player_state[0].character = stage.player;
+		}
+	}
+
+	if (checkoption != stage.player2sing)
+		checkoption = stage.player2sing;
+}
+
 static void Stage_Opponent2(void)
 {
 	//check which mode you choose
 	static char* checkoption;
 
 	//change mode to single(only opponent2 sing)
-  if (strcmp(stage.oppo2sing, "single") == 0 && checkoption != stage.oppo2sing)
+	if (strcmp(stage.oppo2sing, "single") == 0 && checkoption != stage.oppo2sing)
 	{
 		if (stage.mode == StageMode_Swap)
 		{
-		 stage.player_state[0].character = stage.opponent2;
-		 stage.player_state[1].character = stage.player;
+			stage.player_state[0].character = stage.opponent2;
 		}
 		else
 		{
-		 stage.player_state[0].character = stage.player;
-		 stage.player_state[1].character = stage.opponent2;
+			stage.player_state[1].character = stage.opponent2;
 		}
 	}
 
 	//change mode to none (opponent2 don't sing)
-   else if (strcmp(stage.oppo2sing, "none") == 0 && checkoption != stage.oppo2sing)
+    else if (strcmp(stage.oppo2sing, "none") == 0 && checkoption != stage.oppo2sing)
 	{
 		if (stage.mode == StageMode_Swap)
 		{
-		 stage.player_state[0].character = stage.opponent;
-		 stage.player_state[1].character = stage.player;
+		 	stage.player_state[0].character = stage.opponent;
 		}
 		else
 		{
-		 stage.player_state[0].character = stage.player;
-		 stage.player_state[1].character = stage.opponent;
+		 	stage.player_state[1].character = stage.opponent;
 		}
 	}
 
-if (checkoption != stage.oppo2sing)
-	checkoption = stage.oppo2sing;
+	if (checkoption != stage.oppo2sing)
+		checkoption = stage.oppo2sing;
 }
 
 static void Stage_DrawStrum(u8 i, RECT *note_src, RECT_FIXED *note_dst)
@@ -1236,6 +1267,13 @@ static void Stage_LoadPlayer(void)
 	stage.player = stage.stage_def->pchar.new(stage.stage_def->pchar.x, stage.stage_def->pchar.y);
 }
 
+static void Stage_LoadPlayer2(void)
+{
+	//Load player character
+	Character_Free(stage.player2);
+	stage.player2 = stage.stage_def->pchar2.new(stage.stage_def->pchar2.x, stage.stage_def->pchar2.y);
+}
+
 static void Stage_LoadOpponent(void)
 {
 	//Load opponent character
@@ -1357,9 +1395,11 @@ static void Stage_LoadMusic(void)
 {
 	//Offset sing ends
 	stage.player->sing_end -= stage.note_scroll;
+	if (stage.player2 != NULL)
+		stage.player2->sing_end -= stage.note_scroll;
 	stage.opponent->sing_end -= stage.note_scroll;
 	if (stage.opponent2 != NULL)
-	stage.opponent2->sing_end -= stage.note_scroll;
+		stage.opponent2->sing_end -= stage.note_scroll;
 	if (stage.gf != NULL)
 		stage.gf->sing_end -= stage.note_scroll;
 	
@@ -1375,6 +1415,8 @@ static void Stage_LoadMusic(void)
 	
 	//Offset sing ends again
 	stage.player->sing_end += stage.note_scroll;
+	if (stage.player2 != NULL)
+		stage.player2->sing_end += stage.note_scroll;
 	stage.opponent->sing_end += stage.note_scroll;
 	if (stage.opponent2 != NULL)
 		stage.opponent2->sing_end += stage.note_scroll;
@@ -1409,6 +1451,7 @@ static void Stage_LoadState(void)
 		stage.player_state[i].health = 10000;
 		stage.player_state[i].combo = 0;
 		stage.oppo2sing = "none";
+		stage.player2sing = "none";
 		soundcooldown = 0;
 		drawshit = 0;
 		if (!stage.prefs.debug)
@@ -1501,9 +1544,11 @@ void Stage_Load(StageId id, StageDiff difficulty, boolean story)
 
 	//load fonts
 	FontData_Load(&stage.font_cdr, Font_CDR);
+	FontData_Load(&stage.font_bold, Font_Bold);
 
 	//Load characters
 	Stage_LoadPlayer();
+	Stage_LoadPlayer2();
 	Stage_LoadOpponent();
 	Stage_LoadOpponent2();	
 	Stage_LoadGirlfriend();
@@ -1562,6 +1607,8 @@ void Stage_Unload(void)
 	//Free characters
 	Character_Free(stage.player);
 	stage.player = NULL;
+	Character_Free(stage.player2);
+	stage.player2 = NULL;
 	Character_Free(stage.opponent);
 	stage.opponent = NULL;
 	Character_Free(stage.opponent2);
@@ -1602,11 +1649,21 @@ static boolean Stage_NextLoad(void)
 			stage.player->x = stage.stage_def->pchar.x;
 			stage.player->y = stage.stage_def->pchar.y;
 		}
+		if (load & STAGE_LOAD_PLAYER2)
+		{
+			Stage_LoadPlayer2();
+		}
+		else if (stage.player2 != NULL)
+		{
+			stage.player2->x = stage.stage_def->pchar2.x;
+			stage.player2->y = stage.stage_def->pchar2.y;
+		}
+
 		if (load & STAGE_LOAD_OPPONENT)
 		{
 			Stage_LoadOpponent();
 		}
-		else
+		else if (stage.opponent2 != NULL)
 		{
 			stage.opponent->x = stage.stage_def->ochar.x;
 			stage.opponent->y = stage.stage_def->ochar.y;
@@ -1654,9 +1711,11 @@ void Stage_Tick(void)
 	if (pad_state.press & PAD_START && stage.state == StageState_Play)
 	{
 		stage.paused = !stage.paused;
+	
 		if (stage.paused)
 		{
 			Audio_PauseXA();
+			PausedState();
 		}
 		else
 		{
@@ -1734,6 +1793,7 @@ void Stage_Tick(void)
 
 			Stage_CountDown();
 
+			Stage_Player2();
 			Stage_Opponent2();
 
 			if (stage.prefs.botplay)
@@ -2167,6 +2227,9 @@ void Stage_Tick(void)
 				stage.player->tick(stage.player);
 				stage.opponent->tick(stage.opponent);
 			}
+            if (stage.player2 != NULL)
+				stage.player2->tick(stage.player2);
+
             if (stage.opponent2 != NULL)
 				stage.opponent2->tick(stage.opponent2);
 			

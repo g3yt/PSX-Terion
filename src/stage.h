@@ -31,10 +31,11 @@
 #define STAGE_FLAG_SCORE_REFRESH (1 << 2) //Score text should be refreshed
 
 #define STAGE_LOAD_PLAYER     (1 << 0) //Reload player character
-#define STAGE_LOAD_OPPONENT   (1 << 1) //Reload opponent character
-#define STAGE_LOAD_OPPONENT2  (1 << 2) //Reload 2nd opponent character
-#define STAGE_LOAD_GIRLFRIEND (1 << 3) //Reload girlfriend character
-#define STAGE_LOAD_STAGE      (1 << 4) //Reload stage
+#define STAGE_LOAD_PLAYER2    (1 << 1) //Reload player character
+#define STAGE_LOAD_OPPONENT   (1 << 2) //Reload opponent character
+#define STAGE_LOAD_OPPONENT2  (1 << 3) //Reload 2nd opponent character
+#define STAGE_LOAD_GIRLFRIEND (1 << 4) //Reload girlfriend character
+#define STAGE_LOAD_STAGE      (1 << 5) //Reload stage
 #define STAGE_LOAD_FLAG       (1 << 7)
 
 
@@ -114,7 +115,7 @@ typedef struct
 	{
 		Character* (*new)();
 		fixed_t x, y;
-	} pchar, ochar, ochar2, gchar;
+	} pchar, pchar2, ochar, ochar2, gchar;
 	
 	//Stage background
 	StageBack* (*back)();
@@ -199,7 +200,7 @@ typedef struct
 	Gfx_Tex tex_hud0, tex_hud1;
 
 	//font
-	FontData font_cdr;
+	FontData font_cdr, font_bold;
 	
 	//Stage data
 	const StageDef *stage_def;
@@ -231,6 +232,7 @@ typedef struct
 	StageBack *back;
 	
 	Character *player;
+	Character *player2;
 	Character *opponent;
     Character *opponent2;
 	Character *gf;
@@ -252,6 +254,7 @@ typedef struct
 	s32 song_step;
 	s16 song_beat;
 
+	char* player2sing;
 	char* oppo2sing;
 
 	boolean freecam;
