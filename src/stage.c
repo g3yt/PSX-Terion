@@ -1272,7 +1272,7 @@ static void Stage_LoadPlayer2(void)
 	//Load player character
 	Character_Free(stage.player2);
 	
-	if (stage.stage_def->player2.new != NULL) {
+	if (stage.stage_def->pchar2.new != NULL) {
 		stage.player2 = stage.stage_def->pchar2.new(stage.stage_def->pchar2.x, stage.stage_def->pchar2.y);
 	}
 	else
