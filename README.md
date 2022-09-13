@@ -1,7 +1,7 @@
 # PSX-Terion
 Substantial on the PSX LOL
 
-# I'll enable github actions later
+# GitHub actions for beta builds!!
 ## Code samples
 ```
 // Note shake : 
