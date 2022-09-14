@@ -41,7 +41,7 @@ On Arch derivatives (Manjaro), the mipsel environment can be installed from AUR 
 
 `trizen -S cross-mipsel-linux-gnu-binutils cross-mipsel-linux-gnu-gcc`
 
-You'll also need to install `tinyxml2`, `ffmpeg` (you may also need to install `avformat` and `swscale` separately), and `cmake`, which of course, depends on your distro of choice.
+You'll also need to install `tinyxml2`, `ffmpeg` (you may also need to install `avformat`,`swscale`, and `libavformat-dev` separately), and `cmake`, which of course, depends on your distro of choice.
 
 ### Mac OS
 First open the terminal and install brew https://brew.sh, after that run these commands one by one.
