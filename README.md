@@ -1,6 +1,8 @@
 # PSX-Terion
 Substantial on the PSX LOL
 
+because the sonic.exe 2.5/3.0 port is taking years to finish im just gonna start working on this again yay!!
+
 # GitHub actions for beta builds!!
 ## Code samples
 ```
