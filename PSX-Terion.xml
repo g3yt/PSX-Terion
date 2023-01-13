@@ -242,26 +242,6 @@
 				<dummy sectors="128"/>
 				<file name = "week1b.xa" type = "xa" source = "iso/music/week1b.xa"/>
 				<dummy sectors="128"/>
-				<file name = "week2a.xa" type = "xa" source = "iso/music/week2a.xa"/>
-				<dummy sectors="128"/>
-				<file name = "week2b.xa" type = "xa" source = "iso/music/week2b.xa"/>
-				<dummy sectors="128"/>
-				<file name = "week3a.xa" type = "xa" source = "iso/music/week3a.xa"/>
-				<dummy sectors="128"/>
-				<file name = "week3b.xa" type = "xa" source = "iso/music/week3b.xa"/>
-				<dummy sectors="128"/>
-				<file name = "week4a.xa" type = "xa" source = "iso/music/week4a.xa"/>
-				<dummy sectors="128"/>
-				<file name = "week4b.xa" type = "xa" source = "iso/music/week4b.xa"/>
-				<dummy sectors="128"/>
-				<file name = "week5a.xa" type = "xa" source = "iso/music/week5a.xa"/>
-				<dummy sectors="128"/>
-				<file name = "week5b.xa" type = "xa" source = "iso/music/week5b.xa"/>
-				<dummy sectors="128"/>
-				<file name = "week6a.xa" type = "xa" source = "iso/music/week6a.xa"/>
-				<dummy sectors="128"/>
-				<file name = "week6b.xa" type = "xa" source = "iso/music/week6b.xa"/>
-				<dummy sectors="128"/>
 			</dir>
 			
 			<!-- Dummy sectors -->
