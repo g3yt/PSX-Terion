@@ -14,17 +14,16 @@
 //Dad character structure
 enum
 {
-	Dad_ArcMain_Idle0,
-	Dad_ArcMain_Idle1,
-	Dad_ArcMain_Left,
-	Dad_ArcMain_Left1,
-	Dad_ArcMain_Down,
-	Dad_ArcMain_Down1,
-	Dad_ArcMain_Up,
-	Dad_ArcMain_Up1,
-	Dad_ArcMain_Up2,
-	Dad_ArcMain_Right,
-	Dad_ArcMain_Right1,
+	Dad_ArcMain_Dad0,
+	Dad_ArcMain_Dad1,
+	Dad_ArcMain_Dad2,
+	Dad_ArcMain_Dad3,
+	Dad_ArcMain_Dad4,
+	Dad_ArcMain_Dad5,
+	Dad_ArcMain_Dad6,
+	Dad_ArcMain_Dad7,
+	Dad_ArcMain_Dad8,
+	Dad_ArcMain_Dad9,
 
 	Dad_Arc_Max,
 };
@@ -44,65 +43,64 @@ typedef struct
 
 //Dad character definitions
 static const CharFrame char_dad_frame[] = {
-	{Dad_ArcMain_Idle0, {  0,   0, 81, 117}, { 31, 99}}, //0 idle 1
-	{Dad_ArcMain_Idle0, {81,   0, 90, 116}, { 36, 98}}, //1 idle 2
-	{Dad_ArcMain_Idle0, {  0,   140, 88, 116}, { 33, 98}}, //2 idle 3
-	{Dad_ArcMain_Idle0, {88,   140, 86, 116}, { 32, 99}}, //3 idle 4
-	{Dad_ArcMain_Idle0, {171,   0, 82, 116}, { 32, 98}}, //2 idle 3
-	{Dad_ArcMain_Idle0, {174,   139, 82, 117}, { 32, 99}}, //3 idle 4
-	{Dad_ArcMain_Idle1, {  0,   0, 80, 117}, { 31, 99}}, //2 idle 3
-	{Dad_ArcMain_Idle1, {80,   4, 80, 117}, { 31, 99}}, //3 idle 4
-	{Dad_ArcMain_Idle1, {  166,   2, 80, 117}, { 31, 99}}, //2 idle 3
-	{Dad_ArcMain_Idle1, {0,   139, 81, 117}, { 31, 99}}, //3 idle 4
-	{Dad_ArcMain_Idle1, {  83,   139, 81, 117}, { 31, 99}}, //2 idle 3
-	{Dad_ArcMain_Idle1, {164,   139, 82, 117}, { 31, 99}}, //3 idle 4
+  {Dad_ArcMain_Dad0, {  2,  0, 81,117}, { 93, 96}}, //0 idle 1
+  {Dad_ArcMain_Dad0, { 85,  0, 90,116}, { 98, 95}}, //1 idle 2
+  {Dad_ArcMain_Dad0, {  0,119, 88,116}, { 95, 95}}, //2 idle 3
+  {Dad_ArcMain_Dad0, { 90,119, 86,116}, { 95, 96}}, //3 idle 4
+  {Dad_ArcMain_Dad1, {  0,  0, 82,116}, { 94, 95}}, //4 idle 5
+  {Dad_ArcMain_Dad1, { 84,  0, 82,117}, { 94, 96}}, //5 idle 6
+  {Dad_ArcMain_Dad1, {168,  0, 80,117}, { 93, 96}}, //6 idle 7
+  {Dad_ArcMain_Dad1, {  0,119, 80,117}, { 93, 96}}, //7 idle 8
+  {Dad_ArcMain_Dad1, { 82,119, 80,117}, { 93, 96}}, //8 idle 9
+  {Dad_ArcMain_Dad1, {164,119, 81,117}, { 93, 96}}, //9 idle 10
+  {Dad_ArcMain_Dad2, {  0,  0, 81,117}, { 93, 96}}, //10 idle 11
+  {Dad_ArcMain_Dad2, { 83,  0, 82,117}, { 93, 96}}, //11 idle 12
 
-	{Dad_ArcMain_Left, {  0,   0,  77, 111}, { 46, 87}}, //4 left 1
-	{Dad_ArcMain_Left, { 77,   0,  79, 110}, { 50, 87}}, //5 left 2
-	{Dad_ArcMain_Left, {156,   0,  75, 111}, { 45, 86}}, //4 left 1
-	{Dad_ArcMain_Left, {  0, 112,  76, 112}, { 46, 86}}, //5 left 2
-	{Dad_ArcMain_Left, { 76, 110,  77, 114}, { 46, 86}}, //4 left 1
-	{Dad_ArcMain_Left, {153, 111,  77, 113}, { 47, 87}}, //4 left 1
-	{Dad_ArcMain_Left1, {  0,   0,  76, 114}, { 47, 89}}, //5 left 2
-	{Dad_ArcMain_Left1, { 76,   0,  76, 114}, { 47, 89}}, //4 left 1
-	{Dad_ArcMain_Left1, {152,   0,  78, 113}, { 47, 88}}, //5 left 2
-	{Dad_ArcMain_Left1, {  0, 114,  76, 113}, { 46, 89}}, //4 left 1
-	{Dad_ArcMain_Left1, { 76, 114,  76, 113}, { 45, 88}}, //4 left 1
-	
-	{Dad_ArcMain_Down, {  0,   0, 85, 112}, { 43, 99}}, //6 down 1
-	{Dad_ArcMain_Down, {76,    0, 78, 117}, { 43, 99}}, //7 down 2
-	{Dad_ArcMain_Down, {154,   0, 77, 115}, { 43, 99}},
-	{Dad_ArcMain_Down, {0,   126, 78, 115}, { 43, 99}},
-	{Dad_ArcMain_Down, {79,   117, 76, 116}, { 43, 99}},
-	{Dad_ArcMain_Down, {155,   142, 78, 114}, { 43, 99}},
-	{Dad_ArcMain_Down1, {0,   0, 78, 114}, { 43, 99}},
-	{Dad_ArcMain_Down1, {78,   0, 78, 114}, { 43, 99}},
-	{Dad_ArcMain_Down1, {156,   0, 78, 114}, { 43, 99}},
+  {Dad_ArcMain_Dad2, {167,  0, 77,111}, {121, 91}}, //12 left 1
+  {Dad_ArcMain_Dad2, {  0,119, 79,110}, {132, 91}}, //13 left 2
+  {Dad_ArcMain_Dad2, { 81,119, 75,111}, {124, 91}}, //14 left 3
+  {Dad_ArcMain_Dad2, {158,119, 76,112}, {123, 91}}, //15 left 4
+  {Dad_ArcMain_Dad3, {  0,  0, 77,112}, {122, 91}}, //16 left 5
+  {Dad_ArcMain_Dad3, { 79,  0, 77,113}, {122, 92}}, //17 left 6
+  {Dad_ArcMain_Dad3, {158,  0, 76,114}, {121, 93}}, //18 left 7
+  {Dad_ArcMain_Dad3, {  0,116, 76,114}, {121, 93}}, //19 left 8
+  {Dad_ArcMain_Dad3, { 78,116, 77,113}, {120, 92}}, //20 left 9
+  {Dad_ArcMain_Dad3, {157,116, 76,113}, {120, 92}}, //21 left 10
+  {Dad_ArcMain_Dad4, {  0,  0, 76,113}, {120, 92}}, //22 left 11
 
-	{Dad_ArcMain_Up, {  0,   0, 76, 126}, { 40, 99}}, //8 up 1
-	{Dad_ArcMain_Up, {76,   0, 78, 117}, { 34, 95}}, //9 up 2
-	{Dad_ArcMain_Up, {154,  0, 77, 115}, { 31, 95}}, //8 up 1
-	{Dad_ArcMain_Up, {155,  115, 76, 116}, { 31, 95}}, //9 up 2
-	{Dad_ArcMain_Up, { 78, 117, 77, 116}, { 31, 96}}, //8 up 1
-	{Dad_ArcMain_Up, {  155,  115, 76, 166}, { 30, 96}}, //8 up 1
-	{Dad_ArcMain_Up1, {  0,   0, 86, 108}, { 32, 94}}, //9 up 2
-	{Dad_ArcMain_Up1, {86,   0, 91, 106}, { 30, 96}}, //9 up 2
-	{Dad_ArcMain_Up1, {  0,  108, 92, 106}, { 32, 97}}, //8 up 1
-	{Dad_ArcMain_Up1, {92,   108, 91, 107}, { 32, 97}}, //9 up 2
-	{Dad_ArcMain_Up2, {  0,   0, 90, 107}, { 32, 96}}, //8 up 1
+  {Dad_ArcMain_Dad4, { 78,  0, 85,112}, { 80, 92}}, //23 down 1
+  {Dad_ArcMain_Dad4, {165,  0, 81,113}, { 81, 95}}, //24 down 2
+  {Dad_ArcMain_Dad4, {  0,115, 78,114}, { 81, 97}}, //25 down 3
+  {Dad_ArcMain_Dad4, { 80,115, 77,115}, { 81, 98}}, //26 down 4
+  {Dad_ArcMain_Dad4, {159,115, 78,114}, { 81, 97}}, //27 down 5
+  {Dad_ArcMain_Dad5, {  0,  0, 78,114}, { 81, 97}}, //28 down 6
+  {Dad_ArcMain_Dad5, { 80,  0, 78,114}, { 81, 97}}, //29 down 7
+  {Dad_ArcMain_Dad5, {160,  0, 78,114}, { 81, 97}}, //30 down 8
+  {Dad_ArcMain_Dad5, {  0,116, 78,114}, { 81, 97}}, //31 down 9
 
-	{Dad_ArcMain_Right, {  0,   0, 117, 199}, { 43, 189}}, //10 right 1
-	{Dad_ArcMain_Right, {118,   0, 114, 199}, { 42, 189}}, //11 right 2
-	{Dad_ArcMain_Right, {  0,   0, 117, 199}, { 43, 189}}, //10 right 1
-	{Dad_ArcMain_Right, {118,   0, 114, 199}, { 42, 189}}, //11 right 2
-	{Dad_ArcMain_Right, {  0,   0, 117, 199}, { 43, 189}}, //10 right 1
-	{Dad_ArcMain_Right, {118,   0, 114, 199}, { 42, 189}}, //11 right 2
-	{Dad_ArcMain_Right, {  0,   0, 117, 199}, { 43, 189}}, //10 right 1
-	{Dad_ArcMain_Right, {118,   0, 114, 199}, { 42, 189}}, //11 right 2
-	{Dad_ArcMain_Right, {  0,   0, 117, 199}, { 43, 189}}, //10 right 1
-	{Dad_ArcMain_Right, {118,   0, 114, 199}, { 42, 189}}, //11 right 2
-	{Dad_ArcMain_Right, {118,   0, 114, 199}, { 42, 189}}, //11 right 2
-	{Dad_ArcMain_Right, {118,   0, 114, 199}, { 42, 189}}, //11 right 2
+  {Dad_ArcMain_Dad5, { 80,116, 76,126}, { 74,142}}, //32 up 1
+  {Dad_ArcMain_Dad5, {158,116, 78,117}, { 71,130}}, //33 up 2
+  {Dad_ArcMain_Dad6, {  0,  0, 77,115}, { 69,126}}, //34 up 3
+  {Dad_ArcMain_Dad6, { 79,  0, 78,115}, { 69,125}}, //35 up 4
+  {Dad_ArcMain_Dad6, {159,  0, 77,116}, { 68,126}}, //36 up 5
+  {Dad_ArcMain_Dad6, {  0,118, 76,116}, { 68,126}}, //37 up 6
+  {Dad_ArcMain_Dad6, { 78,118, 86,108}, { 73,112}}, //38 up 7
+  {Dad_ArcMain_Dad7, {  0,  0, 91,106}, { 75,108}}, //39 up 8
+  {Dad_ArcMain_Dad7, { 93,  0, 92,106}, { 76,108}}, //40 up 9
+  {Dad_ArcMain_Dad7, {  0,108, 91,107}, { 75,109}}, //41 up 10
+  {Dad_ArcMain_Dad7, { 93,108, 90,107}, { 75,109}}, //42 up 11
+
+  {Dad_ArcMain_Dad8, {  0,  0, 95,108}, { 82, 91}}, //43 right 1
+  {Dad_ArcMain_Dad8, { 97,  0, 84,112}, { 80, 95}}, //44 right 2
+  {Dad_ArcMain_Dad8, {  0,114, 80,115}, { 77, 97}}, //45 right 3
+  {Dad_ArcMain_Dad8, { 82,114, 71,117}, { 78, 98}}, //46 right 4
+  {Dad_ArcMain_Dad8, {155,114, 70,119}, { 80, 99}}, //47 right 5
+  {Dad_ArcMain_Dad9, {  0,  0, 71,119}, { 82, 99}}, //48 right 6
+  {Dad_ArcMain_Dad9, { 73,  0, 70,119}, { 81, 99}}, //49 right 7
+  {Dad_ArcMain_Dad9, {145,  0, 70,119}, { 81, 99}}, //50 right 8
+  {Dad_ArcMain_Dad9, {  0,121, 70,119}, { 80, 99}}, //51 right 9
+  {Dad_ArcMain_Dad9, { 72,121, 70,118}, { 80, 99}}, //52 right 10
+  {Dad_ArcMain_Dad9, {144,121, 71,118}, { 80, 99}}, //53 right 11
 };
 
 static const Animation char_dad_anim[CharAnim_Max] = {
@@ -195,16 +193,16 @@ Character *Char_Dad_New(fixed_t x, fixed_t y)
 	this->arc_main = IO_Read("\\CHAR\\DAD.ARC;1");
 	
 	const char **pathp = (const char *[]){
-		"idle0.tim", //Dad_ArcMain_Idle0
-		"idle1.tim", //Dad_ArcMain_Idle1
-		"left0.tim",  //Dad_ArcMain_Left
-		"left1.tim",  //Dad_ArcMain_Left
-		"down.tim",  //Dad_ArcMain_Down
-		"down1.tim",
-		"up0.tim",    //Dad_ArcMain_Up
-		"up1.tim",
-		"up2.tim",
-		"right.tim", //Dad_ArcMain_Right
+	"dad0.tim",
+	"dad1.tim",
+	"dad2.tim",
+	"dad3.tim",
+	"dad4.tim",
+	"dad5.tim",
+	"dad6.tim",
+	"dad7.tim",
+	"dad8.tim",
+	"dad9.tim",
 		NULL
 	};
 	IO_Data *arc_ptr = this->arc_ptr;
