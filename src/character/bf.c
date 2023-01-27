@@ -39,15 +39,15 @@ static SkullFragment char_bf_skull[15] = {
 //Boyfriend player types
 enum
 {
-	BF_ArcMain_BF0,
-	BF_ArcMain_BF1,
+	BF_ArcMain_Idle0,
+	BF_ArcMain_Idle0,
 	BF_ArcMain_BF2,
 	BF_ArcMain_BF3,
 	BF_ArcMain_BF4,
 	BF_ArcMain_BF5,
 	BF_ArcMain_BF6,
 	BF_ArcMain_Dead0, //BREAK
-	
+
 	BF_ArcMain_Max,
 };
 
@@ -56,7 +56,7 @@ enum
 	BF_ArcDead_Dead1, //Mic Drop
 	BF_ArcDead_Dead2, //Twitch
 	BF_ArcDead_Retry, //Retry prompt
-	
+
 	BF_ArcDead_Max,
 };
 
@@ -66,7 +66,7 @@ typedef struct
 {
 	//Character base structure
 	Character character;
-	
+
 	//Render data and state
 	IO_Data arc_main, arc_dead;
 	CdlFILE file_dead_arc; //dead.arc file position
@@ -83,44 +83,113 @@ typedef struct
 
 //Boyfriend player definitions
 static const CharFrame char_bf_frame[] = {
-	{BF_ArcMain_BF0, {  0,   0, 102,  99}, { 53,  92}}, //0 idle 1
-	{BF_ArcMain_BF0, {103,   0, 102,  99}, { 53,  92}}, //1 idle 2
-	{BF_ArcMain_BF0, {  0, 100, 102, 101}, { 53,  94}}, //2 idle 3
-	{BF_ArcMain_BF0, {103, 100, 103, 104}, { 53,  97}}, //3 idle 4
-	{BF_ArcMain_BF1, {  0,   0, 103, 104}, { 53,  97}}, //4 idle 5
-	
-	{BF_ArcMain_BF1, {104,   0,  96, 102}, { 56,  95}}, //5 left 1
-	{BF_ArcMain_BF1, {  0, 105,  94, 102}, { 54,  95}}, //6 left 2
-	
-	{BF_ArcMain_BF1, { 95, 103,  94,  89}, { 52,  82}}, //7 down 1
-	{BF_ArcMain_BF2, {  0,   0,  94,  90}, { 52,  83}}, //8 down 2
-	
-	{BF_ArcMain_BF2, { 95,   0,  93, 112}, { 41, 104}}, //9 up 1
-	{BF_ArcMain_BF2, {  0,  91,  94, 111}, { 42, 103}}, //10 up 2
-	
-	{BF_ArcMain_BF2, { 95, 113, 102, 102}, { 41,  95}}, //11 right 1
-	{BF_ArcMain_BF3, {  0,   0, 102, 102}, { 41,  95}}, //12 right 2
-	
-	{BF_ArcMain_BF3, {103,   0,  99, 105}, { 54,  98}}, //13 peace 1
-	{BF_ArcMain_BF3, {  0, 103, 104, 103}, { 54,  96}}, //14 peace 2
-	{BF_ArcMain_BF3, {105, 106, 104, 104}, { 54,  97}}, //15 peace 3
-	
-	{BF_ArcMain_BF4, {  0,   0, 128, 128}, { 53,  92}}, //16 sweat 1
-	{BF_ArcMain_BF4, {128,   0, 128, 128}, { 53,  93}}, //17 sweat 2
-	{BF_ArcMain_BF4, {  0, 128, 128, 128}, { 53,  98}}, //18 sweat 3
-	{BF_ArcMain_BF4, {128, 128, 128, 128}, { 53,  98}}, //19 sweat 4
-	
-	{BF_ArcMain_BF5, {  0,   0,  93, 108}, { 52, 101}}, //20 left miss 1
-	{BF_ArcMain_BF5, { 94,   0,  93, 108}, { 52, 101}}, //21 left miss 2
-	
-	{BF_ArcMain_BF5, {  0, 109,  95,  98}, { 50,  90}}, //22 down miss 1
-	{BF_ArcMain_BF5, { 96, 109,  95,  97}, { 50,  89}}, //23 down miss 2
-	
-	{BF_ArcMain_BF6, {  0,   0,  90, 107}, { 44,  99}}, //24 up miss 1
-	{BF_ArcMain_BF6, { 91,   0,  89, 108}, { 44, 100}}, //25 up miss 2
-	
-	{BF_ArcMain_BF6, {  0, 108,  99, 108}, { 42, 101}}, //26 right miss 1
-	{BF_ArcMain_BF6, {100, 109, 101, 108}, { 43, 101}}, //27 right miss 2
+	{BF_ArcMain_Idle0, {  0,  0, 86,114}, {131,159}}, //0 idle 1
+	{BF_ArcMain_Idle0, { 86,  0, 86,112}, {131,157}}, //1 idle 2
+	{BF_ArcMain_Idle0, {  0,114, 86,108}, {131,152}}, //2 idle 3
+	{BF_ArcMain_Idle0, { 86,114, 87,105}, {131,149}}, //3 idle 4
+	{BF_ArcMain_Idle1, {  0,  0, 87,104}, {131,148}}, //4 idle 5
+	{BF_ArcMain_Idle1, { 87,  0, 86,105}, {131,149}}, //5 idle 6
+	{BF_ArcMain_Idle1, {  0,105, 86,105}, {131,150}}, //6 idle 7
+	{BF_ArcMain_Idle1, { 86,105, 86,108}, {131,153}}, //7 idle 8
+	{BF_ArcMain_Idle2, {  0,  0, 86,112}, {131,157}}, //8 idle 9
+	{BF_ArcMain_Idle2, { 86,  0, 86,114}, {131,159}}, //9 idle 10
+	{BF_ArcMain_Idle2, {  0,114, 86,114}, {131,160}}, //10 idle 11
+
+	{BF_ArcMain_Left0, {  0,  0, 91,120}, {135,165}}, //11 left 1
+	{BF_ArcMain_Left0, { 91,  0, 89,119}, {134,164}}, //12 left 2
+	{BF_ArcMain_Left0, {  0,120, 88,117}, {133,162}}, //13 left 3
+	{BF_ArcMain_Left0, { 88,120, 87,117}, {132,162}}, //14 left 4
+	{BF_ArcMain_Left1, {  0,  0, 87,117}, {132,162}}, //15 left 5
+	{BF_ArcMain_Left1, { 87,  0, 87,116}, {132,161}}, //16 left 6
+	{BF_ArcMain_Left1, {  0,117, 86,117}, {131,162}}, //17 left 7
+	{BF_ArcMain_Left1, { 86,117, 86,117}, {131,162}}, //18 left 8
+	{BF_ArcMain_Left2, {  0,  0, 86,117}, {131,162}}, //19 left 9
+	{BF_ArcMain_Left2, { 86,  0, 86,117}, {131,162}}, //20 left 10
+	{BF_ArcMain_Left2, {  0,117, 86,117}, {131,162}}, //21 left 11
+
+	{BF_ArcMain_Leftmiss0, {  0,  0, 88,117}, {133,163}}, //22 leftmiss 1
+	{BF_ArcMain_Leftmiss0, { 88,  0, 87,117}, {132,163}}, //23 leftmiss 2
+	{BF_ArcMain_Leftmiss0, {  0,117, 86,115}, {131,161}}, //24 leftmiss 3
+	{BF_ArcMain_Leftmiss0, { 86,117, 85,114}, {130,160}}, //25 leftmiss 4
+	{BF_ArcMain_Leftmiss1, {  0,  0, 85,114}, {130,160}}, //26 leftmiss 5
+	{BF_ArcMain_Leftmiss1, { 85,  0, 84,114}, {129,160}}, //27 leftmiss 6
+	{BF_ArcMain_Leftmiss1, {169,  0, 84,114}, {130,160}}, //28 leftmiss 7
+	{BF_ArcMain_Leftmiss1, {  0,114, 85,114}, {130,160}}, //29 leftmiss 8
+	{BF_ArcMain_Leftmiss1, { 85,114, 84,114}, {129,160}}, //30 leftmiss 9
+	{BF_ArcMain_Leftmiss1, {169,114, 84,113}, {130,159}}, //31 leftmiss 10
+	{BF_ArcMain_Leftmiss2, {  0,  0, 84,114}, {130,160}}, //32 leftmiss 11
+
+	{BF_ArcMain_Down0, {  0,  0, 78, 97}, {122,143}}, //33 down 1
+	{BF_ArcMain_Down0, { 78,  0, 76,100}, {121,145}}, //34 down 2
+	{BF_ArcMain_Down0, {154,  0, 75,101}, {120,146}}, //35 down 3
+	{BF_ArcMain_Down0, {  0,102, 75,102}, {121,147}}, //36 down 4
+	{BF_ArcMain_Down0, { 75,102, 75,102}, {120,147}}, //37 down 5
+	{BF_ArcMain_Down0, {150,102, 75,102}, {120,147}}, //38 down 6
+	{BF_ArcMain_Down1, {  0,  0, 74,103}, {120,148}}, //39 down 7
+	{BF_ArcMain_Down1, { 74,  0, 74,103}, {120,148}}, //40 down 8
+	{BF_ArcMain_Down1, {148,  0, 74,103}, {120,148}}, //41 down 9
+	{BF_ArcMain_Down1, {  0,103, 75,103}, {120,148}}, //42 down 10
+	{BF_ArcMain_Down1, { 75,103, 74,103}, {119,148}}, //43 down 11
+
+	{BF_ArcMain_Downmiss0, {  0,  0, 81,104}, {124,151}}, //44 downmiss 1
+	{BF_ArcMain_Downmiss0, { 81,  0, 80,105}, {123,152}}, //45 downmiss 2
+	{BF_ArcMain_Downmiss0, {161,  0, 79,108}, {122,154}}, //46 downmiss 3
+	{BF_ArcMain_Downmiss0, {  0,108, 78,107}, {122,154}}, //47 downmiss 4
+	{BF_ArcMain_Downmiss0, { 78,108, 79,108}, {122,154}}, //48 downmiss 5
+	{BF_ArcMain_Downmiss0, {157,108, 79,108}, {122,154}}, //49 downmiss 6
+	{BF_ArcMain_Downmiss1, {  0,  0, 78,108}, {121,154}}, //50 downmiss 7
+	{BF_ArcMain_Downmiss1, { 78,  0, 78,108}, {121,154}}, //51 downmiss 8
+	{BF_ArcMain_Downmiss1, {156,  0, 78,108}, {122,154}}, //52 downmiss 9
+	{BF_ArcMain_Downmiss1, {  0,108, 79,108}, {122,154}}, //53 downmiss 10
+	{BF_ArcMain_Downmiss1, { 79,108, 78,108}, {121,154}}, //54 downmiss 11
+
+	{BF_ArcMain_Up0, {  0,  0, 73,120}, {117,166}}, //55 up 1
+	{BF_ArcMain_Up0, { 73,  0, 73,118}, {117,164}}, //56 up 2
+	{BF_ArcMain_Up0, {146,  0, 73,117}, {117,163}}, //57 up 3
+	{BF_ArcMain_Up0, {  0,120, 74,116}, {118,162}}, //58 up 4
+	{BF_ArcMain_Up0, { 74,120, 73,116}, {117,162}}, //59 up 5
+	{BF_ArcMain_Up0, {147,120, 74,115}, {117,161}}, //60 up 6
+	{BF_ArcMain_Up1, {  0,  0, 74,115}, {118,161}}, //61 up 7
+	{BF_ArcMain_Up1, { 74,  0, 74,115}, {118,161}}, //62 up 8
+	{BF_ArcMain_Up1, {148,  0, 74,115}, {118,161}}, //63 up 9
+	{BF_ArcMain_Up1, {  0,115, 74,115}, {117,161}}, //64 up 10
+	{BF_ArcMain_Up1, { 74,115, 74,115}, {118,161}}, //65 up 11
+
+	{BF_ArcMain_Upmiss0, {  0,  0, 72,119}, {117,165}}, //66 upmiss 1
+	{BF_ArcMain_Upmiss0, { 72,  0, 73,118}, {116,164}}, //67 upmiss 2
+	{BF_ArcMain_Upmiss0, {145,  0, 73,117}, {117,163}}, //68 upmiss 3
+	{BF_ArcMain_Upmiss0, {  0,119, 73,115}, {116,162}}, //69 upmiss 4
+	{BF_ArcMain_Upmiss0, { 73,119, 73,115}, {117,162}}, //70 upmiss 5
+	{BF_ArcMain_Upmiss0, {146,119, 73,115}, {116,162}}, //71 upmiss 6
+	{BF_ArcMain_Upmiss1, {  0,  0, 73,114}, {117,161}}, //72 upmiss 7
+	{BF_ArcMain_Upmiss1, { 73,  0, 74,115}, {117,161}}, //73 upmiss 8
+	{BF_ArcMain_Upmiss1, {147,  0, 74,114}, {117,161}}, //74 upmiss 9
+	{BF_ArcMain_Upmiss1, {  0,115, 74,115}, {117,161}}, //75 upmiss 10
+	{BF_ArcMain_Upmiss1, { 74,115, 74,115}, {117,161}}, //76 upmiss 11
+
+	{BF_ArcMain_Right0, {  0,  0, 72,104}, {117,150}}, //77 right 1
+	{BF_ArcMain_Right0, { 72,  0, 73,105}, {118,151}}, //78 right 2
+	{BF_ArcMain_Right0, {145,  0, 75,106}, {120,152}}, //79 right 3
+	{BF_ArcMain_Right0, {  0,108, 75,108}, {120,154}}, //80 right 4
+	{BF_ArcMain_Right0, { 75,108, 76,108}, {121,154}}, //81 right 5
+	{BF_ArcMain_Right0, {151,108, 76,108}, {121,154}}, //82 right 6
+	{BF_ArcMain_Right1, {  0,  0, 76,108}, {121,154}}, //83 right 7
+	{BF_ArcMain_Right1, { 76,  0, 76,108}, {121,154}}, //84 right 8
+	{BF_ArcMain_Right1, {152,  0, 76,108}, {121,154}}, //85 right 9
+	{BF_ArcMain_Right1, {  0,108, 76,108}, {121,154}}, //86 right 10
+	{BF_ArcMain_Right1, { 76,108, 76,108}, {121,154}}, //87 right 11
+
+	{BF_ArcMain_Rightmiss0, {  0,  0, 74,108}, {119,154}}, //88 rightmiss 1
+	{BF_ArcMain_Rightmiss0, { 74,  0, 76,109}, {121,155}}, //89 rightmiss 2
+	{BF_ArcMain_Rightmiss0, {150,  0, 77,111}, {122,157}}, //90 rightmiss 3
+	{BF_ArcMain_Rightmiss0, {  0,112, 78,112}, {122,158}}, //91 rightmiss 4
+	{BF_ArcMain_Rightmiss0, { 78,112, 78,112}, {123,158}}, //92 rightmiss 5
+	{BF_ArcMain_Rightmiss0, {156,112, 78,112}, {123,158}}, //93 rightmiss 6
+	{BF_ArcMain_Rightmiss1, {  0,  0, 79,112}, {123,158}}, //94 rightmiss 7
+	{BF_ArcMain_Rightmiss1, { 79,  0, 79,112}, {123,158}}, //95 rightmiss 8
+	{BF_ArcMain_Rightmiss1, {158,  0, 78,112}, {123,158}}, //96 rightmiss 9
+	{BF_ArcMain_Rightmiss1, {  0,112, 78,112}, {123,158}}, //97 rightmiss 10
+	{BF_ArcMain_Rightmiss1, { 78,112, 79,112}, {124,158}}, //98 rightmiss 11
 
 	{BF_ArcMain_Dead0, {  0,   0, 128, 128}, { 53,  98}}, //23 dead0 0
 	{BF_ArcMain_Dead0, {128,   0, 128, 128}, { 53,  98}}, //24 dead0 1
@@ -139,8 +208,8 @@ static const CharFrame char_bf_frame[] = {
 };
 
 static const Animation char_bf_anim[PlayerAnim_Max] = {
-	{2, (const u8[]){ 0,  1,  2,  3,  4, ASCR_BACK, 1}}, //CharAnim_Idle
-	{2, (const u8[]){ 5,  6, ASCR_BACK, 1}},             //CharAnim_Left
+	{2, (const u8[]){ 0,  1,  2,  3,  4, 5, 6, 7, 8, 9, 10}}, //CharAnim_Idle
+	{2, (const u8[]){ 11,  12, 13, 14, 15, 16},             //CharAnim_Left
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_LeftAlt
 	{2, (const u8[]){ 7,  8, ASCR_BACK, 1}},             //CharAnim_Down
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_DownAlt
@@ -443,13 +512,27 @@ Character *Char_BF_New(fixed_t x, fixed_t y)
 		IO_FindFile(&this->file_dead_arc, "\\CHAR\\BFDEAD.ARC;1");
 		
 		const char **pathp = (const char *[]){
-			"bf0.tim",   //BF_ArcMain_BF0
-			"bf1.tim",   //BF_ArcMain_BF1
-			"bf2.tim",   //BF_ArcMain_BF2
-			"bf3.tim",   //BF_ArcMain_BF3
-			"bf4.tim",   //BF_ArcMain_BF4
-			"bf5.tim",   //BF_ArcMain_BF5
-			"bf6.tim",   //BF_ArcMain_BF6
+			"idle0.tim",
+			"idle1.tim",
+			"idle2.tim",
+			"left0.tim",
+			"left1.tim",
+			"left2.tim",
+			"leftmiss0.tim",
+			"leftmiss1.tim",
+			"leftmiss2.tim",
+			"down0.tim",
+			"down1.tim",
+			"downmiss0.tim",
+			"downmiss1.tim",
+			"up0.tim",
+			"up1.tim",
+			"upmiss0.tim",
+			"upmiss1.tim",
+			"right0.tim",
+			"right1.tim",
+			"rightmiss0.tim",
+			"rightmiss1.tim",
 			"dead0.tim", //BF_ArcMain_Dead0
 			NULL
 		};
