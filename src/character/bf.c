@@ -39,13 +39,27 @@ static SkullFragment char_bf_skull[15] = {
 //Boyfriend player types
 enum
 {
-	BF_ArcMain_Idle0,
-	BF_ArcMain_Idle0,
-	BF_ArcMain_BF2,
-	BF_ArcMain_BF3,
-	BF_ArcMain_BF4,
-	BF_ArcMain_BF5,
-	BF_ArcMain_BF6,
+  	BF_ArcMain_Idle0,
+  	BF_ArcMain_Idle1,
+  	BF_ArcMain_Idle2,
+  	BF_ArcMain_Left0,
+  	BF_ArcMain_Left1,
+  	BF_ArcMain_Left2,
+  	BF_ArcMain_Leftmiss0,
+  	BF_ArcMain_Leftmiss1,
+  	BF_ArcMain_Leftmiss2,
+  	BF_ArcMain_Down0,
+  	BF_ArcMain_Down1,
+  	BF_ArcMain_Downmiss0,
+  	BF_ArcMain_Downmiss1,
+  	BF_ArcMain_Up0,
+  	BF_ArcMain_Up1,
+  	BF_ArcMain_Upmiss0,
+  	BF_ArcMain_Upmiss1,
+  	BF_ArcMain_Right0,
+  	BF_ArcMain_Right1,
+  	BF_ArcMain_Rightmiss0,
+  	BF_ArcMain_Rightmiss1,
 	BF_ArcMain_Dead0, //BREAK
 
 	BF_ArcMain_Max,
@@ -208,8 +222,8 @@ static const CharFrame char_bf_frame[] = {
 };
 
 static const Animation char_bf_anim[PlayerAnim_Max] = {
-	{2, (const u8[]){ 0,  1,  2,  3,  4, 5, 6, 7, 8, 9, 10}}, //CharAnim_Idle
-	{2, (const u8[]){ 11,  12, 13, 14, 15, 16},             //CharAnim_Left
+	{2, (const u8[]){ 0,  1,  2,  3,  4, 5, 6, 7, 8, 9, 10, ASCR_BACK, 1}}, //CharAnim_Idle
+	{2, (const u8[]){ 11,  12, 13, 14, 15, 16, ASCR_BACK, 1}},             //CharAnim_Left
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_LeftAlt
 	{2, (const u8[]){ 7,  8, ASCR_BACK, 1}},             //CharAnim_Down
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_DownAlt
@@ -218,7 +232,7 @@ static const Animation char_bf_anim[PlayerAnim_Max] = {
 	{2, (const u8[]){11, 12, ASCR_BACK, 1}},             //CharAnim_Right
 	{0, (const u8[]){ASCR_CHGANI, CharAnim_Idle}},       //CharAnim_RightAlt
 	
-	{1, (const u8[]){ 5, 20, 20, 21, ASCR_BACK, 1}},     //PlayerAnim_LeftMiss
+	{1, (const u8[]){ 17, 18, 19, 20, 21, 22, 23, 24, 25, 26 ASCR_BACK, 1}},     //PlayerAnim_LeftMiss
 	{1, (const u8[]){ 7, 22, 22, 23, ASCR_BACK, 1}},     //PlayerAnim_DownMiss
 	{1, (const u8[]){ 9, 24, 24, 25, ASCR_BACK, 1}},     //PlayerAnim_UpMiss
 	{1, (const u8[]){11, 26, 26, 27, ASCR_BACK, 1}},     //PlayerAnim_RightMiss
